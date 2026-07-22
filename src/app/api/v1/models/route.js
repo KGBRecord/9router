@@ -17,6 +17,29 @@ import { resolveCursorModels } from "open-sse/services/cursorModels.js";
 import { updateProviderCredentials } from "@/sse/services/tokenRefresh";
 import { resolveConnectionProxyConfig } from "@/lib/network/connectionProxy";
 import { capabilitiesFromServiceKind, getCapabilitiesForModel } from "open-sse/providers/capabilities.js";
+import { parseModel } from "open-sse/services/model.js";
+
+// Resolve a combo's effective context length.
+// 1. Use stored override if user set one.
+// 2. Otherwise take the smallest contextWindow across member models.
+//    Models that cannot be parsed or have no known context default to Infinity
+//    so they don't drag the min down.
+function resolveComboContextLength(combo) {
+  if (typeof combo?.contextLength === "number" && Number.isFinite(combo.contextLength) && combo.contextLength > 0) {
+    return combo.contextLength;
+  }
+  const models = Array.isArray(combo?.models) ? combo.models : [];
+  const lengths = models
+    .map((m) => {
+      const parsed = parseModel(m);
+      const provider = parsed.provider || "";
+      const model = parsed.model || m;
+      const caps = getCapabilitiesForModel(provider, model);
+      return caps?.contextWindow;
+    })
+    .filter((len) => typeof len === "number" && Number.isFinite(len) && len > 0);
+  return lengths.length ? Math.min(...lengths) : null;
+}
 
 // Per-provider live model resolvers. Each receives a connection record and
 // returns { models: [{ id, name? }, ...] } | null on failure.
@@ -286,6 +309,8 @@ export async function buildModelsList(kindFilter, options = {}) {
     if (combo.kind === "webSearch" || combo.kind === "webFetch") {
       entry.kind = combo.kind;
     }
+    const ctxLen = resolveComboContextLength(combo);
+    if (ctxLen) entry.context_length = ctxLen;
     models.push(entry);
   }
 

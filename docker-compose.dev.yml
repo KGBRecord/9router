@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 9router-dev
+    ports:
+      - "20128:20128"
+    volumes:
+      - app_data:/app/data
+      - app_data_home:/app/data-home
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=20128
+      - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
+      - DATA_DIR=/app/data
+      - HEADROOM_URL=http://headroom:8787
+    depends_on:
+      - headroom
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:20128/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  headroom:
+    image: ghcr.io/chopratejas/headroom:latest
+    container_name: headroom-dev
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+
+volumes:
+  app_data:
+  app_data_home:

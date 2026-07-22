@@ -453,6 +453,8 @@ function ComboFormModal({ isOpen, combo, onClose, onSave, activeProviders, kindF
   // Initialize state with combo values - key prop on parent handles reset on remount
   const [name, setName] = useState(combo?.name || "");
   const [models, setModels] = useState(combo?.models || []);
+  const [contextLength, setContextLength] = useState(combo?.contextLength != null ? String(combo?.contextLength) : ""); // empty = auto
+  const [autoContextLength, setAutoContextLength] = useState(null);
   const [showModelSelect, setShowModelSelect] = useState(false);
   const [saving, setSaving] = useState(false);
   const [nameError, setNameError] = useState("");
@@ -483,6 +485,21 @@ function ComboFormModal({ isOpen, combo, onClose, onSave, activeProviders, kindF
       if (!aliasesRes.ok) return;
       const aliasesData = await aliasesRes.json();
       setModelAliases(aliasesData.aliases || {});
+
+      // Compute auto context length from current models
+      if (models.length > 0) {
+        const modelsParam = models.join(",");
+        const capsRes = await fetch(`/api/model-caps?models=${encodeURIComponent(modelsParam)}`);
+        if (capsRes.ok) {
+          const capsData = await capsRes.json();
+          const contextWindows = (capsData.caps || [])
+            .map((c) => c.capabilities?.contextWindow)
+            .filter((w) => Number.isFinite(w) && w > 0);
+          if (contextWindows.length > 0) {
+            setAutoContextLength(Math.min(...contextWindows));
+          }
+        }
+      }
     } catch (error) {
       console.error("Error fetching modal data:", error);
     }
@@ -540,10 +557,40 @@ function ComboFormModal({ isOpen, combo, onClose, onSave, activeProviders, kindF
     setModels(newModels);
   };
 
+  // Compute auto context length (min of members) whenever models change.
+  const computeAutoContextLength = useCallback(async (modelList) => {
+    if (modelList.length === 0) {
+      setAutoContextLength(null);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/model-caps?models=${encodeURIComponent(modelList.join(","))}`);
+      if (!res.ok) { setAutoContextLength(null); return; }
+      const data = await res.json();
+      const min = data.caps?.reduce((acc, c) => {
+        const ctx = c?.capabilities?.contextWindow;
+        if (typeof ctx !== "number") return acc;
+        return acc == null ? ctx : Math.min(acc, ctx);
+      }, null);
+      setAutoContextLength(min);
+    } catch {
+      setAutoContextLength(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    computeAutoContextLength(models);
+  }, [models, computeAutoContextLength]);
+
   const handleSave = async () => {
     if (!validateName(name)) return;
     setSaving(true);
-    await onSave({ name: name.trim(), models });
+    const trimmed = contextLength.trim();
+    const ctxLen = trimmed === "" ? null : Number.parseInt(trimmed, 10);
+    const payload = { name: name.trim(), models };
+    if (Number.isFinite(ctxLen) && ctxLen > 0) payload.contextLength = ctxLen;
+    else payload.contextLength = null;
+    await onSave(payload);
     setSaving(false);
   };
 
@@ -568,6 +615,24 @@ function ComboFormModal({ isOpen, combo, onClose, onSave, activeProviders, kindF
             />
             <p className="text-[10px] text-text-muted mt-0.5">
               Only letters, numbers, -, _ and . allowed
+            </p>
+          </div>
+
+          {/* Context Length */}
+          <div>
+            <Input
+              label="Context Length (tokens)"
+              type="number"
+              placeholder={autoContextLength != null ? `Auto (${autoContextLength.toLocaleString()})` : "Auto (min of member models)"}
+              value={contextLength}
+              onChange={(e) => setContextLength(e.target.value)}
+            />
+            <p className="text-[10px] text-text-muted mt-0.5">
+              {contextLength.trim() === ""
+                ? autoContextLength != null
+                  ? <>Auto: <span className="font-medium">{autoContextLength.toLocaleString()}</span> tokens (min of members). Type to override.</>
+                  : "Leave empty for auto (min of members)."
+                : "Override. Clear to revert to auto."}
             </p>
           </div>
 
