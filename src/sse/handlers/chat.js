@@ -230,6 +230,15 @@ async function handleSingleModelChat(body, modelStr, clientRawRequest = null, re
     // Use shared chatCore
     const chatSettings = await getSettings();
     const providerThinking = (chatSettings.providerThinking || {})[provider] || null;
+
+    // Per-provider token saver strategy override (falls back to global settings)
+    const tokenSaverStrategy = (chatSettings.tokenSaverStrategies || {})[provider] || {};
+    const rtkEnabled = tokenSaverStrategy.rtk !== undefined ? tokenSaverStrategy.rtk : !!chatSettings.rtkEnabled;
+    const headroomEnabled = tokenSaverStrategy.headroom !== undefined ? tokenSaverStrategy.headroom : !!chatSettings.headroomEnabled;
+    const cavemanEnabled = tokenSaverStrategy.caveman !== undefined ? tokenSaverStrategy.caveman : !!chatSettings.cavemanEnabled;
+    const ponytailEnabled = tokenSaverStrategy.ponytail !== undefined ? tokenSaverStrategy.ponytail : !!chatSettings.ponytailEnabled;
+    const pxpipeEnabled = tokenSaverStrategy.pxpipe !== undefined ? tokenSaverStrategy.pxpipe : !!chatSettings.pxpipeEnabled;
+
     const result = await handleChatCore({
       body: { ...body, model: `${provider}/${model}` },
       modelInfo: { provider, model },
@@ -240,19 +249,19 @@ async function handleSingleModelChat(body, modelStr, clientRawRequest = null, re
       userAgent,
       apiKey,
       ccFilterNaming: !!chatSettings.ccFilterNaming,
-      rtkEnabled: !!chatSettings.rtkEnabled,
-      headroomEnabled: !!chatSettings.headroomEnabled,
+      rtkEnabled,
+      headroomEnabled,
       headroomUrl: chatSettings.headroomUrl || DEFAULT_HEADROOM_URL,
       headroomCompressUserMessages: !!chatSettings.headroomCompressUserMessages,
-      cavemanEnabled: !!chatSettings.cavemanEnabled,
+      cavemanEnabled,
       cavemanLevel: chatSettings.cavemanLevel || "full",
-      ponytailEnabled: !!chatSettings.ponytailEnabled,
+      ponytailEnabled,
       ponytailLevel: chatSettings.ponytailLevel || "full",
-      pxpipeEnabled: !!chatSettings.pxpipeEnabled,
+      pxpipeEnabled,
       pxpipeMinChars: chatSettings.pxpipeMinChars,
       pxpipeTimeoutMs: chatSettings.pxpipeTimeoutMs,
       // Lazily warms the in-process module on first use; null when not installed (fail-open)
-      pxpipeTransform: chatSettings.pxpipeEnabled ? await getPxpipeTransform() : null,
+      pxpipeTransform: pxpipeEnabled ? await getPxpipeTransform() : null,
       onPxpipeEvent: appendPxpipeEvent,
       providerThinking,
       // Detect source format by endpoint + body
