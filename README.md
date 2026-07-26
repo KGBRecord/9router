@@ -457,12 +457,16 @@ Default URLs:
 | 👥 **Multi-Account Support**                                                      | Multiple accounts per provider                                                           | Load balancing + redundancy                       |
 | 🔄 **Auto Token Refresh**                                                         | OAuth tokens refresh automatically                                                       | No manual re-login needed                         |
 | 🎨 **Custom Combos**                                                              | Create unlimited model combinations                                                      | Tailor fallback to your needs                     |
+| 📏 **Combo Context Length** ⚙️                                                    | Auto-resolves safe context length per combo (min across tiers) + manual override         | Prevent mid-request failures from mismatched limits |
+| 🎛 **Per-Provider Token Saver Overrides** ⚙️                                      | Toggle RTK/Headroom/Caveman/Ponytail/Pxpipe on/off per provider (e.g. disable Headroom for Anthropic) | Fix schema errors from compression on sensitive providers |
 | 📝 **Request Logging**                                                            | Debug mode with full request/response logs                                               | Troubleshoot issues easily                        |
 | 💾 **Cloud Sync**                                                                 | Sync config across devices                                                               | Same setup everywhere                             |
 | 📊 **Usage Analytics**                                                            | Track tokens, cost, trends over time                                                     | Optimize spending                                 |
 | 🌐 **Deploy Anywhere**                                                            | Localhost, VPS, Docker, Cloudflare Workers                                               | Flexible deployment options                       |
 
 Set `X-9Router-Token-Saver: off` to bypass all token savers for one chat request.
+
+> ⚙️ = personal patch (local customization, not part of an official 9Router release).
 
 <details>
 <summary><b>📖 Feature Details</b></summary>
@@ -572,6 +576,51 @@ Seamless translation between formats:
 - Mix subscription, cheap, and free tiers
 - Name your combos for easy access
 - Share combos across devices with Cloud Sync
+
+### 📏 Combo Context Length
+
+> ⚙️ **Personal patch** — local customization, not part of an official 9Router release.
+
+Combos mix models with different context windows. Sending a 200K-token prompt to a combo whose fallback model only handles 128K used to fail mid-request. 9Router now resolves the context window per combo automatically:
+
+- **Auto-resolve:** Takes the **minimum** context length across all models in the combo — the safe ceiling that every fallback tier can handle.
+- **Manual override:** Set an explicit value per combo in Dashboard → Combos when you know better than the catalog.
+- **Capability API:** `GET /api/model-caps?models=provider/model,...` returns the resolved context length per model, so clients can pre-check before sending.
+- **Reported to clients:** Exposed via `/v1/models` so CLI tools see the real limit instead of guessing.
+
+```
+Combo: "my-coding-stack"
+  1. cc/claude-opus-4-6      (200K context)
+  2. glm/glm-4.7             (128K context)
+  3. if/kimi-k2-thinking     (256K context)
+
+→ Resolved context: 128K (min) — safe for every fallback tier
+→ Override to 200K manually if tier 2 is only a rare backup
+```
+
+### 🎛️ Per-Provider Token Saver
+
+> ⚙️ **Personal patch** — local customization, not part of an official 9Router release.
+
+Token savers are global by default, but some providers reject compressed payloads. Anthropic, for example, validates request schema strictly and can error when Headroom rewrites the body. Instead of turning compression off everywhere, override it per provider:
+
+- **3-state control per saver:** **Global** (follow the global toggle) · **Force ON** · **Force OFF**
+- **Covers all five savers:** RTK, Headroom, Caveman, Ponytail, PXPIPE
+- **Where:** Dashboard → Providers → *(select provider)* → **Token Saver Overrides**
+- **Falls back cleanly:** Any saver left on *Global* keeps following the global setting — you only override what you need.
+
+```
+Global settings:  RTK=ON · Headroom=ON · Caveman=OFF
+
+Provider "anthropic" override:
+  RTK       → Global     (stays ON)
+  Headroom  → Force OFF  (avoids schema rejection)
+  Caveman   → Global     (stays OFF)
+
+→ Anthropic requests skip Headroom; every other provider is unchanged
+```
+
+Stored as `tokenSaverStrategies` in settings — same pattern as `providerStrategies`, so it syncs with Cloud Sync like the rest of your config.
 
 ### 📝 Request Logging
 

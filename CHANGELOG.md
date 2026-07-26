@@ -1,3 +1,18 @@
+# Unreleased — personal patch (not an official release)
+
+> Local customization by @hanhvs. Version stays at `0.5.40` — nothing is published,
+> no version bump. Cherry-pick if useful; safe to drop when rebasing onto upstream.
+
+## Features
+- **Combos**: per-combo context length — auto-resolved as the minimum across member models, with manual override in Dashboard → Combos
+- **Models**: `GET /api/model-caps` capability API resolving context length per model; surfaced through `/v1/models`
+- **Token Saver**: per-provider overrides (`tokenSaverStrategies`) — 3-state Global / Force ON / Force OFF for RTK, Headroom, Caveman, Ponytail, PXPIPE
+- **Dashboard**: "Token Saver Overrides" card on the provider detail page
+
+## Fixes
+- **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally
+
+
 # v0.5.40 (2026-07-20)
 
 ## Features
