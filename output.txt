@@ -1,0 +1,29 @@
+══════════════════════════════════════════════════════════════
+ 9ROUTER TIMEOUT REPORT
+ Generated : 2026-07-26 23:21:13 +07
+ Container : 9router-dev
+ Log since : 24h
+══════════════════════════════════════════════════════════════
+
+################ [1] DOCKER LOGS (timeout / error lines) ################
+
+(không có dòng timeout/error trong khoảng 24h)
+
+################ [2] AGGREGATE TỪ LOGS (provider/model → count) ################
+
+(không parse được dòng ERROR có model)
+  (cột: <count>  <httpStatus>  <provider/model>)
+
+################ [3] DB requestDetails (status=error, mới nhất 100) ################
+
+(requestDetails: không có row status=error)
+
+################ [4] DB AGGREGATE (provider/model → error count, sorted) ################
+
+(không có request lỗi trong 5000 gần nhất)
+
+################ [5] DB usageHistory (status LIKE FAILED%, mới nhất 50) ################
+
+(usageHistory: không có row FAILED)
+
+══════════════════════════ END REPORT ══════════════════════════
