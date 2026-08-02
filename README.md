@@ -38,6 +38,7 @@
 - ✅ **RTK Token Saver** - Auto-compress tool_result content, save 20-40% tokens per request
 - ✅ **Maximize subscriptions** - Track quota, use every bit before reset
 - ✅ **Auto fallback** - Subscription → Cheap → Free, zero downtime
+- ✅ **Exhaustive combo fallback** - Optional setting to try every combo model before returning an error
 - ✅ **Multi-account** - Round-robin between accounts per provider
 - ✅ **Universal** - Works with Claude Code, Codex, Cursor, Cline, any CLI tool
 
@@ -68,6 +69,12 @@
 
 Result: Never stop coding, minimal cost + 20-40% token savings via RTK
 ```
+
+### Exhaustive Combo Fallback
+
+By default, combos preserve the standard fallback behavior and may return an error that is marked as terminal. Enable **Dashboard → Profile → Routing Strategy → Exhaustive Combo Fallback** to continue through every remaining model and return an error only after the entire combo fails.
+
+The setting is stored as `comboExhaustiveFallback` and defaults to `false` for backward compatibility. It applies to chat, search, web fetch, image generation, and text-to-speech combos.
 
 ---
 

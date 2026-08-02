@@ -5,6 +5,7 @@
 
 ## Features
 - **Combos**: per-combo context length — auto-resolved as the minimum across member models, with manual override in Dashboard → Combos
+- **Combos**: opt-in exhaustive fallback (`comboExhaustiveFallback`) tries every model before returning an error; configurable in Dashboard → Profile → Routing Strategy
 - **Models**: `GET /api/model-caps` capability API resolving context length per model; surfaced through `/v1/models`
 - **Token Saver**: per-provider overrides (`tokenSaverStrategies`) — 3-state Global / Force ON / Force OFF for RTK, Headroom, Caveman, Ponytail, PXPIPE
 - **Dashboard**: "Token Saver Overrides" card on the provider detail page
