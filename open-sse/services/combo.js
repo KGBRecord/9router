@@ -194,6 +194,10 @@ export function resetComboRotation(comboName) {
   else comboRotationState.clear();
 }
 
+export function shouldContinueComboFallback(shouldFallback, exhaustiveFallback) {
+  return shouldFallback || exhaustiveFallback === true;
+}
+
 /**
  * Get combo models from combos data
  * @param {string} modelStr - Model string to check
@@ -224,9 +228,10 @@ export function getComboModelsFromData(modelStr, combosData) {
  * @param {string} [options.comboName] - Name of the combo (for round-robin tracking)
  * @param {string} [options.comboStrategy] - Strategy: "fallback" or "round-robin"
  * @param {number|string} [options.comboStickyLimit=1] - Requests per combo model before switching
+ * @param {boolean} [options.exhaustiveFallback=false] - Try every model before returning an error
  * @returns {Promise<Response>}
  */
-export async function handleComboChat({ body, models, handleSingleModel, log, comboName, comboStrategy, comboStickyLimit = 1, autoSwitch = true }) {
+export async function handleComboChat({ body, models, handleSingleModel, log, comboName, comboStrategy, comboStickyLimit = 1, autoSwitch = true, exhaustiveFallback = false }) {
   // Apply rotation strategy if enabled
   let rotatedModels = getRotatedModels(models, comboName, comboStrategy, comboStickyLimit);
 
@@ -283,7 +288,7 @@ export async function handleComboChat({ body, models, handleSingleModel, log, co
       // Check if should fallback to next model
       const { shouldFallback, cooldownMs } = checkFallbackError(result.status, errorText);
 
-      if (!shouldFallback) {
+      if (!shouldContinueComboFallback(shouldFallback, exhaustiveFallback)) {
         log.warn("COMBO", `Model ${modelStr} failed (no fallback)`, { status: result.status });
         return result;
       }

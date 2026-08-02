@@ -91,6 +91,7 @@ export async function PATCH(request) {
     if (
       Object.prototype.hasOwnProperty.call(body, "comboStrategy") ||
       Object.prototype.hasOwnProperty.call(body, "comboStickyRoundRobinLimit") ||
+      Object.prototype.hasOwnProperty.call(body, "comboExhaustiveFallback") ||
       Object.prototype.hasOwnProperty.call(body, "comboStrategies")
     ) {
       resetComboRotation();

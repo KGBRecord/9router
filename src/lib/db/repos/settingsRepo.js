@@ -17,6 +17,7 @@ const DEFAULT_SETTINGS = {
   quotaVisibility: {},
   comboStrategy: "fallback",
   comboStickyRoundRobinLimit: 1,
+  comboExhaustiveFallback: false,
   comboStrategies: {},
   requireLogin: true,
   tunnelDashboardAccess: true,

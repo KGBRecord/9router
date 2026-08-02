@@ -58,6 +58,7 @@ export async function handleTts(request) {
       comboName: modelStr,
       comboStrategy,
       comboStickyLimit,
+      exhaustiveFallback: settings.comboExhaustiveFallback === true,
     });
   }
 

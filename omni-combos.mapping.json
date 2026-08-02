@@ -1,0 +1,470 @@
+{
+  "source": "https://omni.tdigroup.vn/v1/models",
+  "scannedAt": "2026-08-03",
+  "policy": {
+    "axes": [
+      "category",
+      "context length tier"
+    ],
+    "suffixPolicy": "Bỏ qua thinking, agentic, review. Ưu tiên model ID gốc; mỗi provider + base model chỉ giữ một target.",
+    "codingPolicy": "Coding dùng allowlist family thực tế, không suy từ hậu tố agentic. Vì vậy Claude Code, GPT-5.x, Qwen Coder, DeepSeek V4, Kimi Code, GLM 5 và MiniMax M3 được xét.",
+    "contextTiers": [
+      "1m",
+      "400k",
+      "256k",
+      "200k",
+      "128k"
+    ]
+  },
+  "summary": {
+    "apiEntries": 152,
+    "usableBeforeSuffixDedupe": 106,
+    "baseModelsAfterSuffixDedupe": 69,
+    "comboCount": 21,
+    "placements": 232
+  },
+  "combos": [
+    {
+      "name": "coding-1m",
+      "kind": "llm",
+      "category": "coding",
+      "contextTier": "1m",
+      "criterion": "coding, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 1000000,
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "cc/claude-opus-5",
+        "cc/claude-sonnet-5",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-5",
+        "kr/claude-sonnet-5",
+        "kr/qwen3-coder-next",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-flash",
+        "ollama/deepseek-v4-pro",
+        "ollama/minimax-m3"
+      ]
+    },
+    {
+      "name": "coding-400k",
+      "kind": "llm",
+      "category": "coding",
+      "contextTier": "400k",
+      "criterion": "coding, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 400000,
+      "models": [
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.4",
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.5",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto",
+        "nvidia/minimaxai/minimax-m3"
+      ]
+    },
+    {
+      "name": "coding-256k",
+      "kind": "llm",
+      "category": "coding",
+      "contextTier": "256k",
+      "criterion": "coding, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 262144,
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-terra",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-terra",
+        "ollama/kimi-k2.7-code"
+      ]
+    },
+    {
+      "name": "coding-200k",
+      "kind": "llm",
+      "category": "coding",
+      "contextTier": "200k",
+      "criterion": "coding, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 200000,
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "gh/mai-code-1-flash",
+        "gh/oswe-vscode-prime",
+        "kr/claude-opus-4.5",
+        "kr/claude-sonnet-4.5",
+        "kr/glm-5",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/glm-5",
+        "ollama/glm-5.1",
+        "ollama/glm-5.2"
+      ]
+    },
+    {
+      "name": "general-1m",
+      "kind": "llm",
+      "category": "general",
+      "contextTier": "1m",
+      "criterion": "general, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 1000000,
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.6-flash-medium",
+        "ag/gemini-pro-agent",
+        "cc/claude-opus-5",
+        "cc/claude-sonnet-5",
+        "gh/gpt-4.1",
+        "gh/gpt-4.1-2025-04-14",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-5",
+        "kr/claude-sonnet-5",
+        "kr/qwen3-coder-next",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-flash",
+        "ollama/deepseek-v4-pro",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5"
+      ]
+    },
+    {
+      "name": "general-400k",
+      "kind": "llm",
+      "category": "general",
+      "contextTier": "400k",
+      "criterion": "general, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 400000,
+      "models": [
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.4",
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.5",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto",
+        "nvidia/minimaxai/minimax-m3"
+      ]
+    },
+    {
+      "name": "general-256k",
+      "kind": "llm",
+      "category": "general",
+      "contextTier": "256k",
+      "criterion": "general, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 256000,
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-terra",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-terra",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6",
+        "ollama/kimi-k2.7-code",
+        "ollama/mistral-large-3:675b-cloud"
+      ]
+    },
+    {
+      "name": "general-200k",
+      "kind": "llm",
+      "category": "general",
+      "contextTier": "200k",
+      "criterion": "general, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 200000,
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "cc/claude-haiku-4-5-20251001",
+        "gh/claude-haiku-4.5",
+        "gh/mai-code-1-flash",
+        "gh/oswe-vscode-prime",
+        "kr/MiniMax-M2.5",
+        "kr/claude-haiku-4.5",
+        "kr/claude-opus-4.5",
+        "kr/claude-sonnet-4.5",
+        "kr/glm-5",
+        "nvidia/minimaxai/minimax-m2.7",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/glm-4.7-flash",
+        "ollama/glm-5",
+        "ollama/glm-5.1",
+        "ollama/glm-5.2",
+        "ollama/minimax-m2.5",
+        "ollama/minimax-m2.7"
+      ]
+    },
+    {
+      "name": "general-128k",
+      "kind": "llm",
+      "category": "general",
+      "contextTier": "128k",
+      "criterion": "general, context tier 128k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 128000,
+      "models": [
+        "ag/gpt-oss-120b-medium",
+        "kr/deepseek-3.2",
+        "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/gpt-oss:120b",
+        "ollama/nemotron-3-super",
+        "ollama/nemotron-3-ultra"
+      ]
+    },
+    {
+      "name": "multimodal-1m",
+      "kind": "llm",
+      "category": "multimodal",
+      "contextTier": "1m",
+      "criterion": "multimodal, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 1000000,
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.6-flash-medium",
+        "ag/gemini-pro-agent",
+        "cc/claude-opus-5",
+        "cc/claude-sonnet-5",
+        "gh/gpt-4.1",
+        "gh/gpt-4.1-2025-04-14",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-5",
+        "kr/claude-sonnet-5",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5"
+      ]
+    },
+    {
+      "name": "multimodal-400k",
+      "kind": "llm",
+      "category": "multimodal",
+      "contextTier": "400k",
+      "criterion": "multimodal, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 400000,
+      "models": [
+        "cx/gpt-5.4",
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.5",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto",
+        "nvidia/minimaxai/minimax-m3"
+      ]
+    },
+    {
+      "name": "multimodal-256k",
+      "kind": "llm",
+      "category": "multimodal",
+      "contextTier": "256k",
+      "criterion": "multimodal, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 256000,
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-terra",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-terra",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6",
+        "ollama/kimi-k2.7-code",
+        "ollama/mistral-large-3:675b-cloud"
+      ]
+    },
+    {
+      "name": "multimodal-200k",
+      "kind": "llm",
+      "category": "multimodal",
+      "contextTier": "200k",
+      "criterion": "multimodal, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 200000,
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "cc/claude-haiku-4-5-20251001",
+        "gh/claude-haiku-4.5",
+        "kr/claude-haiku-4.5",
+        "kr/claude-opus-4.5",
+        "kr/claude-sonnet-4.5"
+      ]
+    },
+    {
+      "name": "reasoning-1m",
+      "kind": "llm",
+      "category": "reasoning",
+      "contextTier": "1m",
+      "criterion": "reasoning, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 1000000,
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-opus-5",
+        "cc/claude-sonnet-5",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-5",
+        "kr/claude-sonnet-5",
+        "kr/qwen3-coder-next",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-flash",
+        "ollama/deepseek-v4-pro",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5"
+      ]
+    },
+    {
+      "name": "reasoning-400k",
+      "kind": "llm",
+      "category": "reasoning",
+      "contextTier": "400k",
+      "criterion": "reasoning, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 400000,
+      "models": [
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.4",
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.5",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto",
+        "nvidia/minimaxai/minimax-m3"
+      ]
+    },
+    {
+      "name": "reasoning-256k",
+      "kind": "llm",
+      "category": "reasoning",
+      "contextTier": "256k",
+      "criterion": "reasoning, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 262144,
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-terra",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-terra",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6",
+        "ollama/kimi-k2.7-code"
+      ]
+    },
+    {
+      "name": "reasoning-200k",
+      "kind": "llm",
+      "category": "reasoning",
+      "contextTier": "200k",
+      "criterion": "reasoning, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 200000,
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "cc/claude-haiku-4-5-20251001",
+        "gh/claude-haiku-4.5",
+        "kr/MiniMax-M2.5",
+        "kr/claude-haiku-4.5",
+        "kr/claude-opus-4.5",
+        "kr/claude-sonnet-4.5",
+        "kr/glm-5",
+        "nvidia/minimaxai/minimax-m2.7",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/glm-4.7-flash",
+        "ollama/glm-5",
+        "ollama/glm-5.1",
+        "ollama/glm-5.2",
+        "ollama/minimax-m2.5",
+        "ollama/minimax-m2.7"
+      ]
+    },
+    {
+      "name": "reasoning-128k",
+      "kind": "llm",
+      "category": "reasoning",
+      "contextTier": "128k",
+      "criterion": "reasoning, context tier 128k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 128000,
+      "models": [
+        "ag/gpt-oss-120b-medium",
+        "kr/deepseek-3.2",
+        "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/gpt-oss:120b",
+        "ollama/nemotron-3-super",
+        "ollama/nemotron-3-ultra"
+      ]
+    },
+    {
+      "name": "review-1m",
+      "kind": "llm",
+      "category": "review",
+      "contextTier": "1m",
+      "criterion": "review, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 1000000,
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "cc/claude-opus-5",
+        "cc/claude-sonnet-5",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-5",
+        "kr/claude-sonnet-5",
+        "kr/qwen3-coder-next",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-pro"
+      ]
+    },
+    {
+      "name": "review-256k",
+      "kind": "llm",
+      "category": "review",
+      "contextTier": "256k",
+      "criterion": "review, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 272000,
+      "models": [
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-terra",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-terra"
+      ]
+    },
+    {
+      "name": "review-200k",
+      "kind": "llm",
+      "category": "review",
+      "contextTier": "200k",
+      "criterion": "review, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
+      "contextLength": 200000,
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "gh/oswe-vscode-prime",
+        "kr/claude-opus-4.5",
+        "kr/claude-sonnet-4.5"
+      ]
+    }
+  ]
+}
