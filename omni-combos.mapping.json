@@ -1,470 +1,460 @@
 {
   "source": "https://omni.tdigroup.vn/v1/models",
-  "scannedAt": "2026-08-03",
-  "policy": {
-    "axes": [
-      "category",
-      "context length tier"
-    ],
-    "suffixPolicy": "Bỏ qua thinking, agentic, review. Ưu tiên model ID gốc; mỗi provider + base model chỉ giữ một target.",
-    "codingPolicy": "Coding dùng allowlist family thực tế, không suy từ hậu tố agentic. Vì vậy Claude Code, GPT-5.x, Qwen Coder, DeepSeek V4, Kimi Code, GLM 5 và MiniMax M3 được xét.",
-    "contextTiers": [
-      "1m",
-      "400k",
-      "256k",
-      "200k",
-      "128k"
-    ]
-  },
-  "summary": {
-    "apiEntries": 152,
-    "usableBeforeSuffixDedupe": 106,
-    "baseModelsAfterSuffixDedupe": 69,
-    "comboCount": 21,
-    "placements": 232
-  },
+  "policy": "Current models only, with explicitly retained GLM 5.1, Kimi K2.6, and Gemini 3.5 variants. Grouped by category and context.",
+  "explicitlyRetained": [
+    "ollama/glm-5.1",
+    "nvidia/moonshotai/kimi-k2.6",
+    "ollama/kimi-k2.6",
+    "ag/gemini-3.5-flash-high",
+    "ag/gemini-3.5-flash-low",
+    "ag/gemini-3.5-flash-extra-low"
+  ],
   "combos": [
     {
       "name": "coding-1m",
-      "kind": "llm",
-      "category": "coding",
-      "contextTier": "1m",
-      "criterion": "coding, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 1000000,
       "models": [
-        "ag/claude-sonnet-4-6",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
         "cc/claude-opus-5",
         "cc/claude-sonnet-5",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-5",
-        "kr/claude-sonnet-5",
-        "kr/qwen3-coder-next",
-        "nvidia/deepseek-ai/deepseek-v4-flash",
-        "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-flash",
+        "ollama/minimax-m3",
+        "ollama/kimi-k3",
         "ollama/deepseek-v4-pro",
-        "ollama/minimax-m3"
-      ]
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "cc/claude-fable-5",
+        "ollama/qwen3.5",
+        "ollama/deepseek-v4-flash"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
     },
     {
       "name": "coding-400k",
-      "kind": "llm",
-      "category": "coding",
-      "contextTier": "400k",
-      "criterion": "coding, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 400000,
       "models": [
-        "cx/gpt-5.3-codex-spark",
-        "cx/gpt-5.4",
-        "cx/gpt-5.4-mini",
-        "cx/gpt-5.5",
+        "nvidia/minimaxai/minimax-m3",
         "gh/gpt-5-mini",
-        "gh/gpt-5.4-mini-free-auto",
-        "nvidia/minimaxai/minimax-m3"
-      ]
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.4-mini-review",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.3-codex-spark-review",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
     },
     {
       "name": "coding-256k",
-      "kind": "llm",
-      "category": "coding",
-      "contextTier": "256k",
-      "criterion": "coding, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 262144,
       "models": [
-        "cx/gpt-5.6-luna",
         "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review",
         "cx/gpt-5.6-terra",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-terra",
-        "ollama/kimi-k2.7-code"
-      ]
+        "cx/gpt-5.6-terra-review",
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review",
+        "ollama/mistral-large-3:675b-cloud",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 256000
     },
     {
       "name": "coding-200k",
-      "kind": "llm",
-      "category": "coding",
-      "contextTier": "200k",
-      "criterion": "coding, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 200000,
       "models": [
-        "ag/claude-opus-4-6-thinking",
-        "gh/mai-code-1-flash",
-        "gh/oswe-vscode-prime",
-        "kr/claude-opus-4.5",
-        "kr/claude-sonnet-4.5",
-        "kr/glm-5",
         "nvidia/z-ai/glm-5.2",
-        "ollama/glm-5",
-        "ollama/glm-5.1",
-        "ollama/glm-5.2"
-      ]
+        "ollama/glm-5.2",
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/minimax-m2.7",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "gh/mai-code-1-flash",
+        "gh/claude-haiku-4.5",
+        "gh/oswe-vscode-prime",
+        "cc/claude-haiku-4-5-20251001",
+        "ollama/glm-5.1"
+      ],
+      "kind": "llm",
+      "contextLength": 196608
     },
     {
       "name": "general-1m",
-      "kind": "llm",
-      "category": "general",
-      "contextTier": "1m",
-      "criterion": "general, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 1000000,
       "models": [
-        "ag/claude-sonnet-4-6",
-        "ag/gemini-3-flash",
-        "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
-        "ag/gemini-3.5-flash-extra-low",
-        "ag/gemini-3.5-flash-high",
-        "ag/gemini-3.5-flash-low",
-        "ag/gemini-3.6-flash-high",
-        "ag/gemini-3.6-flash-low",
-        "ag/gemini-3.6-flash-medium",
-        "ag/gemini-pro-agent",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
         "cc/claude-opus-5",
         "cc/claude-sonnet-5",
-        "gh/gpt-4.1",
-        "gh/gpt-4.1-2025-04-14",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-5",
-        "kr/claude-sonnet-5",
-        "kr/qwen3-coder-next",
-        "nvidia/deepseek-ai/deepseek-v4-flash",
-        "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-flash",
-        "ollama/deepseek-v4-pro",
-        "ollama/kimi-k3",
         "ollama/minimax-m3",
-        "ollama/qwen3.5"
-      ]
+        "ollama/kimi-k3",
+        "ollama/deepseek-v4-pro",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "cc/claude-fable-5",
+        "ollama/qwen3.5",
+        "ollama/deepseek-v4-flash",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
     },
     {
       "name": "general-400k",
-      "kind": "llm",
-      "category": "general",
-      "contextTier": "400k",
-      "criterion": "general, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 400000,
       "models": [
-        "cx/gpt-5.3-codex-spark",
-        "cx/gpt-5.4",
-        "cx/gpt-5.4-mini",
-        "cx/gpt-5.5",
+        "nvidia/minimaxai/minimax-m3",
         "gh/gpt-5-mini",
-        "gh/gpt-5.4-mini-free-auto",
-        "nvidia/minimaxai/minimax-m3"
-      ]
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.4-mini-review",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.3-codex-spark-review",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
     },
     {
       "name": "general-256k",
-      "kind": "llm",
-      "category": "general",
-      "contextTier": "256k",
-      "criterion": "general, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 256000,
       "models": [
-        "cx/gpt-5.6-luna",
         "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review",
         "cx/gpt-5.6-terra",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-terra",
-        "nvidia/moonshotai/kimi-k2.6",
-        "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6",
+        "cx/gpt-5.6-terra-review",
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review",
+        "ollama/mistral-large-3:675b-cloud",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code",
-        "ollama/mistral-large-3:675b-cloud"
-      ]
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 256000
     },
     {
       "name": "general-200k",
-      "kind": "llm",
-      "category": "general",
-      "contextTier": "200k",
-      "criterion": "general, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 200000,
       "models": [
-        "ag/claude-opus-4-6-thinking",
-        "cc/claude-haiku-4-5-20251001",
-        "gh/claude-haiku-4.5",
-        "gh/mai-code-1-flash",
-        "gh/oswe-vscode-prime",
-        "kr/MiniMax-M2.5",
-        "kr/claude-haiku-4.5",
-        "kr/claude-opus-4.5",
-        "kr/claude-sonnet-4.5",
-        "kr/glm-5",
-        "nvidia/minimaxai/minimax-m2.7",
         "nvidia/z-ai/glm-5.2",
-        "ollama/glm-4.7-flash",
-        "ollama/glm-5",
-        "ollama/glm-5.1",
         "ollama/glm-5.2",
-        "ollama/minimax-m2.5",
-        "ollama/minimax-m2.7"
-      ]
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/minimax-m2.7",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "gh/mai-code-1-flash",
+        "gh/claude-haiku-4.5",
+        "gh/oswe-vscode-prime",
+        "cc/claude-haiku-4-5-20251001",
+        "ollama/glm-5.1"
+      ],
+      "kind": "llm",
+      "contextLength": 196608
     },
     {
       "name": "general-128k",
-      "kind": "llm",
-      "category": "general",
-      "contextTier": "128k",
-      "criterion": "general, context tier 128k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 128000,
       "models": [
-        "ag/gpt-oss-120b-medium",
-        "kr/deepseek-3.2",
         "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/nemotron-3-ultra",
+        "gh/gpt-4-0613",
+        "gh/gpt-4-0125-preview",
+        "gh/gpt-4-o-preview",
+        "ag/gpt-oss-120b-medium",
         "ollama/gpt-oss:120b",
-        "ollama/nemotron-3-super",
-        "ollama/nemotron-3-ultra"
-      ]
+        "ollama/nemotron-3-super"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
     },
     {
       "name": "multimodal-1m",
-      "kind": "llm",
-      "category": "multimodal",
-      "contextTier": "1m",
-      "criterion": "multimodal, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 1000000,
       "models": [
-        "ag/claude-sonnet-4-6",
-        "ag/gemini-3-flash",
-        "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
-        "ag/gemini-3.5-flash-extra-low",
-        "ag/gemini-3.5-flash-high",
-        "ag/gemini-3.5-flash-low",
-        "ag/gemini-3.6-flash-high",
-        "ag/gemini-3.6-flash-low",
-        "ag/gemini-3.6-flash-medium",
-        "ag/gemini-pro-agent",
         "cc/claude-opus-5",
         "cc/claude-sonnet-5",
-        "gh/gpt-4.1",
-        "gh/gpt-4.1-2025-04-14",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-5",
-        "kr/claude-sonnet-5",
-        "ollama/kimi-k3",
         "ollama/minimax-m3",
-        "ollama/qwen3.5"
-      ]
+        "ollama/kimi-k3",
+        "cc/claude-fable-5",
+        "ollama/qwen3.5",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
     },
     {
       "name": "multimodal-400k",
-      "kind": "llm",
-      "category": "multimodal",
-      "contextTier": "400k",
-      "criterion": "multimodal, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 400000,
       "models": [
-        "cx/gpt-5.4",
-        "cx/gpt-5.4-mini",
-        "cx/gpt-5.5",
+        "nvidia/minimaxai/minimax-m3",
         "gh/gpt-5-mini",
-        "gh/gpt-5.4-mini-free-auto",
-        "nvidia/minimaxai/minimax-m3"
-      ]
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.4-mini-review",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
     },
     {
       "name": "multimodal-256k",
-      "kind": "llm",
-      "category": "multimodal",
-      "contextTier": "256k",
-      "criterion": "multimodal, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 256000,
       "models": [
-        "cx/gpt-5.6-luna",
         "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review",
         "cx/gpt-5.6-terra",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-terra",
-        "nvidia/moonshotai/kimi-k2.6",
-        "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6",
+        "cx/gpt-5.6-terra-review",
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review",
+        "ollama/mistral-large-3:675b-cloud",
         "ollama/kimi-k2.7-code",
-        "ollama/mistral-large-3:675b-cloud"
-      ]
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 256000
     },
     {
       "name": "multimodal-200k",
-      "kind": "llm",
-      "category": "multimodal",
-      "contextTier": "200k",
-      "criterion": "multimodal, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 200000,
       "models": [
-        "ag/claude-opus-4-6-thinking",
-        "cc/claude-haiku-4-5-20251001",
         "gh/claude-haiku-4.5",
-        "kr/claude-haiku-4.5",
-        "kr/claude-opus-4.5",
-        "kr/claude-sonnet-4.5"
-      ]
+        "cc/claude-haiku-4-5-20251001"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
     },
     {
       "name": "reasoning-1m",
-      "kind": "llm",
-      "category": "reasoning",
-      "contextTier": "1m",
-      "criterion": "reasoning, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 1000000,
       "models": [
-        "ag/claude-sonnet-4-6",
-        "ag/gemini-3-flash",
-        "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
-        "ag/gemini-3.5-flash-extra-low",
-        "ag/gemini-3.5-flash-high",
-        "ag/gemini-3.5-flash-low",
-        "ag/gemini-3.6-flash-high",
-        "ag/gemini-3.6-flash-low",
-        "ag/gemini-3.6-flash-medium",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
         "cc/claude-opus-5",
         "cc/claude-sonnet-5",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-5",
-        "kr/claude-sonnet-5",
-        "kr/qwen3-coder-next",
-        "nvidia/deepseek-ai/deepseek-v4-flash",
-        "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-flash",
-        "ollama/deepseek-v4-pro",
-        "ollama/kimi-k3",
         "ollama/minimax-m3",
-        "ollama/qwen3.5"
-      ]
+        "ollama/kimi-k3",
+        "ollama/deepseek-v4-pro",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "cc/claude-fable-5",
+        "ollama/qwen3.5",
+        "ollama/deepseek-v4-flash",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "ag/gemini-3.6-flash-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
     },
     {
       "name": "reasoning-400k",
-      "kind": "llm",
-      "category": "reasoning",
-      "contextTier": "400k",
-      "criterion": "reasoning, context tier 400k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 400000,
       "models": [
-        "cx/gpt-5.3-codex-spark",
-        "cx/gpt-5.4",
-        "cx/gpt-5.4-mini",
-        "cx/gpt-5.5",
+        "nvidia/minimaxai/minimax-m3",
         "gh/gpt-5-mini",
-        "gh/gpt-5.4-mini-free-auto",
-        "nvidia/minimaxai/minimax-m3"
-      ]
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.4-mini-review",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.3-codex-spark-review",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
     },
     {
       "name": "reasoning-256k",
-      "kind": "llm",
-      "category": "reasoning",
-      "contextTier": "256k",
-      "criterion": "reasoning, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 262144,
       "models": [
-        "cx/gpt-5.6-luna",
         "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review",
         "cx/gpt-5.6-terra",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-terra",
+        "cx/gpt-5.6-terra-review",
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
         "nvidia/moonshotai/kimi-k2.6",
-        "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6",
-        "ollama/kimi-k2.7-code"
-      ]
+        "ollama/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 262144
     },
     {
       "name": "reasoning-200k",
-      "kind": "llm",
-      "category": "reasoning",
-      "contextTier": "200k",
-      "criterion": "reasoning, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 200000,
       "models": [
-        "ag/claude-opus-4-6-thinking",
-        "cc/claude-haiku-4-5-20251001",
-        "gh/claude-haiku-4.5",
-        "kr/MiniMax-M2.5",
-        "kr/claude-haiku-4.5",
-        "kr/claude-opus-4.5",
-        "kr/claude-sonnet-4.5",
-        "kr/glm-5",
-        "nvidia/minimaxai/minimax-m2.7",
         "nvidia/z-ai/glm-5.2",
-        "ollama/glm-4.7-flash",
-        "ollama/glm-5",
-        "ollama/glm-5.1",
         "ollama/glm-5.2",
-        "ollama/minimax-m2.5",
-        "ollama/minimax-m2.7"
-      ]
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/minimax-m2.7",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "gh/claude-haiku-4.5",
+        "cc/claude-haiku-4-5-20251001",
+        "ollama/glm-5.1"
+      ],
+      "kind": "llm",
+      "contextLength": 196608
     },
     {
       "name": "reasoning-128k",
-      "kind": "llm",
-      "category": "reasoning",
-      "contextTier": "128k",
-      "criterion": "reasoning, context tier 128k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 128000,
       "models": [
-        "ag/gpt-oss-120b-medium",
-        "kr/deepseek-3.2",
         "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/nemotron-3-ultra",
+        "ag/gpt-oss-120b-medium",
         "ollama/gpt-oss:120b",
-        "ollama/nemotron-3-super",
-        "ollama/nemotron-3-ultra"
-      ]
+        "ollama/nemotron-3-super"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
     },
     {
       "name": "review-1m",
-      "kind": "llm",
-      "category": "review",
-      "contextTier": "1m",
-      "criterion": "review, context tier 1m; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 1000000,
       "models": [
-        "ag/claude-sonnet-4-6",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
         "cc/claude-opus-5",
         "cc/claude-sonnet-5",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-5",
-        "kr/claude-sonnet-5",
-        "kr/qwen3-coder-next",
-        "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-pro"
-      ]
+        "ollama/minimax-m3",
+        "ollama/kimi-k3",
+        "ollama/deepseek-v4-pro",
+        "nvidia/deepseek-ai/deepseek-v4-flash",
+        "cc/claude-fable-5",
+        "ollama/qwen3.5",
+        "ollama/deepseek-v4-flash"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
     },
     {
       "name": "review-256k",
-      "kind": "llm",
-      "category": "review",
-      "contextTier": "256k",
-      "criterion": "review, context tier 256k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 272000,
       "models": [
         "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review",
         "cx/gpt-5.6-terra",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-terra"
-      ]
+        "cx/gpt-5.6-terra-review",
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review",
+        "ollama/mistral-large-3:675b-cloud",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 256000
     },
     {
       "name": "review-200k",
-      "kind": "llm",
-      "category": "review",
-      "contextTier": "200k",
-      "criterion": "review, context tier 200k; hậu tố thinking/agentic/review bị bỏ qua và không tạo target riêng.",
-      "contextLength": 200000,
       "models": [
-        "ag/claude-opus-4-6-thinking",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/glm-5.2",
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/minimax-m2.7",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "gh/mai-code-1-flash",
+        "gh/claude-haiku-4.5",
         "gh/oswe-vscode-prime",
-        "kr/claude-opus-4.5",
-        "kr/claude-sonnet-4.5"
-      ]
+        "cc/claude-haiku-4-5-20251001",
+        "ollama/glm-5.1"
+      ],
+      "kind": "llm",
+      "contextLength": 196608
+    },
+    {
+      "name": "coding-128k",
+      "models": [
+        "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/nemotron-3-ultra",
+        "gh/gpt-4-0613",
+        "gh/gpt-4-0125-preview",
+        "gh/gpt-4-o-preview",
+        "ag/gpt-oss-120b-medium",
+        "ollama/gpt-oss:120b",
+        "ollama/nemotron-3-super"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
+    },
+    {
+      "name": "review-400k",
+      "models": [
+        "nvidia/minimaxai/minimax-m3",
+        "gh/gpt-5-mini",
+        "cx/gpt-5.4-mini",
+        "cx/gpt-5.4-mini-review",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.3-codex-spark-review",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
+      "name": "review-128k",
+      "models": [
+        "nvidia/nemotron-3-ultra-550b-a55b",
+        "ollama/nemotron-3-ultra",
+        "gh/gpt-4-0613",
+        "gh/gpt-4-0125-preview",
+        "gh/gpt-4-o-preview",
+        "ag/gpt-oss-120b-medium",
+        "ollama/gpt-oss:120b",
+        "ollama/nemotron-3-super"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
+    },
+    {
+      "name": "audio-200k",
+      "models": [
+        "nvidia/parakeet-ctc-1.1b-asr"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
+      "name": "internal-200k",
+      "models": [
+        "gh/copilot-search-a",
+        "gh/copilot-search-b",
+        "gh/copilot-search-c",
+        "gh/exec-agent-a",
+        "gh/exec-agent-b",
+        "gh/exec-agent-c",
+        "gh/mai-code-1-flash-4th",
+        "gh/mai-code-1-flash-picker",
+        "gh/mai-code-1-flash-secondary",
+        "gh/mai-code-1-flash-tertiary",
+        "gh/trajectory-compaction"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
+      "name": "router-unknown",
+      "models": [
+        "kr/auto",
+        "kr/auto-thinking"
+      ],
+      "kind": "llm",
+      "contextLength": null
     }
   ]
 }
