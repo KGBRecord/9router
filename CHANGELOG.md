@@ -11,6 +11,7 @@
 - **Dashboard**: "Token Saver Overrides" card on the provider detail page
 
 ## Fixes
+- **Ollama Cloud**: show API-key connections on the Free Tier provider card instead of incorrectly reporting `No connections`
 - **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally
 
 # v0.5.45 (2026-07-30)

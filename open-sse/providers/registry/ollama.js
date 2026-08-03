@@ -3,6 +3,7 @@ export default {
   priority: 30,
   hasFree: true,
   alias: "ollama",
+  authModes: ["apikey"],
   display: {
     name: "Ollama Cloud",
     icon: "cloud",

@@ -31,4 +31,10 @@ describe("provider display split (E1)", () => {
     expect(m.ALIAS_TO_ID.kr).toBe("kiro");
     expect(m.getProvidersByKind("tts").length).toBeGreaterThan(0);
   });
+
+  it("declares Ollama Cloud as API-key auth so its dashboard card counts connections", async () => {
+    const { AI_PROVIDERS } = await import("../../src/shared/constants/providers.js");
+
+    expect(AI_PROVIDERS.ollama.authModes).toContain("apikey");
+  });
 });
