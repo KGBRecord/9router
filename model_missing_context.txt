@@ -1,0 +1,1010 @@
+ },
+    { id: 
+, kind: 
+, name: 
+@cf/black-forest-labs/flux-2-klein-9b
+@cf/deepseek-ai/deepseek-r1-distill-qwen-32b
+@cf/meta/llama-3.1-70b-instruct-fp8-fast
+@cf/meta/llama-3.1-8b-instruct-awq
+@cf/meta/llama-3.1-8b-instruct-fp8-fast
+@cf/meta/llama-3.2-1b-instruct
+@cf/meta/llama-3.2-3b-instruct
+@cf/meta/llama-3.3-70b-instruct-fp8-fast
+@cf/mistralai/mistral-small-3.1-24b-instruct
+@cf/moonshotai/kimi-k2.5
+@cf/moonshotai/kimi-k2.6
+@cf/qwen/qwen2.5-coder-32b-instruct
+@cf/qwen/qwq-32b
+@cf/zai-org/glm-4.7-flash
+Auto
+Auto (Server Picks)
+Auto Free (Zero Cost)
+BAAI/bge-large-en-v1.5
+BGE Large EN v1.5
+BGE-M3 Embedding
+Claude 3.5 Sonnet
+Claude 3.7 Sonnet (Free)
+Claude 4.5 Haiku
+Claude 4.5 Opus
+Claude 4.5 Opus High
+Claude 4.5 Opus High Thinking
+Claude 4.5 Sonnet
+Claude 4.5 Sonnet Thinking
+Claude 4.6 Opus Max
+Claude 4.6 Sonnet Medium Thinking
+Claude Fable 5
+Claude Haiku 4.5
+Claude Opus 4
+Claude Opus 4.5
+Claude Opus 4.5 (Agentic)
+Claude Opus 4.5 (Thinking + Agentic)
+Claude Opus 4.5 (Thinking)
+Claude Opus 4.5 (VIP)
+Claude Opus 4.5 Thinking
+Claude Opus 4.6
+Claude Opus 4.6 (Thinking)
+Claude Opus 4.6 (via Perplexity)
+Claude Opus 4.6 Thinking
+Claude Opus 4.7
+Claude Opus 4.7 (Agentic)
+Claude Opus 4.7 (Thinking + Agentic)
+Claude Opus 4.7 (Thinking)
+Claude Opus 4.7 High
+Claude Opus 4.7 Low
+Claude Opus 4.7 Max
+Claude Opus 4.7 Medium
+Claude Opus 4.7 Review
+Claude Opus 4.7 XHigh
+Claude Opus 4.8
+Claude Opus 4.8 (Agentic)
+Claude Opus 4.8 (Thinking + Agentic)
+Claude Opus 4.8 (Thinking)
+Claude Opus 5
+Claude Opus 5 (Agentic)
+Claude Opus 5 (LLM7)
+Claude Opus 5 (Thinking + Agentic)
+Claude Opus 5 (Thinking)
+Claude Sonnet 4
+Claude Sonnet 4.5
+Claude Sonnet 4.5 Thinking
+Claude Sonnet 4.6
+Claude Sonnet 4.6 (Thinking)
+Claude Sonnet 4.6 (via Perplexity)
+Claude Sonnet 4.6 1M
+Claude Sonnet 4.6 Thinking
+Claude Sonnet 4.6 Thinking 1M
+Claude Sonnet 5
+Codestral
+Command A (Mar 2025)
+Command R (Aug 2024)
+Command R+ (Aug 2024)
+DALL-E 3 (via OpenRouter)
+DeepSeek 3.2
+DeepSeek Chat
+DeepSeek R1
+DeepSeek R1 Distill Qwen 32B
+DeepSeek Reasoner
+DeepSeek V3
+DeepSeek V3 671B
+DeepSeek V3.1
+DeepSeek V3.1 Terminus
+DeepSeek V3.2
+DeepSeek V3.2 (Vertex)
+DeepSeek V3.2 Chat
+DeepSeek V3.2 Exp
+DeepSeek V3.2 Reasoner
+DeepSeek V4
+DeepSeek V4 Flash
+DeepSeek V4 Flash (ClinePass)
+DeepSeek V4 Flash (LLM7)
+DeepSeek V4 Flash (Morph)
+DeepSeek V4 Pro
+DeepSeek V4 Pro (ClinePass)
+DeepSeek V4 Pro Max
+DeepSeek V4 Pro No Thinking
+DeepSeek-V3.2
+DeepSeek-V4-Flash
+DeepSeek-V4-Pro
+Doubao-Seed-2.0-Code
+Doubao-Seed-2.0-lite
+Doubao-Seed-2.0-pro
+Doubao-Seed-Code
+Efficient
+Eleven Multilingual v2
+Eleven Turbo v2.5
+FLUX Dev
+FLUX Pro 1.1
+FLUX Schnell
+FLUX.1 Schnell
+FLUX.2 Klein 9B
+GLM 4.6V (Vision)
+GLM 4.7
+GLM 4.7 Flash
+GLM 5
+GLM 5.1
+GLM 5.2
+GLM-4.5-Air
+GLM-4.6
+GLM-4.7
+GLM-5
+GLM-5 (Vertex)
+GLM-5.0
+GLM-5.0-Turbo
+GLM-5.1
+GLM-5.2
+GLM-5.2 (ClinePass)
+GLM-5v-Turbo
+GPT 5.2
+GPT 5.2 Codex
+GPT 5.3 Codex
+GPT 5.3 Codex Spark
+GPT 5.3 Codex Spark Review
+GPT 5.4
+GPT 5.4 Mini
+GPT 5.4 Mini Review
+GPT 5.4 Review
+GPT 5.5
+GPT 5.5 Image
+GPT 5.5 Review
+GPT 5.6 Luna
+GPT 5.6 Luna Review
+GPT 5.6 Sol
+GPT 5.6 Sol Review
+GPT 5.6 Terra
+GPT 5.6 Terra Review
+GPT OSS 120B
+GPT-4 Turbo
+GPT-4.1
+GPT-4.1 Mini
+GPT-4.1 Nano
+GPT-4o
+GPT-4o Mini
+GPT-4o Mini TTS
+GPT-5
+GPT-5 Mini
+GPT-5 Nano
+GPT-5.1
+GPT-5.2
+GPT-5.2 Codex
+GPT-5.2 High
+GPT-5.2 Low
+GPT-5.2 Medium
+GPT-5.2 None
+GPT-5.2 XHigh
+GPT-5.3 Codex
+GPT-5.3 Codex High
+GPT-5.3 Codex High Fast
+GPT-5.3 Codex Low
+GPT-5.3 Codex Low Fast
+GPT-5.3 Codex Medium
+GPT-5.3 Codex Medium Fast
+GPT-5.3 Codex XHigh
+GPT-5.3 Codex XHigh Fast
+GPT-5.4
+GPT-5.4 (via Perplexity)
+GPT-5.4 High
+GPT-5.4 High Fast
+GPT-5.4 Low
+GPT-5.4 Low Fast
+GPT-5.4 Medium
+GPT-5.4 Medium Fast
+GPT-5.4 Mini
+GPT-5.4 Mini High
+GPT-5.4 Mini Low
+GPT-5.4 Mini Medium
+GPT-5.4 Mini XHigh
+GPT-5.4 Nano
+GPT-5.4 None
+GPT-5.4 None Fast
+GPT-5.4 Pro
+GPT-5.4 XHigh
+GPT-5.4 XHigh Fast
+GPT-5.5
+GPT-5.5 (LLM7)
+GPT-5.5 High
+GPT-5.5 High Fast
+GPT-5.5 Low
+GPT-5.5 Low Fast
+GPT-5.5 Medium
+GPT-5.5 Medium Fast
+GPT-5.5 None
+GPT-5.5 None Fast
+GPT-5.5 XHigh
+GPT-5.5 XHigh Fast
+GPT-OSS 120B
+GPT-OSS 120B (Medium)
+GPT-OSS-120B
+Gemini 2.0 Flash
+Gemini 2.0 Flash (Exp)
+Gemini 2.5 Flash
+Gemini 2.5 Flash (Free)
+Gemini 2.5 Flash Lite
+Gemini 2.5 Pro
+Gemini 2.5 Pro (VIP)
+Gemini 3 Flash
+Gemini 3 Flash High
+Gemini 3 Flash Low
+Gemini 3 Flash Medium
+Gemini 3 Flash Minimal
+Gemini 3 Flash Preview
+Gemini 3 Pro Preview
+Gemini 3.1 Flash (Image)
+Gemini 3.1 Flash Image (Nano Banana 2)
+Gemini 3.1 Flash Lite
+Gemini 3.1 Flash Lite Preview
+Gemini 3.1 Pro
+Gemini 3.1 Pro (High)
+Gemini 3.1 Pro (Low)
+Gemini 3.1 Pro (via Perplexity)
+Gemini 3.1 Pro High
+Gemini 3.1 Pro Low
+Gemini 3.1 Pro Preview
+Gemini 3.5 Flash (High)
+Gemini 3.5 Flash (Low)
+Gemini 3.5 Flash (Medium)
+Gemini 3.5 Flash Lite
+Gemini 3.6 Flash
+Gemini 3.6 Flash (High)
+Gemini 3.6 Flash (Low)
+Gemini 3.6 Flash (Medium)
+Gemini Embedding 001
+Gemini Embedding 2 Preview
+Gemma 4 31B IT
+Gen-4 Image
+Generative
+Grok 2 Image
+Grok 3
+Grok 3 Mini (Thinking)
+Grok 3 Thinking
+Grok 4
+Grok 4 Fast Reasoning
+Grok 4 Heavy (SuperGrok)
+Grok 4 Mini (Thinking)
+Grok 4 Thinking
+Grok 4.1 Expert
+Grok 4.1 Fast
+Grok 4.1 Mini (Thinking)
+Grok 4.1 Thinking
+Grok 4.2 (4.20 Beta)
+Grok 4.20
+Grok 4.20 Reasoning
+Grok 4.3
+Grok 4.5
+Grok 4.5 (High)
+Grok 4.5 (LLM7)
+Grok 4.5 (Low)
+Grok 4.5 (Medium)
+Grok Build
+Grok Code Fast
+Hermes 3 70B
+Hermes 3 Llama 3.1 405B
+Hunyuan T1 Latest
+Hunyuan TurboS Latest
+Hy3 Preview
+Inworld TTS 1.5 Max ($0.025/min)
+Inworld TTS 1.5 Mini ($0.01/min)
+Jina Embeddings v2 Base Code
+Jina Embeddings v2 Base EN
+Jina Embeddings v3
+KAT Coder Pro
+Kat Coder Pro v2.5 (Free)
+Kilo Auto Balanced
+Kilo Auto Free
+Kilo Auto Frontier
+Kimi K2
+Kimi K2 Thinking
+Kimi K2.5
+Kimi K2.5 Thinking
+Kimi K2.6
+Kimi K2.6 (ClinePass)
+Kimi K2.6 (Free)
+Kimi K2.7 Code
+Kimi K2.7 Code (ClinePass)
+Kimi K2.7 Code Highspeed
+Kimi K3
+Kimi K3 (Code)
+Kimi K3 (LLM7)
+Kimi Latest
+Kimi for Coding
+Kimi for Coding Highspeed
+Kimi-K2.5
+Kimi-K2.6
+Kimi-K2.7
+Kimi-K2.7-Code
+Kimi-K3
+Laguna S 2.1
+Laguna XS 2.1
+Ling Flash 2.0
+Llama 3.1 70B Instruct FP8 Fast
+Llama 3.1 8B Instruct AWQ
+Llama 3.1 8B Instruct FP8 Fast
+Llama 3.2 1B Instruct
+Llama 3.2 3B
+Llama 3.2 3B Instruct
+Llama 3.3 70B
+Llama 3.3 70B Instruct
+Llama 3.3 70B Instruct FP8 Fast
+Llama 3.3 70B Turbo
+Llama 4 Maverick
+Llama 4 Scout
+Long-form
+M2 BERT 80M 8K
+MiMo Auto
+MiMo V2 Flash
+MiMo V2 Omni
+MiMo V2 Pro
+MiMo V2 TTS
+MiMo V2.5
+MiMo V2.5 Pro
+MiMo V2.5 Pro (Claude Native)
+MiMo V2.5 TTS
+MiMo V2.5 TTS Voice Clone
+MiMo V2.5 TTS Voice Design
+MiMo-V2.5
+MiMo-V2.5 (ClinePass)
+MiMo-V2.5-Pro
+MiMo-V2.5-Pro (ClinePass)
+MiniMax Image 01
+MiniMax M2.1
+MiniMax M2.5
+MiniMax M2.7
+MiniMax M2.7 (Morph)
+MiniMax M3
+MiniMax M3 (ClinePass)
+MiniMax-M2.1
+MiniMax-M2.5
+MiniMax-M2.7
+MiniMax-M3
+MiniMaxAI/MiniMax-M2.5
+MiniMaxAI/MiniMax-M2.7
+Mistral Embed
+Mistral Large 3
+Mistral Medium 3
+Mistral Small 3.1 24B Instruct
+Mistral Small 3.2 24B
+Morph v3 Fast
+Morph v3 Large
+NV EmbedQA E5 v5
+NVIDIA Nemotron Embed VL 1B V2 (Free)
+NanoBanana Flash
+Nemotron 3 Super
+Nemotron 3 Super (via Perplexity)
+Nemotron 3 Super 120B
+Nemotron 3 Super 120B (Free)
+Nemotron 3 Ultra
+Nemotron 3 Ultra 550B (Free)
+Nemotron 3 Ultra FP4
+Neural
+Nomic Embed Text v1.5
+NousResearch/Hermes-3-Llama-3.1-70B
+Nova 3
+O1
+O1 Mini
+O3
+O3 Mini
+O3 Pro
+O4 Mini
+OpenAI Text Embedding 3 Large
+OpenAI Text Embedding 3 Small
+OpenAI Text Embedding Ada 002
+Parakeet CTC 1.1B
+Performance
+Perplexity Auto (Free)
+Perplexity Embed V1 0.6B
+Perplexity Embed V1 4B
+Perplexity Sonar
+Play 3.0 Mini
+Play3.0-mini
+PlayDialog
+QwQ 32B
+Qwen 2.5 72B
+Qwen 2.5 Coder 32B
+Qwen 2.5 Coder 32B Instruct
+Qwen 3.5 122B A10B
+Qwen 3.5 27B
+Qwen 3.5 397B (Morph)
+Qwen 3.5 397B A17B
+Qwen 3.6 27B (Morph)
+Qwen 3.6 Max Preview
+Qwen 3.6 Plus
+Qwen 3.7 Max
+Qwen 3.7 Plus
+Qwen Turbo
+Qwen/QwQ-32B
+Qwen/Qwen2.5-72B-Instruct
+Qwen/Qwen2.5-Coder-32B-Instruct
+Qwen/Qwen3-235B-A22B
+Qwen/Qwen3-Embedding-8B
+Qwen/Qwen3.5-122B-A10B
+Qwen/Qwen3.5-397B-A17B
+Qwen/Qwen3.6-Max-Preview
+Qwen/Qwen3.6-Plus
+Qwen3 235B
+Qwen3 235B A22B
+Qwen3 235B A22B Instruct
+Qwen3 235B A22B Thinking
+Qwen3 32B
+Qwen3 8B Embedding
+Qwen3 Coder 480B A35B Turbo
+Qwen3 Coder Flash
+Qwen3 Coder Next
+Qwen3 Coder Plus
+Qwen3 Embedding 8B
+Qwen3 Max
+Qwen3 Max Preview
+Qwen3 Next 80B Instruct (Vertex)
+Qwen3 Next 80B Thinking (Vertex)
+Qwen3 VL 235B A22B
+Qwen3 VL Plus
+Qwen3 Vision Model
+Qwen3.5
+Qwen3.5 Plus
+Qwen3.6 Coder Model
+Qwen3.7 Max (ClinePass)
+Qwen3.7 Plus (ClinePass)
+Qwen3.7-Max
+Qwen3.7-Plus
+Qwen3.8-Max-Preview
+Recraft V3
+SWE-1.5
+SWE-1.5 Fast
+SWE-1.6
+SWE-1.6 Fast
+Seed 2.0 Code Preview
+Seed 2.0 Lite
+Seed 2.0 Mini
+Seed 2.0 Pro
+Sonar
+Sonar Pro
+Sonic 2
+Sonic 3
+Speech 01 HD
+Speech 01 Turbo
+Speech 02 HD
+Speech 02 Turbo
+Speech 2.6 HD
+Speech 2.6 Turbo
+Speech 2.8 HD
+Speech 2.8 Turbo
+Stable Diffusion v1.5
+Stable Image Ultra
+Standard
+Step 3.5 Flash
+TTS-1
+TTS-1 HD
+Tacotron2 DDC (LJSpeech)
+Text Embedding 004 (Legacy)
+Text Embedding 005
+Text Embedding 3 Large
+Text Embedding 3 Small
+Text Embedding Ada 002
+Tortoise v2
+Ultimate
+Universal 3 Pro
+Venice SD3.5
+Venice Uncensored 1.2
+Voyage 3 Large
+Voyage 3.5
+Voyage 3.5 Lite
+Voyage Code 3
+Voyage Finance 2
+Voyage Law 2
+Voyage Multilingual 2
+Whisper 1
+Whisper Large v3
+Work (Fast)
+ZAI GLM 4.7
+accounts/fireworks/models/deepseek-v3p1
+accounts/fireworks/models/llama-v3p3-70b-instruct
+accounts/fireworks/models/qwen3-235b-a22b
+anthropic/claude-3.7-sonnet
+anthropic/claude-opus-4-20250514
+anthropic/claude-opus-4-8
+anthropic/claude-opus-4.6
+anthropic/claude-opus-4.7
+anthropic/claude-sonnet-4-20250514
+anthropic/claude-sonnet-4-6
+anthropic/claude-sonnet-4.6
+audio
+auto
+auto:free
+black-forest-labs/FLUX.1-schnell
+blackboxai/anthropic/claude-fable-5
+blackboxai/anthropic/claude-opus-4.8
+blackboxai/anthropic/claude-sonnet-4.6
+blackboxai/deepseek/deepseek-v4-flash
+blackboxai/openai/gpt-5.3-codex
+blackboxai/openai/gpt-5.4
+blackboxai/openai/gpt-5.4-nano
+blackboxai/openai/gpt-5.4-pro
+blackboxai/openai/gpt-5.5
+blackboxai/x-ai/grok-4.3
+claude
+claude-3-5-sonnet-20241022
+claude-4.5-haiku
+claude-4.5-opus
+claude-4.5-opus-high
+claude-4.5-opus-high-thinking
+claude-4.5-sonnet
+claude-4.5-sonnet-thinking
+claude-4.6-opus-max
+claude-4.6-sonnet-medium-thinking
+claude-fable-5
+claude-haiku-4-5
+claude-haiku-4-5-20251001
+claude-haiku-4.5
+claude-opus-4-20250514
+claude-opus-4-5
+claude-opus-4-6
+claude-opus-4-6-thinking
+claude-opus-4.5
+claude-opus-4.5-agentic
+claude-opus-4.5-thinking
+claude-opus-4.5-thinking-agentic
+claude-opus-4.6
+claude-opus-4.6-thinking
+claude-opus-4.7
+claude-opus-4.7-agentic
+claude-opus-4.7-high
+claude-opus-4.7-low
+claude-opus-4.7-max
+claude-opus-4.7-medium
+claude-opus-4.7-review
+claude-opus-4.7-thinking
+claude-opus-4.7-thinking-agentic
+claude-opus-4.7-xhigh
+claude-opus-4.8
+claude-opus-4.8-agentic
+claude-opus-4.8-thinking
+claude-opus-4.8-thinking-agentic
+claude-opus-5
+claude-opus-5-agentic
+claude-opus-5-thinking
+claude-opus-5-thinking-agentic
+claude-sonnet-4-20250514
+claude-sonnet-4-5
+claude-sonnet-4-6
+claude-sonnet-4.5
+claude-sonnet-4.5-thinking
+claude-sonnet-4.6
+claude-sonnet-4.6-1m
+claude-sonnet-4.6-thinking
+claude-sonnet-4.6-thinking-1m
+claude-sonnet-5
+cline-pass/deepseek-v4-flash
+cline-pass/deepseek-v4-pro
+cline-pass/glm-5.2
+cline-pass/kimi-k2.6
+cline-pass/kimi-k2.7-code
+cline-pass/mimo-v2.5
+cline-pass/mimo-v2.5-pro
+cline-pass/minimax-m3
+cline-pass/qwen3.7-max
+cline-pass/qwen3.7-plus
+coder-model
+codestral-latest
+command-a-03-2025
+command-r-08-2024
+command-r-plus-08-2024
+deepseek-3.2
+deepseek-ai/DeepSeek-R1
+deepseek-ai/DeepSeek-V3
+deepseek-ai/DeepSeek-V3.1
+deepseek-ai/DeepSeek-V3.1-Terminus
+deepseek-ai/DeepSeek-V3.2
+deepseek-ai/DeepSeek-V3.2-Exp
+deepseek-ai/DeepSeek-V4-Flash
+deepseek-ai/DeepSeek-V4-Pro
+deepseek-ai/deepseek-v3.2-maas
+deepseek-ai/deepseek-v4-flash
+deepseek-ai/deepseek-v4-pro
+deepseek-chat
+deepseek-r1
+deepseek-reasoner
+deepseek-v3
+deepseek-v3-2-volc
+deepseek-v3.1
+deepseek-v3.2
+deepseek-v4
+deepseek-v4-flash
+deepseek-v4-pro
+deepseek-v4-pro-max
+deepseek-v4-pro-none
+deepseek/deepseek-chat
+deepseek/deepseek-reasoner
+deepseek/deepseek-v4-flash
+deepseek/deepseek-v4-pro
+default
+dfmodel
+dmodel
+edit
+efficient
+eleven_multilingual_v2
+eleven_turbo_v2_5
+embedding
+fal-ai/flux/schnell
+flux-dev
+flux-pro-1.1
+gemini-2.0-flash
+gemini-2.0-flash-exp
+gemini-2.5-flash
+gemini-2.5-flash-lite
+gemini-2.5-pro
+gemini-3-flash
+gemini-3-flash-agent
+gemini-3-flash-preview
+gemini-3-flash-solo
+gemini-3-pro-preview
+gemini-3.0-flash-high
+gemini-3.0-flash-low
+gemini-3.0-flash-medium
+gemini-3.0-flash-minimal
+gemini-3.1-flash-image
+gemini-3.1-flash-image-preview
+gemini-3.1-flash-lite-preview
+gemini-3.1-pro
+gemini-3.1-pro-high
+gemini-3.1-pro-low
+gemini-3.1-pro-preview
+gemini-3.5-flash-extra-low
+gemini-3.5-flash-high
+gemini-3.5-flash-lite
+gemini-3.5-flash-low
+gemini-3.6-flash
+gemini-3.6-flash-high
+gemini-3.6-flash-low
+gemini-3.6-flash-medium
+gemini-3.6-flash-tiered(high)
+gemini-3.6-flash-tiered(low)
+gemini-3.6-flash-tiered(medium)
+gemini-embedding-001
+gemini-embedding-2-preview
+gemini-pro-agent
+gemma-4-31b-it
+gen4_image
+generative
+glm-4-7-251222
+glm-4.5-air
+glm-4.6
+glm-4.6v
+glm-4.7
+glm-4.7-flash
+glm-5
+glm-5.0
+glm-5.0-turbo
+glm-5.1
+glm-5.2
+glm-5v-turbo
+gm51model
+google/gemini-2.5-flash
+google/gemini-2.5-pro
+google/gemini-3.1-flash-lite-preview
+google/gemini-3.1-pro-preview
+gpt-4-turbo
+gpt-4.1
+gpt-4.1-mini
+gpt-4.1-nano
+gpt-4o
+gpt-4o-mini
+gpt-4o-mini-tts
+gpt-5
+gpt-5-mini
+gpt-5-nano
+gpt-5.1
+gpt-5.2
+gpt-5.2-codex
+gpt-5.2-high
+gpt-5.2-low
+gpt-5.2-medium
+gpt-5.2-none
+gpt-5.2-xhigh
+gpt-5.3-codex
+gpt-5.3-codex-high
+gpt-5.3-codex-high-fast
+gpt-5.3-codex-low
+gpt-5.3-codex-low-fast
+gpt-5.3-codex-medium
+gpt-5.3-codex-medium-fast
+gpt-5.3-codex-spark
+gpt-5.3-codex-spark-review
+gpt-5.3-codex-xhigh
+gpt-5.3-codex-xhigh-fast
+gpt-5.4
+gpt-5.4-high
+gpt-5.4-high-fast
+gpt-5.4-low
+gpt-5.4-low-fast
+gpt-5.4-medium
+gpt-5.4-medium-fast
+gpt-5.4-mini
+gpt-5.4-mini-high
+gpt-5.4-mini-low
+gpt-5.4-mini-medium
+gpt-5.4-mini-review
+gpt-5.4-mini-xhigh
+gpt-5.4-nano
+gpt-5.4-none
+gpt-5.4-none-fast
+gpt-5.4-pro
+gpt-5.4-review
+gpt-5.4-xhigh
+gpt-5.4-xhigh-fast
+gpt-5.5
+gpt-5.5-high
+gpt-5.5-high-fast
+gpt-5.5-image
+gpt-5.5-low
+gpt-5.5-low-fast
+gpt-5.5-medium
+gpt-5.5-medium-fast
+gpt-5.5-none
+gpt-5.5-none-fast
+gpt-5.5-review
+gpt-5.5-xhigh
+gpt-5.5-xhigh-fast
+gpt-5.6-luna
+gpt-5.6-luna-review
+gpt-5.6-sol
+gpt-5.6-sol-review
+gpt-5.6-terra
+gpt-5.6-terra-review
+gpt-oss-120b
+gpt-oss-120b-250805
+gpt-oss-120b-medium
+gpt-oss:120b
+grok-2-image-1212
+grok-3
+grok-3-mini
+grok-3-thinking
+grok-4
+grok-4-fast-reasoning
+grok-4-heavy
+grok-4-mini
+grok-4-thinking
+grok-4.1-expert
+grok-4.1-fast
+grok-4.1-mini
+grok-4.1-thinking
+grok-4.2
+grok-4.20
+grok-4.3
+grok-4.5
+grok-4.5-high
+grok-4.5-low
+grok-4.5-medium
+grok-code-fast-1
+hermes-3-llama-3.1-405b
+hunyuan-t1-latest
+hunyuan-turbos-latest
+hy3-preview
+iFlow ROME
+iflow-rome-30ba3b
+image
+inclusionAI/Ling-flash-2.0
+inworld-tts-1.5-max
+inworld-tts-1.5-mini
+jina-embeddings-v2-base-code
+jina-embeddings-v2-base-en
+jina-embeddings-v3
+k3
+kilo-auto/balanced
+kilo-auto/free
+kilo-auto/frontier
+kimi-for-coding
+kimi-for-coding-highspeed
+kimi-k2
+kimi-k2-thinking
+kimi-k2-thinking-251104
+kimi-k2.5
+kimi-k2.5-thinking
+kimi-k2.6
+kimi-k2.7
+kimi-k2.7-code
+kimi-k2.7-code-highspeed
+kimi-k3
+kimi-latest
+kmodel
+kmodel_latest
+kwaipilot/kat-coder-pro
+kwaipilot/kat-coder-pro-v2.5:free
+language
+llama-3.3-70b
+llama-3.3-70b-versatile
+llama-4-scout-17b-16e-instruct
+long-form
+meta-llama/Llama-3.2-3B-Instruct
+meta-llama/Llama-3.3-70B-Instruct
+meta-llama/Llama-3.3-70B-Instruct-Turbo
+meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
+meta-llama/llama-4-maverick-17b-128e-instruct
+mimo-auto
+mimo-v2-flash
+mimo-v2-omni
+mimo-v2-pro
+mimo-v2-tts
+mimo-v2.5
+mimo-v2.5-pro
+mimo-v2.5-pro-claude
+mimo-v2.5-tts
+mimo-v2.5-tts-voiceclone
+mimo-v2.5-tts-voicedesign
+minimax-image-01
+minimax-m2.5
+minimax-m2.7
+minimax-m3
+minimaxai/minimax-m2.7
+minimaxai/minimax-m3
+mistral-embed
+mistral-large-latest
+mistral-medium-latest
+mistral-small-3-2-24b-instruct
+mmodel
+moonshot/kimi-k2.6
+moonshotai/Kimi-K2.5
+moonshotai/Kimi-K2.6
+moonshotai/Kimi-K2.7-Code
+moonshotai/kimi-k2.6
+morph-dsv4flash
+morph-minimax27-230b
+morph-qwen35-397b
+morph-qwen36-27b
+morph-v3-fast
+morph-v3-large
+n
+nanobanana-flash
+nemotron-3-super-120b-a12b
+nemotron-3-ultra-fp4
+neural
+nomic-ai/nomic-embed-text-v1.5
+nova-3
+nvidia/llama-nemotron-embed-vl-1b-v2:free
+nvidia/nemotron-3-super-120b-a12b
+nvidia/nemotron-3-super-120b-a12b:free
+nvidia/nemotron-3-ultra-550b-a55b
+nvidia/nemotron-3-ultra-550b-a55b:free
+nvidia/nv-embedqa-e5-v5
+nvidia/parakeet-ctc-1.1b-asr
+o1
+o1-mini
+o3
+o3-mini
+o3-pro
+o4-mini
+openai/dall-e-3
+openai/gpt-4.1
+openai/gpt-4o-mini-tts
+openai/gpt-5.3-codex
+openai/gpt-5.4
+openai/gpt-5.4-mini
+openai/gpt-5.5
+openai/gpt-oss-120b
+openai/o3
+openai/text-embedding-3-large
+openai/text-embedding-3-small
+openai/text-embedding-ada-002
+openai/tts-1
+openai/tts-1-hd
+performance
+perplexity/glm-5.2
+perplexity/kimi-k2.7-code
+perplexity/pplx-embed-v1-0.6b
+perplexity/pplx-embed-v1-4b
+perplexity/sonar
+poolside/laguna-s-2.1
+poolside/laguna-xs-2.1
+pplx-auto
+pplx-gemini
+pplx-gpt
+pplx-nemotron
+pplx-opus
+pplx-sonar
+pplx-sonnet
+prompt
+qmodel
+qmodel_latest
+qmodel_preview
+quality
+qwen-3-235b-a22b-instruct-2507
+qwen-3-32b
+qwen-turbo
+qwen/qwen3-32b
+qwen/qwen3-embedding-8b
+qwen/qwen3-next-80b-a3b-instruct-maas
+qwen/qwen3-next-80b-a3b-thinking-maas
+qwen3-235b
+qwen3-235b-a22b-instruct
+qwen3-235b-a22b-instruct-2507
+qwen3-235b-a22b-thinking-2507
+qwen3-32b
+qwen3-coder-480b-a35b-instruct-turbo
+qwen3-coder-flash
+qwen3-coder-next
+qwen3-coder-plus
+qwen3-max
+qwen3-max-2026-01-23
+qwen3-max-preview
+qwen3-vl-235b-a22b
+qwen3-vl-plus
+qwen3.5
+qwen3.5-27b
+qwen3.5-397b-a17b
+qwen3.5-plus
+qwen3.6-plus
+qwen3.7-max
+qwen3.7-plus
+recraftv3
+response_format
+review
+s Anthropic-native /v1/messages shim (see
+    // executors/github.js) is decided by model-NAME pattern at request time, not by
+    // a static targetFormat field here — Copilot
+seed-2-0-code-preview-260328
+seed-2-0-lite-260228
+seed-2-0-mini-260215
+seed-2-0-pro-260328
+size
+sonar
+sonar-pro
+sonic-2
+sonic-3
+speech-01-hd
+speech-01-turbo
+speech-02-hd
+speech-02-turbo
+speech-2.6-hd
+speech-2.6-turbo
+speech-2.8-hd
+speech-2.8-turbo
+stable-diffusion-v1-5
+stable-image-ultra
+standard
+stepfun/Step-3.5-Flash
+style
+swe-1.5
+swe-1.5-fast
+swe-1.6
+swe-1.6-fast
+t caught up with yet (e.g. claude-opus-4.8), and a static per-entry
+    // targetFormat would silently miss those while also double-translating requests
+    // for models that ARE listed here (chatCore.js would pre-translate to Claude
+    // shape, then the executor would translate again). Keep these as plain entries.
+    { id: 
+temperature
+text-embedding-004
+text-embedding-005
+text-embedding-3-large
+text-embedding-3-small
+text-embedding-ada-002
+text-embedding-bge-m3
+text-embedding-qwen3-8b
+text2img
+textToImage
+togethercomputer/m2-bert-80M-8k-retrieval
+tortoise-v2
+tts
+tts-1
+tts-1-hd
+tts_models/en/ljspeech/tacotron2-DDC
+ultimate
+universal-3-pro
+venice-sd35
+venice-uncensored-1-2
+vision-model
+voyage-3-large
+voyage-3.5
+voyage-3.5-lite
+voyage-code-3
+voyage-finance-2
+voyage-law-2
+voyage-multilingual-2
+whisper-1
+whisper-large-v3
+work
+xai/grok-4.20-reasoning
+z-ai/glm-5.2
+zai-glm-4.7
+zai-org-glm-5
+zai-org/GLM-5
+zai-org/GLM-5.1
+zai-org/GLM-5.2
+zai-org/glm-5-maas

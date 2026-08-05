@@ -1,0 +1,214 @@
+{
+  "source": "https://omni.tdigroup.vn/v1/models",
+  "policy": "Category × Rank × Context‑tier taxonomy using ONLY the 121 exact runtime model IDs. Provider appears at most once per combo.",
+  "explicitlyRetained": [
+    "ollama/glm-5.1",
+    "nvidia/moonshotai/kimi-k2.6",
+    "ollama/kimi-k2.6",
+    "ag/gemini-3.5-flash-high",
+    "ag/gemini-3.5-flash-low",
+    "ag/gemini-3.5-flash-extra-low"
+  ],
+  "combos": [
+    {
+      "name": "audio-mid-128k",
+      "models": [
+        "nvidia/parakeet-ctc-1.1b-asr"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
+    },
+    {
+      "name": "coding-high-1m",
+      "models": [
+        "kr/claude-opus-5",
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "nvidia/deepseek-ai/deepseek-v4-pro"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "coding-mid-1m",
+      "models": [
+        "kr/claude-sonnet-5",
+        "ag/gemini-3.5-flash-high",
+        "cc/claude-sonnet-5",
+        "nvidia/openrouter/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "coding-low-1m",
+      "models": [
+        "kr/claude-haiku-4.5",
+        "ag/gemini-3.5-flash-low",
+        "cc/claude-haiku-4-5-20251001",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "coding-mid-256k",
+      "models": [
+        "ollama/kimi-k2.7-code",
+        "nvidia/minimaxai/minimax-m3",
+        "ollama/mistral-large-3:675b-cloud"
+      ],
+      "kind": "llm",
+      "contextLength": 262144
+    },
+    {
+      "name": "coding-mid-200k",
+      "models": [
+        "nvidia/minimaxai/minimax-m2.7",
+        "kr/qwen3-coder-next"
+      ],
+      "kind": "llm",
+      "contextLength": 204800
+    },
+    {
+      "name": "coding-mid-400k",
+      "models": [
+        "cx/gpt-5.4-mini"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
+      "name": "general-high-1m",
+      "models": [
+        "kr/claude-opus-5",
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "nvidia/deepseek-ai/deepseek-v4-pro"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "general-mid-1m",
+      "models": [
+        "kr/claude-sonnet-5",
+        "ag/gemini-3.5-flash-high",
+        "cc/claude-sonnet-5",
+        "nvidia/openrouter/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "general-low-1m",
+      "models": [
+        "kr/claude-haiku-4.5",
+        "ag/gemini-3.5-flash-low",
+        "cc/claude-haiku-4-5-20251001",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "multimodal-high-1m",
+      "models": [
+        "nvidia/z-ai/glm-5.2",
+        "ag/gemini-3.6-flash-high"
+      ],
+      "kind": "llm",
+      "contextLength": 1048576
+    },
+    {
+      "name": "multimodal-mid-256k",
+      "models": [
+        "ollama/kimi-k2.7-code"
+      ],
+      "kind": "llm",
+      "contextLength": 262144
+    },
+    {
+      "name": "multimodal-low-256k",
+      "models": [
+        "nvidia/moonshotai/kimi-k2.6"
+      ],
+      "kind": "llm",
+      "contextLength": 262144
+    },
+    {
+      "name": "multimodal-low-200k",
+      "models": [
+        "kr/glm-5"
+      ],
+      "kind": "llm",
+      "contextLength": 204800
+    },
+    {
+      "name": "reasoning-high-1m",
+      "models": [
+        "kr/claude-opus-5",
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "nvidia/deepseek-ai/deepseek-v4-pro"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "reasoning-mid-1m",
+      "models": [
+        "kr/claude-sonnet-5",
+        "ag/gemini-3.5-flash-high",
+        "cc/claude-sonnet-5",
+        "nvidia/openrouter/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "reasoning-low-1m",
+      "models": [
+        "kr/claude-haiku-4.5",
+        "ag/gemini-3.5-flash-low",
+        "cc/claude-haiku-4-5-20251001",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "review-high-1m",
+      "models": [
+        "kr/claude-opus-5",
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "nvidia/deepseek-ai/deepseek-v4-pro"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "review-mid-1m",
+      "models": [
+        "kr/claude-sonnet-5",
+        "ag/gemini-3.5-flash-high",
+        "cc/claude-sonnet-5",
+        "nvidia/openrouter/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    },
+    {
+      "name": "review-low-1m",
+      "models": [
+        "kr/claude-haiku-4.5",
+        "ag/gemini-3.5-flash-low",
+        "cc/claude-haiku-4-5-20251001",
+        "ag/gemini-3.5-flash-extra-low"
+      ],
+      "kind": "llm",
+      "contextLength": 1000000
+    }
+  ]
+}
