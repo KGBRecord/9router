@@ -3,8 +3,9 @@ import fs from "node:fs";
 const sourcePath = process.argv[2] || "/tmp/omni-live-models.json";
 const outputPath = process.argv[3] || "omni-combos.mapping.json";
 const openRouterPath = process.argv[4] || "openrouter_all_models.txt";
-const prefixes = new Set(["ag", "cc", "cx", "gh", "kr", "nvidia", "ollama"]);
+const prefixes = new Set(["ag", "bzl", "cc", "cx", "gh", "kr", "nvidia", "ollama"]);
 const prohibitedModels = new Set(["cc/claude-fable-5"]);
+const bazaarlinkFreeModels = new Set(["bzl/deepseek-v4-flash", "bzl/qwen3.7-flash"]);
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
 const items = source.data.filter((item) => prefixes.has(item.id.split("/", 1)[0]));
 const openRouterContexts = new Map(
@@ -64,6 +65,19 @@ function rank(id) {
   if (id.startsWith("cx/gpt-5.5")) return "mid";
   if (id.startsWith("cx/gpt-5.4") || id.startsWith("cx/gpt-5.3")) return "low";
 
+  // BazaarLink grades.
+  if (id === "bzl/deepseek-v4-flash" || id === "bzl/qwen3.7-flash") return "mid";
+  if (id === "bzl/auto:free") return "low";
+  if (id.startsWith("bzl/gpt-5.5")) return "mid";
+  if (id.startsWith("bzl/gpt-5.4")) return "low";
+  if (id.includes("grok-4.20")) return "high";
+  if (id.includes("grok-4.3")) return "mid";
+  if (id.includes("gemini-3.1-pro")) return "mid";
+  if (id.includes("gemini-3-flash") || id.includes("gemini-3.1-flash-lite")) return "low";
+  if (id.includes("mimo-v2.5-pro")) return "high";
+  if (id.includes("mimo-v2.5")) return "mid";
+  if (id.includes("qwen3.6-plus")) return "high";
+
   // Explicit family/version grading. Keep this before generic product-tier rules
   // so a newer generation is not flattened together with an older one.
   if (id.includes("gemini-3.6-flash-high")) return "high";
@@ -107,6 +121,7 @@ function categories(item) {
   const id = item.id.toLowerCase();
   // Codex review variants are dedicated review targets, not broad fallbacks.
   if (id.startsWith("cx/") && id.endsWith("-review")) return ["review"];
+  if (id === "bzl/auto:free") return ["general"];
   if (id.includes("parakeet")) return ["multimodal"];
   if (["copilot-search", "exec-agent", "trajectory-compaction", "picker", "secondary", "tertiary", "4th"].some((term) => id.includes(term))) return ["general"];
   const result = new Set(["general"]);
@@ -118,6 +133,12 @@ function categories(item) {
     result.add("coding");
     result.add("review");
   }
+  if (id.startsWith("bzl/") && ["claude", "gpt-5", "grok", "glm", "kimi", "minimax", "mimo", "qwen"].some((term) => id.includes(term))) {
+    result.add("coding");
+  }
+  if (id.startsWith("bzl/") && rank(id) !== "low" && ["claude", "gpt-5", "grok", "gemini", "qwen"].some((term) => id.includes(term))) {
+    result.add("review");
+  }
   return [...result].sort();
 }
 
@@ -127,6 +148,10 @@ const modelContexts = {};
 for (const item of items.sort((a, b) => a.id.localeCompare(b.id))) {
   if (prohibitedModels.has(item.id)) {
     excluded.push({ id: item.id, reason: "explicitly prohibited from combos" });
+    continue;
+  }
+  if (item.id.startsWith("bzl/") && !bazaarlinkFreeModels.has(item.id)) {
+    excluded.push({ id: item.id, reason: "BazaarLink combo policy allows only the two active free models" });
     continue;
   }
   const resolved = context(item);

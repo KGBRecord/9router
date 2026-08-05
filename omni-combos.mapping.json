@@ -63,6 +63,16 @@
       "contextLength": 128000,
       "source": "runtime"
     },
+    "bzl/deepseek-v4-flash": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "deepseek/deepseek-v4-flash"
+    },
+    "bzl/qwen3.7-flash": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "qwen/qwen3.7-flash"
+    },
     "cc/claude-haiku-4-5-20251001": {
       "contextLength": 200000,
       "source": "openrouter",
@@ -278,16 +288,6 @@
       "contextLength": 200000,
       "source": "runtime"
     },
-    "kr/auto": {
-      "contextLength": 2000000,
-      "source": "openrouter",
-      "canonicalId": "openrouter/auto"
-    },
-    "kr/auto-thinking": {
-      "contextLength": 2000000,
-      "source": "openrouter",
-      "canonicalId": "openrouter/auto"
-    },
     "kr/claude-haiku-4.5": {
       "contextLength": 200000,
       "source": "openrouter",
@@ -308,25 +308,85 @@
       "source": "openrouter",
       "canonicalId": "anthropic/claude-haiku-4.5"
     },
-    "kr/claude-sonnet-4": {
-      "contextLength": 1000000,
+    "kr/claude-opus-4.5": {
+      "contextLength": 200000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-4"
+      "canonicalId": "anthropic/claude-opus-4.5"
     },
-    "kr/claude-sonnet-4-agentic": {
-      "contextLength": 1000000,
+    "kr/claude-opus-4.5-agentic": {
+      "contextLength": 200000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-4"
+      "canonicalId": "anthropic/claude-opus-4.5"
     },
-    "kr/claude-sonnet-4-thinking": {
-      "contextLength": 1000000,
+    "kr/claude-opus-4.5-thinking": {
+      "contextLength": 200000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-4"
+      "canonicalId": "anthropic/claude-opus-4.5"
     },
-    "kr/claude-sonnet-4-thinking-agentic": {
+    "kr/claude-opus-4.5-thinking-agentic": {
+      "contextLength": 200000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.5"
+    },
+    "kr/claude-opus-4.7": {
       "contextLength": 1000000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-4"
+      "canonicalId": "anthropic/claude-opus-4.7"
+    },
+    "kr/claude-opus-4.7-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.7"
+    },
+    "kr/claude-opus-4.7-thinking": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.7"
+    },
+    "kr/claude-opus-4.7-thinking-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.7"
+    },
+    "kr/claude-opus-4.8": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.8"
+    },
+    "kr/claude-opus-4.8-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.8"
+    },
+    "kr/claude-opus-4.8-thinking": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.8"
+    },
+    "kr/claude-opus-4.8-thinking-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-4.8"
+    },
+    "kr/claude-opus-5": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-5"
+    },
+    "kr/claude-opus-5-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-5"
+    },
+    "kr/claude-opus-5-thinking": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-5"
+    },
+    "kr/claude-opus-5-thinking-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-opus-5"
     },
     "kr/claude-sonnet-4.5": {
       "contextLength": 1000000,
@@ -348,98 +408,101 @@
       "source": "openrouter",
       "canonicalId": "anthropic/claude-sonnet-4.5"
     },
+    "kr/claude-sonnet-5": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-sonnet-5"
+    },
+    "kr/claude-sonnet-5-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-sonnet-5"
+    },
+    "kr/claude-sonnet-5-thinking": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-sonnet-5"
+    },
+    "kr/claude-sonnet-5-thinking-agentic": {
+      "contextLength": 1000000,
+      "source": "openrouter",
+      "canonicalId": "anthropic/claude-sonnet-5"
+    },
     "kr/deepseek-3.2": {
-      "contextLength": 200000,
-      "source": "repo-capability-fallback"
-    },
-    "kr/deepseek-3.2-agentic": {
-      "contextLength": 200000,
-      "source": "repo-capability-fallback"
-    },
-    "kr/deepseek-3.2-thinking": {
-      "contextLength": 200000,
-      "source": "repo-capability-fallback"
-    },
-    "kr/deepseek-3.2-thinking-agentic": {
-      "contextLength": 200000,
-      "source": "repo-capability-fallback"
+      "contextLength": 128000,
+      "source": "runtime"
     },
     "kr/glm-5": {
       "contextLength": 204800,
       "source": "openrouter",
       "canonicalId": "z-ai/glm-5"
     },
-    "kr/glm-5-agentic": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-luna": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "z-ai/glm-5"
+      "canonicalId": "openai/gpt-5.6-luna"
     },
-    "kr/glm-5-thinking": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-luna-agentic": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "z-ai/glm-5"
+      "canonicalId": "openai/gpt-5.6-luna"
     },
-    "kr/glm-5-thinking-agentic": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-luna-thinking": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "z-ai/glm-5"
+      "canonicalId": "openai/gpt-5.6-luna"
     },
-    "kr/minimax-m2.1": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-luna-thinking-agentic": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.1"
+      "canonicalId": "openai/gpt-5.6-luna"
     },
-    "kr/minimax-m2.1-agentic": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-sol": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.1"
+      "canonicalId": "openai/gpt-5.6-sol"
     },
-    "kr/minimax-m2.1-thinking": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-sol-agentic": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.1"
+      "canonicalId": "openai/gpt-5.6-sol"
     },
-    "kr/minimax-m2.1-thinking-agentic": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-sol-thinking": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.1"
+      "canonicalId": "openai/gpt-5.6-sol"
     },
-    "kr/minimax-m2.5": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-sol-thinking-agentic": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.5"
+      "canonicalId": "openai/gpt-5.6-sol"
     },
-    "kr/minimax-m2.5-agentic": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-terra": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.5"
+      "canonicalId": "openai/gpt-5.6-terra"
     },
-    "kr/minimax-m2.5-thinking": {
-      "contextLength": 204800,
+    "kr/gpt-5.6-terra-agentic": {
+      "contextLength": 1050000,
       "source": "openrouter",
-      "canonicalId": "minimax/minimax-m2.5"
+      "canonicalId": "openai/gpt-5.6-terra"
     },
-    "kr/minimax-m2.5-thinking-agentic": {
+    "kr/gpt-5.6-terra-thinking": {
+      "contextLength": 1050000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5.6-terra"
+    },
+    "kr/gpt-5.6-terra-thinking-agentic": {
+      "contextLength": 1050000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5.6-terra"
+    },
+    "kr/MiniMax-M2.5": {
       "contextLength": 204800,
       "source": "openrouter",
       "canonicalId": "minimax/minimax-m2.5"
     },
     "kr/qwen3-coder-next": {
-      "contextLength": 262144,
-      "source": "openrouter",
-      "canonicalId": "qwen/qwen3-coder-next"
-    },
-    "kr/qwen3-coder-next-agentic": {
-      "contextLength": 262144,
-      "source": "openrouter",
-      "canonicalId": "qwen/qwen3-coder-next"
-    },
-    "kr/qwen3-coder-next-thinking": {
-      "contextLength": 262144,
-      "source": "openrouter",
-      "canonicalId": "qwen/qwen3-coder-next"
-    },
-    "kr/qwen3-coder-next-thinking-agentic": {
       "contextLength": 262144,
       "source": "openrouter",
       "canonicalId": "qwen/qwen3-coder-next"
@@ -576,6 +639,14 @@
         "ag/gemini-3.6-flash-high",
         "cc/claude-opus-5",
         "cx/gpt-5.6-sol",
+        "kr/claude-opus-4.7-agentic",
+        "kr/claude-opus-4.7-thinking-agentic",
+        "kr/claude-opus-4.8-agentic",
+        "kr/claude-opus-4.8-thinking-agentic",
+        "kr/claude-opus-5",
+        "kr/claude-opus-5-agentic",
+        "kr/claude-opus-5-thinking",
+        "kr/claude-opus-5-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "ollama/deepseek-v4-pro"
       ],
@@ -583,15 +654,40 @@
       "contextLength": 1000000
     },
     {
+      "name": "coding-high-200k",
+      "models": [
+        "kr/claude-opus-4.5-agentic",
+        "kr/claude-opus-4.5-thinking-agentic"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
       "name": "coding-mid-1m",
       "models": [
         "ag/gemini-3.6-flash-medium",
+        "bzl/deepseek-v4-flash",
+        "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
         "cx/gpt-5.6-terra",
-        "kr/claude-sonnet-4-agentic",
-        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking-agentic",
+        "kr/claude-sonnet-5",
+        "kr/claude-sonnet-5-agentic",
+        "kr/claude-sonnet-5-thinking",
+        "kr/claude-sonnet-5-thinking-agentic",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-luna-agentic",
+        "kr/gpt-5.6-luna-thinking",
+        "kr/gpt-5.6-luna-thinking-agentic",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-sol-agentic",
+        "kr/gpt-5.6-sol-thinking",
+        "kr/gpt-5.6-sol-thinking-agentic",
+        "kr/gpt-5.6-terra",
+        "kr/gpt-5.6-terra-agentic",
+        "kr/gpt-5.6-terra-thinking",
+        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -602,9 +698,6 @@
       "name": "coding-mid-256k",
       "models": [
         "kr/qwen3-coder-next",
-        "kr/qwen3-coder-next-agentic",
-        "kr/qwen3-coder-next-thinking",
-        "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
       "kind": "llm",
@@ -640,15 +733,7 @@
       "name": "coding-low-200k",
       "models": [
         "kr/claude-haiku-4.5-agentic",
-        "kr/claude-haiku-4.5-thinking-agentic",
-        "kr/deepseek-3.2-agentic",
-        "kr/deepseek-3.2-thinking-agentic",
-        "kr/glm-5-agentic",
-        "kr/glm-5-thinking-agentic",
-        "kr/minimax-m2.1-agentic",
-        "kr/minimax-m2.1-thinking-agentic",
-        "kr/minimax-m2.5-agentic",
-        "kr/minimax-m2.5-thinking-agentic"
+        "kr/claude-haiku-4.5-thinking-agentic"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -660,6 +745,10 @@
         "cc/claude-opus-5",
         "cx/gpt-5.6-sol",
         "cx/gpt-5.6-sol-review",
+        "kr/claude-opus-5",
+        "kr/claude-opus-5-agentic",
+        "kr/claude-opus-5-thinking",
+        "kr/claude-opus-5-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "ollama/deepseek-v4-pro"
       ],
@@ -670,10 +759,28 @@
       "name": "review-mid-1m",
       "models": [
         "ag/gemini-3.6-flash-medium",
+        "bzl/deepseek-v4-flash",
+        "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
         "cx/gpt-5.5-review",
         "cx/gpt-5.6-terra",
         "cx/gpt-5.6-terra-review",
+        "kr/claude-sonnet-5",
+        "kr/claude-sonnet-5-agentic",
+        "kr/claude-sonnet-5-thinking",
+        "kr/claude-sonnet-5-thinking-agentic",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-luna-agentic",
+        "kr/gpt-5.6-luna-thinking",
+        "kr/gpt-5.6-luna-thinking-agentic",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-sol-agentic",
+        "kr/gpt-5.6-sol-thinking",
+        "kr/gpt-5.6-sol-thinking-agentic",
+        "kr/gpt-5.6-terra",
+        "kr/gpt-5.6-terra-agentic",
+        "kr/gpt-5.6-terra-thinking",
+        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -708,6 +815,18 @@
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
         "cx/gpt-5.6-sol",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.7-agentic",
+        "kr/claude-opus-4.7-thinking",
+        "kr/claude-opus-4.7-thinking-agentic",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-4.8-agentic",
+        "kr/claude-opus-4.8-thinking",
+        "kr/claude-opus-4.8-thinking-agentic",
+        "kr/claude-opus-5",
+        "kr/claude-opus-5-agentic",
+        "kr/claude-opus-5-thinking",
+        "kr/claude-opus-5-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "nvidia/minimaxai/minimax-m3",
         "nvidia/z-ai/glm-5.2",
@@ -729,6 +848,17 @@
       "contextLength": 512288
     },
     {
+      "name": "reasoning-high-200k",
+      "models": [
+        "kr/claude-opus-4.5",
+        "kr/claude-opus-4.5-agentic",
+        "kr/claude-opus-4.5-thinking",
+        "kr/claude-opus-4.5-thinking-agentic"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
       "name": "reasoning-high-128k",
       "models": [
         "ollama/nemotron-3-ultra"
@@ -740,20 +870,34 @@
       "name": "reasoning-mid-1m",
       "models": [
         "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-high",
         "ag/gemini-3.6-flash-medium",
+        "bzl/deepseek-v4-flash",
+        "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
         "cx/gpt-5.5",
         "cx/gpt-5.6-terra",
-        "kr/auto-thinking",
-        "kr/claude-sonnet-4",
-        "kr/claude-sonnet-4-agentic",
-        "kr/claude-sonnet-4-thinking",
-        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
+        "kr/claude-sonnet-5",
+        "kr/claude-sonnet-5-agentic",
+        "kr/claude-sonnet-5-thinking",
+        "kr/claude-sonnet-5-thinking-agentic",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-luna-agentic",
+        "kr/gpt-5.6-luna-thinking",
+        "kr/gpt-5.6-luna-thinking-agentic",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-sol-agentic",
+        "kr/gpt-5.6-sol-thinking",
+        "kr/gpt-5.6-sol-thinking-agentic",
+        "kr/gpt-5.6-terra",
+        "kr/gpt-5.6-terra-agentic",
+        "kr/gpt-5.6-terra-thinking",
+        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -764,9 +908,6 @@
       "name": "reasoning-mid-256k",
       "models": [
         "kr/qwen3-coder-next",
-        "kr/qwen3-coder-next-agentic",
-        "kr/qwen3-coder-next-thinking",
-        "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
       "kind": "llm",
@@ -797,7 +938,6 @@
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
@@ -833,26 +973,26 @@
       "models": [
         "cc/claude-haiku-4-5-20251001",
         "gh/claude-haiku-4.5",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-agentic",
         "kr/claude-haiku-4.5-thinking",
         "kr/claude-haiku-4.5-thinking-agentic",
-        "kr/deepseek-3.2",
-        "kr/deepseek-3.2-agentic",
-        "kr/deepseek-3.2-thinking",
-        "kr/deepseek-3.2-thinking-agentic",
         "kr/glm-5",
-        "kr/glm-5-agentic",
-        "kr/glm-5-thinking",
-        "kr/glm-5-thinking-agentic",
-        "kr/minimax-m2.1-thinking",
-        "kr/minimax-m2.1-thinking-agentic",
-        "kr/minimax-m2.5-thinking",
-        "kr/minimax-m2.5-thinking-agentic",
+        "kr/MiniMax-M2.5",
         "ollama/glm-4.7-flash",
         "ollama/glm-5",
         "ollama/minimax-m2.5"
       ],
       "kind": "llm",
       "contextLength": 200000
+    },
+    {
+      "name": "reasoning-low-128k",
+      "models": [
+        "kr/deepseek-3.2"
+      ],
+      "kind": "llm",
+      "contextLength": 128000
     },
     {
       "name": "multimodal-high-1m",
@@ -862,6 +1002,18 @@
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
         "cx/gpt-5.6-sol",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.7-agentic",
+        "kr/claude-opus-4.7-thinking",
+        "kr/claude-opus-4.7-thinking-agentic",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-4.8-agentic",
+        "kr/claude-opus-4.8-thinking",
+        "kr/claude-opus-4.8-thinking-agentic",
+        "kr/claude-opus-5",
+        "kr/claude-opus-5-agentic",
+        "kr/claude-opus-5-thinking",
+        "kr/claude-opus-5-thinking-agentic",
         "nvidia/minimaxai/minimax-m3",
         "ollama/kimi-k3",
         "ollama/minimax-m3",
@@ -879,16 +1031,49 @@
       "contextLength": 256000
     },
     {
+      "name": "multimodal-high-200k",
+      "models": [
+        "kr/claude-opus-4.5",
+        "kr/claude-opus-4.5-agentic",
+        "kr/claude-opus-4.5-thinking",
+        "kr/claude-opus-4.5-thinking-agentic"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
       "name": "multimodal-mid-1m",
       "models": [
         "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-high",
         "ag/gemini-3.6-flash-medium",
+        "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
         "cx/gpt-5.5",
         "cx/gpt-5.6-terra",
         "gh/gpt-4.1",
-        "gh/gpt-4.1-2025-04-14"
+        "gh/gpt-4.1-2025-04-14",
+        "kr/claude-sonnet-4.5",
+        "kr/claude-sonnet-4.5-agentic",
+        "kr/claude-sonnet-4.5-thinking",
+        "kr/claude-sonnet-4.5-thinking-agentic",
+        "kr/claude-sonnet-5",
+        "kr/claude-sonnet-5-agentic",
+        "kr/claude-sonnet-5-thinking",
+        "kr/claude-sonnet-5-thinking-agentic",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-luna-agentic",
+        "kr/gpt-5.6-luna-thinking",
+        "kr/gpt-5.6-luna-thinking-agentic",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-sol-agentic",
+        "kr/gpt-5.6-sol-thinking",
+        "kr/gpt-5.6-sol-thinking-agentic",
+        "kr/gpt-5.6-terra",
+        "kr/gpt-5.6-terra-agentic",
+        "kr/gpt-5.6-terra-thinking",
+        "kr/gpt-5.6-terra-thinking-agentic"
       ],
       "kind": "llm",
       "contextLength": 1000000
@@ -925,7 +1110,6 @@
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
@@ -959,7 +1143,11 @@
       "name": "multimodal-low-200k",
       "models": [
         "cc/claude-haiku-4-5-20251001",
-        "gh/claude-haiku-4.5"
+        "gh/claude-haiku-4.5",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-thinking-agentic"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -981,6 +1169,18 @@
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
         "cx/gpt-5.6-sol",
+        "kr/claude-opus-4.7",
+        "kr/claude-opus-4.7-agentic",
+        "kr/claude-opus-4.7-thinking",
+        "kr/claude-opus-4.7-thinking-agentic",
+        "kr/claude-opus-4.8",
+        "kr/claude-opus-4.8-agentic",
+        "kr/claude-opus-4.8-thinking",
+        "kr/claude-opus-4.8-thinking-agentic",
+        "kr/claude-opus-5",
+        "kr/claude-opus-5-agentic",
+        "kr/claude-opus-5-thinking",
+        "kr/claude-opus-5-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "nvidia/minimaxai/minimax-m3",
         "nvidia/z-ai/glm-5.2",
@@ -1010,6 +1210,17 @@
       "contextLength": 256000
     },
     {
+      "name": "general-high-200k",
+      "models": [
+        "kr/claude-opus-4.5",
+        "kr/claude-opus-4.5-agentic",
+        "kr/claude-opus-4.5-thinking",
+        "kr/claude-opus-4.5-thinking-agentic"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
       "name": "general-high-128k",
       "models": [
         "ollama/nemotron-3-ultra"
@@ -1021,23 +1232,36 @@
       "name": "general-mid-1m",
       "models": [
         "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-high",
         "ag/gemini-3.6-flash-medium",
+        "bzl/deepseek-v4-flash",
+        "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
         "cx/gpt-5.5",
         "cx/gpt-5.6-terra",
         "gh/gpt-4.1",
         "gh/gpt-4.1-2025-04-14",
-        "kr/auto",
-        "kr/auto-thinking",
-        "kr/claude-sonnet-4",
-        "kr/claude-sonnet-4-agentic",
-        "kr/claude-sonnet-4-thinking",
-        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
+        "kr/claude-sonnet-5",
+        "kr/claude-sonnet-5-agentic",
+        "kr/claude-sonnet-5-thinking",
+        "kr/claude-sonnet-5-thinking-agentic",
+        "kr/gpt-5.6-luna",
+        "kr/gpt-5.6-luna-agentic",
+        "kr/gpt-5.6-luna-thinking",
+        "kr/gpt-5.6-luna-thinking-agentic",
+        "kr/gpt-5.6-sol",
+        "kr/gpt-5.6-sol-agentic",
+        "kr/gpt-5.6-sol-thinking",
+        "kr/gpt-5.6-sol-thinking-agentic",
+        "kr/gpt-5.6-terra",
+        "kr/gpt-5.6-terra-agentic",
+        "kr/gpt-5.6-terra-thinking",
+        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -1048,9 +1272,6 @@
       "name": "general-mid-256k",
       "models": [
         "kr/qwen3-coder-next",
-        "kr/qwen3-coder-next-agentic",
-        "kr/qwen3-coder-next-thinking",
-        "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
       "kind": "llm",
@@ -1087,7 +1308,6 @@
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
-        "ag/gemini-3.1-pro-low",
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
@@ -1138,22 +1358,8 @@
         "kr/claude-haiku-4.5-agentic",
         "kr/claude-haiku-4.5-thinking",
         "kr/claude-haiku-4.5-thinking-agentic",
-        "kr/deepseek-3.2",
-        "kr/deepseek-3.2-agentic",
-        "kr/deepseek-3.2-thinking",
-        "kr/deepseek-3.2-thinking-agentic",
         "kr/glm-5",
-        "kr/glm-5-agentic",
-        "kr/glm-5-thinking",
-        "kr/glm-5-thinking-agentic",
-        "kr/minimax-m2.1",
-        "kr/minimax-m2.1-agentic",
-        "kr/minimax-m2.1-thinking",
-        "kr/minimax-m2.1-thinking-agentic",
-        "kr/minimax-m2.5",
-        "kr/minimax-m2.5-agentic",
-        "kr/minimax-m2.5-thinking",
-        "kr/minimax-m2.5-thinking-agentic",
+        "kr/MiniMax-M2.5",
         "ollama/glm-4.7-flash",
         "ollama/glm-5",
         "ollama/minimax-m2.5"
@@ -1168,7 +1374,8 @@
         "gh/gpt-4-0613",
         "gh/gpt-4-o-preview",
         "gh/gpt-4o-mini",
-        "gh/gpt-4o-mini-2024-07-18"
+        "gh/gpt-4o-mini-2024-07-18",
+        "kr/deepseek-3.2"
       ],
       "kind": "llm",
       "contextLength": 128000
