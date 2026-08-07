@@ -3,9 +3,42 @@ import fs from "node:fs";
 const sourcePath = process.argv[2] || "/tmp/omni-live-models.json";
 const outputPath = process.argv[3] || "omni-combos.mapping.json";
 const openRouterPath = process.argv[4] || "openrouter_all_models.txt";
-const prefixes = new Set(["ag", "bzl", "cc", "cx", "gh", "kr", "nvidia", "ollama"]);
+const prefixes = new Set(["ag", "bzl", "cc", "cu", "cx", "gh", "kr", "nvidia", "ollama"]);
 const prohibitedModels = new Set(["cc/claude-fable-5"]);
 const bazaarlinkFreeModels = new Set(["bzl/deepseek-v4-flash", "bzl/qwen3.7-flash"]);
+const cursorRepresentativeModels = new Set([
+  "cu/gpt-5.3-codex",
+  "cu/gpt-5.2",
+  "cu/cursor-grok-4.5-high",
+  "cu/composer-2.5",
+  "cu/claude-opus-5-high",
+  "cu/claude-opus-4-8-xhigh",
+  "cu/gpt-5.6-sol-medium",
+  "cu/gpt-5.5-medium",
+  "cu/claude-sonnet-5-medium",
+  "cu/kimi-k3-max",
+  "cu/gpt-5.6-terra-medium",
+  "cu/claude-4.6-sonnet-medium",
+  "cu/claude-opus-4-7-xhigh",
+  "cu/gpt-5.4-medium",
+  "cu/claude-4.6-opus-high",
+  "cu/claude-4.5-opus-high",
+  "cu/gpt-5.6-luna-medium",
+  "cu/gemini-3.6-flash-high",
+  "cu/gemini-3.6-flash-medium",
+  "cu/gemini-3.6-flash-low",
+  "cu/gemini-3.1-pro",
+  "cu/gpt-5.4-mini-medium",
+  "cu/gpt-5.4-nano-medium",
+  "cu/claude-4.5-sonnet",
+  "cu/gpt-5.1",
+  "cu/gemini-3-flash",
+  "cu/gemini-3.5-flash",
+  "cu/claude-4-sonnet",
+  "cu/gpt-5-mini",
+  "cu/kimi-k2.7-code",
+  "cu/glm-5.2-high",
+]);
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
 const items = source.data.filter((item) => prefixes.has(item.id.split("/", 1)[0]));
 const openRouterContexts = new Map(
@@ -33,13 +66,28 @@ for (const [id, length] of openRouterContexts) {
   openRouterByCanonicalName.get(name).push({ id, contextLength: length });
 }
 
+// OpenRouter describes the public OpenAI API catalogue. Provider transports can
+// expose the same model through a smaller service window, so their caps must win.
+const providerContextCaps = [
+  { pattern: /^cx\/gpt-5\.6-sol(?:-review)?$/, contextLength: 372000 },
+  { pattern: /^cx\/gpt-5\.6-(?:terra|luna)(?:-review)?$/, contextLength: 272000 },
+];
+
 function context(item) {
   const matches = openRouterByCanonicalName.get(canonicalName(item.id)) || [];
-  if (matches.length && new Set(matches.map(({ contextLength }) => contextLength)).size === 1) {
-    return { contextLength: matches[0].contextLength, source: "openrouter", canonicalId: matches[0].id };
-  }
   const live = item.capabilities?.contextWindow;
-  if (live) return { contextLength: Number(live), source: "runtime" };
+  const providerCap = providerContextCaps.find(({ pattern }) => pattern.test(item.id));
+  const openRouterMatch = matches.length && new Set(matches.map(({ contextLength }) => contextLength)).size === 1
+    ? matches[0]
+    : null;
+  const candidates = [
+    providerCap && { contextLength: providerCap.contextLength, source: "provider-service-cap" },
+    live && { contextLength: Number(live), source: "runtime" },
+    openRouterMatch && { contextLength: openRouterMatch.contextLength, source: "openrouter", canonicalId: openRouterMatch.id },
+  ].filter(Boolean);
+  if (candidates.length) {
+    return candidates.reduce((lowest, candidate) => candidate.contextLength < lowest.contextLength ? candidate : lowest);
+  }
   const id = item.id.toLowerCase();
   if (["kr/auto", "kr/auto-thinking"].includes(id)) return null;
   if (id.includes("qwen3-coder-next")) return { contextLength: 262144, source: "repo-capability-fallback" };
@@ -57,6 +105,27 @@ function contextTier(value) {
 }
 
 function rank(id) {
+  // Cursor exposes effort/thinking/fast variants. Rank the underlying family,
+  // not the transport mode suffix.
+  if (id.startsWith("cu/gpt-5.6-sol")) return "high";
+  if (id.startsWith("cu/gpt-5.6-terra")) return "mid";
+  if (id.startsWith("cu/gpt-5.6-luna")) return "low";
+  if (id.startsWith("cu/gpt-5.5")) return "mid";
+  if (/^cu\/gpt-5\.(4|3|2|1)/.test(id) || id.startsWith("cu/gpt-5-mini")) return "low";
+  if (id.startsWith("cu/claude-opus")) return "high";
+  if (id.startsWith("cu/claude-sonnet-5")) return "mid";
+  if (id.startsWith("cu/") && id.includes("sonnet")) return "low";
+  if (id.startsWith("cu/cursor-grok-4.5")) return "high";
+  if (id.startsWith("cu/composer-2.5")) return "mid";
+  if (id.startsWith("cu/gemini-3.6-flash-high")) return "high";
+  if (id.startsWith("cu/gemini-3.6-flash-medium")) return "mid";
+  if (id.startsWith("cu/gemini-3.6-flash")) return "low";
+  if (id.startsWith("cu/gemini-3.1-pro")) return "mid";
+  if (id.startsWith("cu/gemini-3")) return "low";
+  if (id.startsWith("cu/kimi-k3")) return "high";
+  if (id.startsWith("cu/kimi-k2.7")) return "mid";
+  if (id.startsWith("cu/glm-5.2")) return "high";
+
   // Codex generations and 5.6 grades form quality ranks. Review mode does not
   // change rank: Sol → high, Terra → mid, Luna → low.
   if (id.startsWith("cx/gpt-5.6-sol")) return "high";
@@ -139,6 +208,10 @@ function categories(item) {
   if (id.startsWith("bzl/") && rank(id) !== "low" && ["claude", "gpt-5", "grok", "gemini", "qwen"].some((term) => id.includes(term))) {
     result.add("review");
   }
+  if (id.startsWith("cu/")) {
+    result.add("coding");
+    if (rank(id) !== "low") result.add("review");
+  }
   return [...result].sort();
 }
 
@@ -152,6 +225,13 @@ for (const item of items.sort((a, b) => a.id.localeCompare(b.id))) {
   }
   if (item.id.startsWith("bzl/") && !bazaarlinkFreeModels.has(item.id)) {
     excluded.push({ id: item.id, reason: "BazaarLink combo policy allows only the two active free models" });
+    continue;
+  }
+  if (item.id.startsWith("cu/") && !cursorRepresentativeModels.has(item.id)) {
+    let reason = "Cursor mode duplicate; a single non-fast representative is selected per model family/grade";
+    if (item.id === "cu/default") reason = "dynamic Cursor router is not a fixed model";
+    if (item.id.includes("fable")) reason = "Fable models are explicitly prohibited from combos";
+    excluded.push({ id: item.id, reason });
     continue;
   }
   const resolved = context(item);
@@ -183,7 +263,7 @@ const combos = [...groups.entries()]
 
 fs.writeFileSync(outputPath, `${JSON.stringify({
   source: "https://omni.tdigroup.vn/v1/models",
-  contextSource: "OpenRouter canonical matches first; runtime metadata second; repository capability fallback last.",
+  contextSource: "Lowest applicable provider service cap, runtime metadata, or OpenRouter canonical context; repository capability fallback last.",
   policy: "Category × rank × context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
   excluded,
   modelContexts,

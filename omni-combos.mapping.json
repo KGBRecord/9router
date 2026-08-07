@@ -1,11 +1,659 @@
 {
   "source": "https://omni.tdigroup.vn/v1/models",
-  "contextSource": "OpenRouter canonical matches first; runtime metadata second; repository capability fallback last.",
-  "policy": "Category × rank × context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
+  "contextSource": "Lowest applicable provider service cap, runtime metadata, or OpenRouter canonical context; repository capability fallback last.",
+  "policy": "Category \u00d7 rank \u00d7 context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
   "excluded": [
     {
       "id": "cc/claude-fable-5",
       "reason": "explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-4-sonnet-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.5-opus-high-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.5-sonnet-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.6-opus-high-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.6-opus-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.6-opus-max-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-4.6-sonnet-medium-thinking",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-fable-5-high",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-low",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-max",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-medium",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-thinking-high",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-thinking-low",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-thinking-max",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-thinking-medium",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-thinking-xhigh",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-fable-5-xhigh",
+      "reason": "Fable models are explicitly prohibited from combos"
+    },
+    {
+      "id": "cu/claude-opus-4-7-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-thinking-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-7-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-thinking-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-4-8-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-opus-5-thinking-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-thinking-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-thinking-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-thinking-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-thinking-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-thinking-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/claude-sonnet-5-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/composer-2.5-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/cursor-grok-4.5-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/cursor-grok-4.5-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/cursor-grok-4.5-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/cursor-grok-4.5-medium",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/cursor-grok-4.5-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/default",
+      "reason": "dynamic Cursor router is not a fixed model"
+    },
+    {
+      "id": "cu/gemini-3.6-flash-minimal",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/glm-5.2-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.1-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.1-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.2-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.3-codex-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-mini-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-mini-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-mini-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-mini-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-nano-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-nano-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-nano-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-nano-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.4-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-extra-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-extra-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.5-none-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-none-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-luna-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-none-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-sol-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-high-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-low-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-max",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-max-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-medium-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-none",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-none-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-xhigh",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/gpt-5.6-terra-xhigh-fast",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/kimi-k3-high",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
+    },
+    {
+      "id": "cu/kimi-k3-low",
+      "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
     }
   ],
   "modelContexts": {
@@ -88,6 +736,136 @@
       "source": "openrouter",
       "canonicalId": "anthropic/claude-sonnet-5"
     },
+    "cu/claude-4-sonnet": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-4.5-opus-high": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-4.5-sonnet": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-4.6-opus-high": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-4.6-sonnet-medium": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-opus-4-7-xhigh": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-opus-4-8-xhigh": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/claude-opus-5-high": {
+      "contextLength": 1000000,
+      "source": "runtime"
+    },
+    "cu/claude-sonnet-5-medium": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/composer-2.5": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/cursor-grok-4.5-high": {
+      "contextLength": 500000,
+      "source": "runtime"
+    },
+    "cu/gemini-3-flash": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
+    "cu/gemini-3.1-pro": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
+    "cu/gemini-3.5-flash": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.5-flash"
+    },
+    "cu/gemini-3.6-flash-high": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
+    "cu/gemini-3.6-flash-low": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
+    "cu/gemini-3.6-flash-medium": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
+    "cu/glm-5.2-high": {
+      "contextLength": 200000,
+      "source": "runtime"
+    },
+    "cu/gpt-5-mini": {
+      "contextLength": 400000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5-mini"
+    },
+    "cu/gpt-5.1": {
+      "contextLength": 400000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5.1"
+    },
+    "cu/gpt-5.2": {
+      "contextLength": 400000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5.2"
+    },
+    "cu/gpt-5.3-codex": {
+      "contextLength": 400000,
+      "source": "openrouter",
+      "canonicalId": "openai/gpt-5.3-codex"
+    },
+    "cu/gpt-5.4-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.4-mini-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.4-nano-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.5-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.6-luna-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.6-sol-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/gpt-5.6-terra-medium": {
+      "contextLength": 400000,
+      "source": "runtime"
+    },
+    "cu/kimi-k2.7-code": {
+      "contextLength": 262144,
+      "source": "openrouter",
+      "canonicalId": "moonshotai/kimi-k2.7-code"
+    },
+    "cu/kimi-k3-max": {
+      "contextLength": 1048576,
+      "source": "runtime"
+    },
     "cx/gpt-5.3-codex-spark": {
       "contextLength": 400000,
       "source": "runtime"
@@ -127,34 +905,28 @@
       "canonicalId": "openai/gpt-5.5"
     },
     "cx/gpt-5.6-luna": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "contextLength": 272000,
+      "source": "provider-service-cap"
     },
     "cx/gpt-5.6-luna-review": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "contextLength": 272000,
+      "source": "provider-service-cap"
     },
     "cx/gpt-5.6-sol": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "contextLength": 372000,
+      "source": "provider-service-cap"
     },
     "cx/gpt-5.6-sol-review": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "contextLength": 372000,
+      "source": "provider-service-cap"
     },
     "cx/gpt-5.6-terra": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
+      "contextLength": 272000,
+      "source": "provider-service-cap"
     },
     "cx/gpt-5.6-terra-review": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
+      "contextLength": 272000,
+      "source": "provider-service-cap"
     },
     "gh/claude-haiku-4.5": {
       "contextLength": 200000,
@@ -288,6 +1060,16 @@
       "contextLength": 200000,
       "source": "runtime"
     },
+    "kr/auto": {
+      "contextLength": 2000000,
+      "source": "openrouter",
+      "canonicalId": "openrouter/auto"
+    },
+    "kr/auto-thinking": {
+      "contextLength": 2000000,
+      "source": "openrouter",
+      "canonicalId": "openrouter/auto"
+    },
     "kr/claude-haiku-4.5": {
       "contextLength": 200000,
       "source": "openrouter",
@@ -308,85 +1090,25 @@
       "source": "openrouter",
       "canonicalId": "anthropic/claude-haiku-4.5"
     },
-    "kr/claude-opus-4.5": {
-      "contextLength": 200000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.5"
-    },
-    "kr/claude-opus-4.5-agentic": {
-      "contextLength": 200000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.5"
-    },
-    "kr/claude-opus-4.5-thinking": {
-      "contextLength": 200000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.5"
-    },
-    "kr/claude-opus-4.5-thinking-agentic": {
-      "contextLength": 200000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.5"
-    },
-    "kr/claude-opus-4.7": {
+    "kr/claude-sonnet-4": {
       "contextLength": 1000000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.7"
+      "canonicalId": "anthropic/claude-sonnet-4"
     },
-    "kr/claude-opus-4.7-agentic": {
+    "kr/claude-sonnet-4-agentic": {
       "contextLength": 1000000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.7"
+      "canonicalId": "anthropic/claude-sonnet-4"
     },
-    "kr/claude-opus-4.7-thinking": {
+    "kr/claude-sonnet-4-thinking": {
       "contextLength": 1000000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.7"
+      "canonicalId": "anthropic/claude-sonnet-4"
     },
-    "kr/claude-opus-4.7-thinking-agentic": {
+    "kr/claude-sonnet-4-thinking-agentic": {
       "contextLength": 1000000,
       "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.7"
-    },
-    "kr/claude-opus-4.8": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.8"
-    },
-    "kr/claude-opus-4.8-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.8"
-    },
-    "kr/claude-opus-4.8-thinking": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.8"
-    },
-    "kr/claude-opus-4.8-thinking-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-4.8"
-    },
-    "kr/claude-opus-5": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-5"
-    },
-    "kr/claude-opus-5-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-5"
-    },
-    "kr/claude-opus-5-thinking": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-5"
-    },
-    "kr/claude-opus-5-thinking-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-opus-5"
+      "canonicalId": "anthropic/claude-sonnet-4"
     },
     "kr/claude-sonnet-4.5": {
       "contextLength": 1000000,
@@ -408,101 +1130,98 @@
       "source": "openrouter",
       "canonicalId": "anthropic/claude-sonnet-4.5"
     },
-    "kr/claude-sonnet-5": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-5"
-    },
-    "kr/claude-sonnet-5-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-5"
-    },
-    "kr/claude-sonnet-5-thinking": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-5"
-    },
-    "kr/claude-sonnet-5-thinking-agentic": {
-      "contextLength": 1000000,
-      "source": "openrouter",
-      "canonicalId": "anthropic/claude-sonnet-5"
-    },
     "kr/deepseek-3.2": {
-      "contextLength": 128000,
-      "source": "runtime"
+      "contextLength": 200000,
+      "source": "repo-capability-fallback"
+    },
+    "kr/deepseek-3.2-agentic": {
+      "contextLength": 200000,
+      "source": "repo-capability-fallback"
+    },
+    "kr/deepseek-3.2-thinking": {
+      "contextLength": 200000,
+      "source": "repo-capability-fallback"
+    },
+    "kr/deepseek-3.2-thinking-agentic": {
+      "contextLength": 200000,
+      "source": "repo-capability-fallback"
     },
     "kr/glm-5": {
       "contextLength": 204800,
       "source": "openrouter",
       "canonicalId": "z-ai/glm-5"
     },
-    "kr/gpt-5.6-luna": {
-      "contextLength": 1050000,
+    "kr/glm-5-agentic": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "canonicalId": "z-ai/glm-5"
     },
-    "kr/gpt-5.6-luna-agentic": {
-      "contextLength": 1050000,
+    "kr/glm-5-thinking": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "canonicalId": "z-ai/glm-5"
     },
-    "kr/gpt-5.6-luna-thinking": {
-      "contextLength": 1050000,
+    "kr/glm-5-thinking-agentic": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "canonicalId": "z-ai/glm-5"
     },
-    "kr/gpt-5.6-luna-thinking-agentic": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.1": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-luna"
+      "canonicalId": "minimax/minimax-m2.1"
     },
-    "kr/gpt-5.6-sol": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.1-agentic": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "canonicalId": "minimax/minimax-m2.1"
     },
-    "kr/gpt-5.6-sol-agentic": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.1-thinking": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "canonicalId": "minimax/minimax-m2.1"
     },
-    "kr/gpt-5.6-sol-thinking": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.1-thinking-agentic": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "canonicalId": "minimax/minimax-m2.1"
     },
-    "kr/gpt-5.6-sol-thinking-agentic": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.5": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-sol"
+      "canonicalId": "minimax/minimax-m2.5"
     },
-    "kr/gpt-5.6-terra": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.5-agentic": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
+      "canonicalId": "minimax/minimax-m2.5"
     },
-    "kr/gpt-5.6-terra-agentic": {
-      "contextLength": 1050000,
+    "kr/minimax-m2.5-thinking": {
+      "contextLength": 204800,
       "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
+      "canonicalId": "minimax/minimax-m2.5"
     },
-    "kr/gpt-5.6-terra-thinking": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
-    },
-    "kr/gpt-5.6-terra-thinking-agentic": {
-      "contextLength": 1050000,
-      "source": "openrouter",
-      "canonicalId": "openai/gpt-5.6-terra"
-    },
-    "kr/MiniMax-M2.5": {
+    "kr/minimax-m2.5-thinking-agentic": {
       "contextLength": 204800,
       "source": "openrouter",
       "canonicalId": "minimax/minimax-m2.5"
     },
     "kr/qwen3-coder-next": {
+      "contextLength": 262144,
+      "source": "openrouter",
+      "canonicalId": "qwen/qwen3-coder-next"
+    },
+    "kr/qwen3-coder-next-agentic": {
+      "contextLength": 262144,
+      "source": "openrouter",
+      "canonicalId": "qwen/qwen3-coder-next"
+    },
+    "kr/qwen3-coder-next-thinking": {
+      "contextLength": 262144,
+      "source": "openrouter",
+      "canonicalId": "qwen/qwen3-coder-next"
+    },
+    "kr/qwen3-coder-next-thinking-agentic": {
       "contextLength": 262144,
       "source": "openrouter",
       "canonicalId": "qwen/qwen3-coder-next"
@@ -638,15 +1357,9 @@
       "models": [
         "ag/gemini-3.6-flash-high",
         "cc/claude-opus-5",
-        "cx/gpt-5.6-sol",
-        "kr/claude-opus-4.7-agentic",
-        "kr/claude-opus-4.7-thinking-agentic",
-        "kr/claude-opus-4.8-agentic",
-        "kr/claude-opus-4.8-thinking-agentic",
-        "kr/claude-opus-5",
-        "kr/claude-opus-5-agentic",
-        "kr/claude-opus-5-thinking",
-        "kr/claude-opus-5-thinking-agentic",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "ollama/deepseek-v4-pro"
       ],
@@ -654,10 +1367,30 @@
       "contextLength": 1000000
     },
     {
+      "name": "coding-high-400k",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
+      "name": "coding-high-256k",
+      "models": [
+        "cx/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 372000
+    },
+    {
       "name": "coding-high-200k",
       "models": [
-        "kr/claude-opus-4.5-agentic",
-        "kr/claude-opus-4.5-thinking-agentic"
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh",
+        "cu/glm-5.2-high"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -669,25 +1402,12 @@
         "bzl/deepseek-v4-flash",
         "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
-        "cx/gpt-5.6-terra",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking-agentic",
-        "kr/claude-sonnet-5",
-        "kr/claude-sonnet-5-agentic",
-        "kr/claude-sonnet-5-thinking",
-        "kr/claude-sonnet-5-thinking-agentic",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-luna-agentic",
-        "kr/gpt-5.6-luna-thinking",
-        "kr/gpt-5.6-luna-thinking-agentic",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-sol-agentic",
-        "kr/gpt-5.6-sol-thinking",
-        "kr/gpt-5.6-sol-thinking-agentic",
-        "kr/gpt-5.6-terra",
-        "kr/gpt-5.6-terra-agentic",
-        "kr/gpt-5.6-terra-thinking",
-        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -695,10 +1415,24 @@
       "contextLength": 1000000
     },
     {
+      "name": "coding-mid-400k",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
       "name": "coding-mid-256k",
       "models": [
+        "cu/kimi-k2.7-code",
         "kr/qwen3-coder-next",
-        "ollama/kimi-k2.7-code"
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
+        "cx/gpt-5.6-terra"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -706,6 +1440,8 @@
     {
       "name": "coding-mid-200k",
       "models": [
+        "cu/claude-sonnet-5-medium",
+        "cu/composer-2.5",
         "gh/mai-code-1-flash",
         "gh/oswe-vscode-prime"
       ],
@@ -716,7 +1452,9 @@
       "name": "coding-low-1m",
       "models": [
         "ag/gemini-3.6-flash-low",
-        "cx/gpt-5.6-luna"
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low"
       ],
       "kind": "llm",
       "contextLength": 1048576
@@ -724,16 +1462,43 @@
     {
       "name": "coding-low-400k",
       "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-medium",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark"
       ],
       "kind": "llm",
       "contextLength": 400000
     },
     {
+      "name": "coding-low-256k",
+      "models": [
+        "cx/gpt-5.6-luna"
+      ],
+      "kind": "llm",
+      "contextLength": 272000
+    },
+    {
       "name": "coding-low-200k",
       "models": [
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
         "kr/claude-haiku-4.5-agentic",
-        "kr/claude-haiku-4.5-thinking-agentic"
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/deepseek-3.2-agentic",
+        "kr/deepseek-3.2-thinking-agentic",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1-agentic",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5-agentic",
+        "kr/minimax-m2.5-thinking-agentic"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -743,17 +1508,44 @@
       "models": [
         "ag/gemini-3.6-flash-high",
         "cc/claude-opus-5",
-        "cx/gpt-5.6-sol",
-        "cx/gpt-5.6-sol-review",
-        "kr/claude-opus-5",
-        "kr/claude-opus-5-agentic",
-        "kr/claude-opus-5-thinking",
-        "kr/claude-opus-5-thinking-agentic",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "ollama/deepseek-v4-pro"
       ],
       "kind": "llm",
       "contextLength": 1000000
+    },
+    {
+      "name": "review-high-400k",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
+      "name": "review-high-256k",
+      "models": [
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review"
+      ],
+      "kind": "llm",
+      "contextLength": 372000
+    },
+    {
+      "name": "review-high-200k",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh",
+        "cu/glm-5.2-high"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
     },
     {
       "name": "review-mid-1m",
@@ -762,25 +1554,9 @@
         "bzl/deepseek-v4-flash",
         "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
         "cx/gpt-5.5-review",
-        "cx/gpt-5.6-terra",
-        "cx/gpt-5.6-terra-review",
-        "kr/claude-sonnet-5",
-        "kr/claude-sonnet-5-agentic",
-        "kr/claude-sonnet-5-thinking",
-        "kr/claude-sonnet-5-thinking-agentic",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-luna-agentic",
-        "kr/gpt-5.6-luna-thinking",
-        "kr/gpt-5.6-luna-thinking-agentic",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-sol-agentic",
-        "kr/gpt-5.6-sol-thinking",
-        "kr/gpt-5.6-sol-thinking-agentic",
-        "kr/gpt-5.6-terra",
-        "kr/gpt-5.6-terra-agentic",
-        "kr/gpt-5.6-terra-thinking",
-        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -788,12 +1564,39 @@
       "contextLength": 1000000
     },
     {
+      "name": "review-mid-400k",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
+      "name": "review-mid-256k",
+      "models": [
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "cx/gpt-5.6-terra-review"
+      ],
+      "kind": "llm",
+      "contextLength": 262144
+    },
+    {
+      "name": "review-mid-200k",
+      "models": [
+        "cu/claude-sonnet-5-medium",
+        "cu/composer-2.5"
+      ],
+      "kind": "llm",
+      "contextLength": 200000
+    },
+    {
       "name": "review-low-1m",
       "models": [
         "ag/gemini-3.6-flash-low",
-        "cx/gpt-5.4-review",
-        "cx/gpt-5.6-luna",
-        "cx/gpt-5.6-luna-review"
+        "cu/gemini-3.6-flash-low",
+        "cx/gpt-5.4-review"
       ],
       "kind": "llm",
       "contextLength": 1048576
@@ -801,11 +1604,21 @@
     {
       "name": "review-low-400k",
       "models": [
+        "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark-review",
         "cx/gpt-5.4-mini-review"
       ],
       "kind": "llm",
       "contextLength": 400000
+    },
+    {
+      "name": "review-low-256k",
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review"
+      ],
+      "kind": "llm",
+      "contextLength": 272000
     },
     {
       "name": "reasoning-high-1m",
@@ -814,19 +1627,9 @@
         "ag/gemini-3.6-flash-high",
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
-        "cx/gpt-5.6-sol",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.7-agentic",
-        "kr/claude-opus-4.7-thinking",
-        "kr/claude-opus-4.7-thinking-agentic",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-4.8-agentic",
-        "kr/claude-opus-4.8-thinking",
-        "kr/claude-opus-4.8-thinking-agentic",
-        "kr/claude-opus-5",
-        "kr/claude-opus-5-agentic",
-        "kr/claude-opus-5-thinking",
-        "kr/claude-opus-5-thinking-agentic",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "nvidia/minimaxai/minimax-m3",
         "nvidia/z-ai/glm-5.2",
@@ -842,18 +1645,29 @@
     {
       "name": "reasoning-high-400k",
       "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium",
         "nvidia/nemotron-3-ultra-550b-a55b"
       ],
       "kind": "llm",
-      "contextLength": 512288
+      "contextLength": 400000
+    },
+    {
+      "name": "reasoning-high-256k",
+      "models": [
+        "cx/gpt-5.6-sol"
+      ],
+      "kind": "llm",
+      "contextLength": 372000
     },
     {
       "name": "reasoning-high-200k",
       "models": [
-        "kr/claude-opus-4.5",
-        "kr/claude-opus-4.5-agentic",
-        "kr/claude-opus-4.5-thinking",
-        "kr/claude-opus-4.5-thinking-agentic"
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh",
+        "cu/glm-5.2-high"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -876,28 +1690,18 @@
         "bzl/deepseek-v4-flash",
         "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
         "cx/gpt-5.5",
-        "cx/gpt-5.6-terra",
+        "kr/auto-thinking",
+        "kr/claude-sonnet-4",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking",
+        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
-        "kr/claude-sonnet-5",
-        "kr/claude-sonnet-5-agentic",
-        "kr/claude-sonnet-5-thinking",
-        "kr/claude-sonnet-5-thinking-agentic",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-luna-agentic",
-        "kr/gpt-5.6-luna-thinking",
-        "kr/gpt-5.6-luna-thinking-agentic",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-sol-agentic",
-        "kr/gpt-5.6-sol-thinking",
-        "kr/gpt-5.6-sol-thinking-agentic",
-        "kr/gpt-5.6-terra",
-        "kr/gpt-5.6-terra-agentic",
-        "kr/gpt-5.6-terra-thinking",
-        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -905,10 +1709,24 @@
       "contextLength": 1000000
     },
     {
+      "name": "reasoning-mid-400k",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
       "name": "reasoning-mid-256k",
       "models": [
+        "cu/kimi-k2.7-code",
         "kr/qwen3-coder-next",
-        "ollama/kimi-k2.7-code"
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
+        "cx/gpt-5.6-terra"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -916,12 +1734,13 @@
     {
       "name": "reasoning-mid-200k",
       "models": [
+        "cu/claude-sonnet-5-medium",
         "nvidia/minimaxai/minimax-m2.7",
         "ollama/glm-5.1",
         "ollama/minimax-m2.7"
       ],
       "kind": "llm",
-      "contextLength": 204800
+      "contextLength": 200000
     },
     {
       "name": "reasoning-mid-128k",
@@ -941,8 +1760,10 @@
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
-        "cx/gpt-5.4",
-        "cx/gpt-5.6-luna"
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cx/gpt-5.4"
       ],
       "kind": "llm",
       "contextLength": 1048576
@@ -950,6 +1771,14 @@
     {
       "name": "reasoning-low-400k",
       "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-medium",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark",
         "cx/gpt-5.4-mini",
         "gh/gpt-5-mini",
@@ -963,7 +1792,8 @@
       "models": [
         "nvidia/moonshotai/kimi-k2.6",
         "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6"
+        "ollama/kimi-k2.6",
+        "cx/gpt-5.6-luna"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -972,13 +1802,24 @@
       "name": "reasoning-low-200k",
       "models": [
         "cc/claude-haiku-4-5-20251001",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
         "gh/claude-haiku-4.5",
-        "kr/claude-haiku-4.5",
-        "kr/claude-haiku-4.5-agentic",
         "kr/claude-haiku-4.5-thinking",
         "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/deepseek-3.2",
+        "kr/deepseek-3.2-agentic",
+        "kr/deepseek-3.2-thinking",
+        "kr/deepseek-3.2-thinking-agentic",
         "kr/glm-5",
-        "kr/MiniMax-M2.5",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1-thinking",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5-thinking",
+        "kr/minimax-m2.5-thinking-agentic",
         "ollama/glm-4.7-flash",
         "ollama/glm-5",
         "ollama/minimax-m2.5"
@@ -987,33 +1828,15 @@
       "contextLength": 200000
     },
     {
-      "name": "reasoning-low-128k",
-      "models": [
-        "kr/deepseek-3.2"
-      ],
-      "kind": "llm",
-      "contextLength": 128000
-    },
-    {
       "name": "multimodal-high-1m",
       "models": [
         "ag/claude-opus-4-6-thinking",
         "ag/gemini-3.6-flash-high",
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
-        "cx/gpt-5.6-sol",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.7-agentic",
-        "kr/claude-opus-4.7-thinking",
-        "kr/claude-opus-4.7-thinking-agentic",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-4.8-agentic",
-        "kr/claude-opus-4.8-thinking",
-        "kr/claude-opus-4.8-thinking-agentic",
-        "kr/claude-opus-5",
-        "kr/claude-opus-5-agentic",
-        "kr/claude-opus-5-thinking",
-        "kr/claude-opus-5-thinking-agentic",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
         "nvidia/minimaxai/minimax-m3",
         "ollama/kimi-k3",
         "ollama/minimax-m3",
@@ -1023,9 +1846,19 @@
       "contextLength": 1000000
     },
     {
+      "name": "multimodal-high-400k",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
       "name": "multimodal-high-256k",
       "models": [
-        "ollama/mistral-large-3:675b-cloud"
+        "ollama/mistral-large-3:675b-cloud",
+        "cx/gpt-5.6-sol"
       ],
       "kind": "llm",
       "contextLength": 256000
@@ -1033,10 +1866,10 @@
     {
       "name": "multimodal-high-200k",
       "models": [
-        "kr/claude-opus-4.5",
-        "kr/claude-opus-4.5-agentic",
-        "kr/claude-opus-4.5-thinking",
-        "kr/claude-opus-4.5-thinking-agentic"
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -1050,38 +1883,30 @@
         "ag/gemini-3.6-flash-medium",
         "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
         "cx/gpt-5.5",
-        "cx/gpt-5.6-terra",
         "gh/gpt-4.1",
-        "gh/gpt-4.1-2025-04-14",
-        "kr/claude-sonnet-4.5",
-        "kr/claude-sonnet-4.5-agentic",
-        "kr/claude-sonnet-4.5-thinking",
-        "kr/claude-sonnet-4.5-thinking-agentic",
-        "kr/claude-sonnet-5",
-        "kr/claude-sonnet-5-agentic",
-        "kr/claude-sonnet-5-thinking",
-        "kr/claude-sonnet-5-thinking-agentic",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-luna-agentic",
-        "kr/gpt-5.6-luna-thinking",
-        "kr/gpt-5.6-luna-thinking-agentic",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-sol-agentic",
-        "kr/gpt-5.6-sol-thinking",
-        "kr/gpt-5.6-sol-thinking-agentic",
-        "kr/gpt-5.6-terra",
-        "kr/gpt-5.6-terra-agentic",
-        "kr/gpt-5.6-terra-thinking",
-        "kr/gpt-5.6-terra-thinking-agentic"
+        "gh/gpt-4.1-2025-04-14"
       ],
       "kind": "llm",
       "contextLength": 1000000
     },
     {
+      "name": "multimodal-mid-400k",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
       "name": "multimodal-mid-256k",
       "models": [
-        "ollama/kimi-k2.7-code"
+        "cu/kimi-k2.7-code",
+        "ollama/kimi-k2.7-code",
+        "cx/gpt-5.6-terra"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -1089,6 +1914,7 @@
     {
       "name": "multimodal-mid-200k",
       "models": [
+        "cu/claude-sonnet-5-medium",
         "nvidia/parakeet-ctc-1.1b-asr"
       ],
       "kind": "llm",
@@ -1113,8 +1939,10 @@
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
-        "cx/gpt-5.4",
-        "cx/gpt-5.6-luna"
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cx/gpt-5.4"
       ],
       "kind": "llm",
       "contextLength": 1048576
@@ -1122,6 +1950,13 @@
     {
       "name": "multimodal-low-400k",
       "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.4-medium",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.4-mini",
         "gh/gpt-5-mini",
         "gh/gpt-5.4-mini-free-auto"
@@ -1134,7 +1969,8 @@
       "models": [
         "nvidia/moonshotai/kimi-k2.6",
         "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6"
+        "ollama/kimi-k2.6",
+        "cx/gpt-5.6-luna"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -1143,11 +1979,10 @@
       "name": "multimodal-low-200k",
       "models": [
         "cc/claude-haiku-4-5-20251001",
-        "gh/claude-haiku-4.5",
-        "kr/claude-haiku-4.5",
-        "kr/claude-haiku-4.5-agentic",
-        "kr/claude-haiku-4.5-thinking",
-        "kr/claude-haiku-4.5-thinking-agentic"
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "gh/claude-haiku-4.5"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -1168,19 +2003,9 @@
         "ag/gemini-3.6-flash-high",
         "ag/gemini-pro-agent",
         "cc/claude-opus-5",
-        "cx/gpt-5.6-sol",
-        "kr/claude-opus-4.7",
-        "kr/claude-opus-4.7-agentic",
-        "kr/claude-opus-4.7-thinking",
-        "kr/claude-opus-4.7-thinking-agentic",
-        "kr/claude-opus-4.8",
-        "kr/claude-opus-4.8-agentic",
-        "kr/claude-opus-4.8-thinking",
-        "kr/claude-opus-4.8-thinking-agentic",
-        "kr/claude-opus-5",
-        "kr/claude-opus-5-agentic",
-        "kr/claude-opus-5-thinking",
-        "kr/claude-opus-5-thinking-agentic",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
         "nvidia/minimaxai/minimax-m3",
         "nvidia/z-ai/glm-5.2",
@@ -1196,15 +2021,18 @@
     {
       "name": "general-high-400k",
       "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium",
         "nvidia/nemotron-3-ultra-550b-a55b"
       ],
       "kind": "llm",
-      "contextLength": 512288
+      "contextLength": 400000
     },
     {
       "name": "general-high-256k",
       "models": [
-        "ollama/mistral-large-3:675b-cloud"
+        "ollama/mistral-large-3:675b-cloud",
+        "cx/gpt-5.6-sol"
       ],
       "kind": "llm",
       "contextLength": 256000
@@ -1212,10 +2040,11 @@
     {
       "name": "general-high-200k",
       "models": [
-        "kr/claude-opus-4.5",
-        "kr/claude-opus-4.5-agentic",
-        "kr/claude-opus-4.5-thinking",
-        "kr/claude-opus-4.5-thinking-agentic"
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh",
+        "cu/glm-5.2-high"
       ],
       "kind": "llm",
       "contextLength": 200000
@@ -1238,30 +2067,21 @@
         "bzl/deepseek-v4-flash",
         "bzl/qwen3.7-flash",
         "cc/claude-sonnet-5",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
         "cx/gpt-5.5",
-        "cx/gpt-5.6-terra",
         "gh/gpt-4.1",
         "gh/gpt-4.1-2025-04-14",
+        "kr/auto",
+        "kr/auto-thinking",
+        "kr/claude-sonnet-4",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking",
+        "kr/claude-sonnet-4-thinking-agentic",
         "kr/claude-sonnet-4.5",
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
-        "kr/claude-sonnet-5",
-        "kr/claude-sonnet-5-agentic",
-        "kr/claude-sonnet-5-thinking",
-        "kr/claude-sonnet-5-thinking-agentic",
-        "kr/gpt-5.6-luna",
-        "kr/gpt-5.6-luna-agentic",
-        "kr/gpt-5.6-luna-thinking",
-        "kr/gpt-5.6-luna-thinking-agentic",
-        "kr/gpt-5.6-sol",
-        "kr/gpt-5.6-sol-agentic",
-        "kr/gpt-5.6-sol-thinking",
-        "kr/gpt-5.6-sol-thinking-agentic",
-        "kr/gpt-5.6-terra",
-        "kr/gpt-5.6-terra-agentic",
-        "kr/gpt-5.6-terra-thinking",
-        "kr/gpt-5.6-terra-thinking-agentic",
         "nvidia/deepseek-ai/deepseek-v4-flash",
         "ollama/deepseek-v4-flash"
       ],
@@ -1269,10 +2089,24 @@
       "contextLength": 1000000
     },
     {
+      "name": "general-mid-400k",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium"
+      ],
+      "kind": "llm",
+      "contextLength": 400000
+    },
+    {
       "name": "general-mid-256k",
       "models": [
+        "cu/kimi-k2.7-code",
         "kr/qwen3-coder-next",
-        "ollama/kimi-k2.7-code"
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code",
+        "cx/gpt-5.6-terra"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -1280,6 +2114,8 @@
     {
       "name": "general-mid-200k",
       "models": [
+        "cu/claude-sonnet-5-medium",
+        "cu/composer-2.5",
         "gh/mai-code-1-flash",
         "gh/oswe-vscode-prime",
         "nvidia/minimaxai/minimax-m2.7",
@@ -1311,8 +2147,10 @@
         "ag/gemini-3.5-flash-extra-low",
         "ag/gemini-3.5-flash-low",
         "ag/gemini-3.6-flash-low",
-        "cx/gpt-5.4",
-        "cx/gpt-5.6-luna"
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cx/gpt-5.4"
       ],
       "kind": "llm",
       "contextLength": 1048576
@@ -1320,6 +2158,14 @@
     {
       "name": "general-low-400k",
       "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-medium",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark",
         "cx/gpt-5.4-mini",
         "gh/gpt-5-mini",
@@ -1333,7 +2179,8 @@
       "models": [
         "nvidia/moonshotai/kimi-k2.6",
         "ollama/kimi-k2.5",
-        "ollama/kimi-k2.6"
+        "ollama/kimi-k2.6",
+        "cx/gpt-5.6-luna"
       ],
       "kind": "llm",
       "contextLength": 262144
@@ -1342,6 +2189,9 @@
       "name": "general-low-200k",
       "models": [
         "cc/claude-haiku-4-5-20251001",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
         "gh/claude-haiku-4.5",
         "gh/copilot-search-a",
         "gh/copilot-search-b",
@@ -1358,8 +2208,22 @@
         "kr/claude-haiku-4.5-agentic",
         "kr/claude-haiku-4.5-thinking",
         "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/deepseek-3.2",
+        "kr/deepseek-3.2-agentic",
+        "kr/deepseek-3.2-thinking",
+        "kr/deepseek-3.2-thinking-agentic",
         "kr/glm-5",
-        "kr/MiniMax-M2.5",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1",
+        "kr/minimax-m2.1-agentic",
+        "kr/minimax-m2.1-thinking",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5",
+        "kr/minimax-m2.5-agentic",
+        "kr/minimax-m2.5-thinking",
+        "kr/minimax-m2.5-thinking-agentic",
         "ollama/glm-4.7-flash",
         "ollama/glm-5",
         "ollama/minimax-m2.5"
@@ -1374,8 +2238,7 @@
         "gh/gpt-4-0613",
         "gh/gpt-4-o-preview",
         "gh/gpt-4o-mini",
-        "gh/gpt-4o-mini-2024-07-18",
-        "kr/deepseek-3.2"
+        "gh/gpt-4o-mini-2024-07-18"
       ],
       "kind": "llm",
       "contextLength": 128000

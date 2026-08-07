@@ -11,6 +11,7 @@
 - **Dashboard**: "Token Saver Overrides" card on the provider detail page
 
 ## Fixes
+- **Combo contexts**: classify Codex GPT-5.6 by provider service caps (Sol 372k; Terra/Luna 272k) instead of the public OpenRouter 1.05M catalogue limit, preventing clients from delaying compaction until the upstream context is already exhausted
 - **Ollama Cloud**: show API-key connections on the Free Tier provider card instead of incorrectly reporting `No connections`
 - **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally
 # v0.5.50 (2026-08-05)
