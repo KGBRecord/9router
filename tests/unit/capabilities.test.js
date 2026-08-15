@@ -55,4 +55,9 @@ describe("getCapabilitiesForModel", () => {
     expect(getCapabilitiesForModel("kiro", "gpt-5.6-luna-agentic")).toMatchObject(kiroGpt56Expected);
     expect(getCapabilitiesForModel("kiro", "gpt-5.6-sol-thinking-agentic")).toMatchObject(kiroGpt56Expected);
   });
+
+  it("reports hosted GLM 5.2 as a 1M context model", () => {
+    expect(getCapabilitiesForModel("nvidia", "z-ai/glm-5.2").contextWindow).toBe(1048576);
+    expect(getCapabilitiesForModel("ollama", "glm-5.2").contextWindow).toBe(1048576);
+  });
 });

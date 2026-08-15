@@ -11,6 +11,7 @@
 - **Dashboard**: "Token Saver Overrides" card on the provider detail page
 
 ## Fixes
+- **Combo contexts**: keep OpenRouter as context authority for canonical models except Codex GPT-5.5/GPT-5.6 transport-specific windows; dynamic Kiro `auto` routers remain excluded from fixed-context combos
 - **Combo contexts**: classify Codex GPT-5.6 by provider service caps (Sol 372k; Terra/Luna 272k) instead of the public OpenRouter 1.05M catalogue limit, preventing clients from delaying compaction until the upstream context is already exhausted
 - **Ollama Cloud**: show API-key connections on the Free Tier provider card instead of incorrectly reporting `No connections`
 - **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally

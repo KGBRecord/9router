@@ -17,11 +17,20 @@ describe("category/rank/context combo generator", () => {
       data: [
         { id: "cx/gpt-5.6-sol", capabilities: { contextWindow: 400000, reasoning: true } },
         { id: "cx/gpt-5.6-terra", capabilities: { contextWindow: 400000, reasoning: true } },
+        { id: "cx/gpt-5.5", capabilities: { contextWindow: 400000, reasoning: true } },
+        { id: "kr/auto-thinking", capabilities: { contextWindow: 200000, reasoning: true } },
+        { id: "kr/claude-sonnet-4.5-thinking", capabilities: { contextWindow: 200000, reasoning: true } },
+        { id: "cu/glm-5.2-high", capabilities: { contextWindow: 200000, reasoning: true } },
+        { id: "cu/gpt-5.6-sol-medium", capabilities: { contextWindow: 400000, reasoning: true } },
       ],
     }));
     writeFileSync(openRouterPath, [
       "openai/gpt-5.6-sol 1050000",
       "openai/gpt-5.6-terra 1050000",
+      "openai/gpt-5.5 1050000",
+      "openrouter/auto 2000000",
+      "anthropic/claude-sonnet-4.5 1000000",
+      "z-ai/glm-5.2 1048576",
     ].join("\n"));
 
     execFileSync(process.execPath, [generator, livePath, outputPath, openRouterPath]);
@@ -29,10 +38,21 @@ describe("category/rank/context combo generator", () => {
 
     expect(mapping.modelContexts["cx/gpt-5.6-sol"].contextLength).toBe(372000);
     expect(mapping.modelContexts["cx/gpt-5.6-terra"].contextLength).toBe(272000);
+    expect(mapping.modelContexts["cx/gpt-5.5"].contextLength).toBe(400000);
+    expect(mapping.modelContexts["kr/claude-sonnet-4.5-thinking"].contextLength).toBe(1000000);
+    expect(mapping.modelContexts["kr/auto-thinking"]).toBeUndefined();
+    expect(mapping.modelContexts["cu/glm-5.2-high"].contextLength).toBe(1048576);
+    expect(mapping.modelContexts["cu/gpt-5.6-sol-medium"].contextLength).toBe(400000);
     expect(mapping.combos.map((combo) => combo.name)).toEqual(expect.arrayContaining([
       "coding-high-256k",
       "coding-mid-256k",
     ]));
-    expect(mapping.combos.some((combo) => combo.name.endsWith("-1m"))).toBe(false);
+    const oneMillionModels = mapping.combos
+      .filter((combo) => combo.name.endsWith("-1m"))
+      .flatMap((combo) => combo.models);
+    expect(oneMillionModels).not.toContain("cx/gpt-5.5");
+    expect(oneMillionModels).toContain("kr/claude-sonnet-4.5-thinking");
+    expect(oneMillionModels).not.toContain("cx/gpt-5.6-sol");
+    expect(oneMillionModels).not.toContain("cx/gpt-5.6-terra");
   });
 });

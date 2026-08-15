@@ -3,7 +3,7 @@ import fs from "node:fs";
 const sourcePath = process.argv[2] || "/tmp/omni-live-models.json";
 const outputPath = process.argv[3] || "omni-combos.mapping.json";
 const openRouterPath = process.argv[4] || "openrouter_all_models.txt";
-const prefixes = new Set(["ag", "bzl", "cc", "cu", "cx", "gh", "kr", "nvidia", "ollama"]);
+const prefixes = new Set(["ag", "bpm", "cc", "cf", "cu", "cx", "gh", "kr", "nvidia", "ollama"]);
 const prohibitedModels = new Set(["cc/claude-fable-5"]);
 const bazaarlinkFreeModels = new Set(["bzl/deepseek-v4-flash", "bzl/qwen3.7-flash"]);
 const cursorRepresentativeModels = new Set([
@@ -52,6 +52,7 @@ function canonicalName(id) {
   let name = id.slice(id.indexOf("/") + 1);
   if (name.includes("/")) name = name.slice(name.indexOf("/") + 1);
   name = name.replace(/-(thinking-agentic|thinking|agentic|review)$/i, "");
+  if (id.startsWith("cu/")) name = name.replace(/-(extra-high|xhigh|high|medium|low|none|max)$/i, "");
   return name
     .replace("claude-haiku-4-5-20251001", "claude-haiku-4.5")
     .replace("claude-sonnet-4-6", "claude-sonnet-4.6")
@@ -69,29 +70,27 @@ for (const [id, length] of openRouterContexts) {
 // OpenRouter describes the public OpenAI API catalogue. Provider transports can
 // expose the same model through a smaller service window, so their caps must win.
 const providerContextCaps = [
+  { pattern: /^cx\/gpt-5\.5(?:-review)?$/, contextLength: 400000 },
   { pattern: /^cx\/gpt-5\.6-sol(?:-review)?$/, contextLength: 372000 },
   { pattern: /^cx\/gpt-5\.6-(?:terra|luna)(?:-review)?$/, contextLength: 272000 },
+  { pattern: /^cu\/gpt-5\.5(?:-(?:extra-high|xhigh|high|medium|low|none|max))?(?:-fast)?$/, contextLength: 400000 },
+  { pattern: /^cu\/gpt-5\.6-(?:sol|terra|luna)(?:-(?:extra-high|xhigh|high|medium|low|none|max))?(?:-fast)?$/, contextLength: 400000 },
 ];
 
 function context(item) {
+  const id = item.id.toLowerCase();
+  if (["kr/auto", "kr/auto-thinking"].includes(id)) return null;
   const matches = openRouterByCanonicalName.get(canonicalName(item.id)) || [];
   const live = item.capabilities?.contextWindow;
   const providerCap = providerContextCaps.find(({ pattern }) => pattern.test(item.id));
   const openRouterMatch = matches.length && new Set(matches.map(({ contextLength }) => contextLength)).size === 1
     ? matches[0]
     : null;
-  const candidates = [
-    providerCap && { contextLength: providerCap.contextLength, source: "provider-service-cap" },
-    live && { contextLength: Number(live), source: "runtime" },
-    openRouterMatch && { contextLength: openRouterMatch.contextLength, source: "openrouter", canonicalId: openRouterMatch.id },
-  ].filter(Boolean);
-  if (candidates.length) {
-    return candidates.reduce((lowest, candidate) => candidate.contextLength < lowest.contextLength ? candidate : lowest);
-  }
-  const id = item.id.toLowerCase();
-  if (["kr/auto", "kr/auto-thinking"].includes(id)) return null;
+  if (providerCap) return { contextLength: providerCap.contextLength, source: "provider-service-cap" };
+  if (openRouterMatch) return { contextLength: openRouterMatch.contextLength, source: "openrouter", canonicalId: openRouterMatch.id };
+  if (live) return { contextLength: Number(live), source: "runtime" };
   if (id.includes("qwen3-coder-next")) return { contextLength: 262144, source: "repo-capability-fallback" };
-  if (["claude-sonnet-4", "claude-sonnet-4.5", "claude-haiku-4.5", "deepseek-3.2", "minimax-m2.5", "minimax-m2.1", "glm-5"].some((name) => id.includes(name))) return { contextLength: 200000, source: "repo-capability-fallback" };
+  if (["claude-sonnet-4", "claude-sonnet-4.5", "claude-haiku-4.5", "minimax-m2.5", "minimax-m2.1", "glm-5"].some((name) => id.includes(name))) return { contextLength: 200000, source: "repo-capability-fallback" };
   return null;
 }
 
@@ -236,7 +235,10 @@ for (const item of items.sort((a, b) => a.id.localeCompare(b.id))) {
   }
   const resolved = context(item);
   if (resolved === null) {
-    excluded.push({ id: item.id, reason: "dynamic router has no fixed contextLength" });
+    const reason = ["kr/auto", "kr/auto-thinking"].includes(item.id)
+      ? "dynamic router has no fixed contextLength"
+      : "no unambiguous OpenRouter context and no runtime context metadata";
+    excluded.push({ id: item.id, reason });
     continue;
   }
   const length = resolved.contextLength;
@@ -263,7 +265,7 @@ const combos = [...groups.entries()]
 
 fs.writeFileSync(outputPath, `${JSON.stringify({
   source: "https://omni.tdigroup.vn/v1/models",
-  contextSource: "Lowest applicable provider service cap, runtime metadata, or OpenRouter canonical context; repository capability fallback last.",
+  contextSource: "OpenRouter canonical context first; Codex/Cursor GPT-5.5 and GPT-5.6 transport windows override it; runtime metadata and repository fallback last.",
   policy: "Category × rank × context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
   excluded,
   modelContexts,
