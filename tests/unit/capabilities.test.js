@@ -67,4 +67,15 @@ describe("getCapabilitiesForModel", () => {
     expect(getCapabilitiesForModel("nvidia", "z-ai/glm-5.2").contextWindow).toBe(1048576);
     expect(getCapabilitiesForModel("ollama", "glm-5.2").contextWindow).toBe(1048576);
   });
+  
+  it("reports Codex GPT 6.0 Astra as a vision and thinking capable model", () => {
+    expect(getCapabilitiesForModel("codex", "gpt-6-astra")).toMatchObject({
+      vision: true,
+      reasoning: true,
+      search: true,
+      thinkingFormat: "openai",
+      contextWindow: 272000,
+      maxOutput: 128000,
+    });
+  });
 });
