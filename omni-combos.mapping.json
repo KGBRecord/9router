@@ -4,10 +4,6 @@
   "policy": "Category × rank × context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
   "excluded": [
     {
-      "id": "cc/claude-fable-5",
-      "reason": "explicitly prohibited from combos"
-    },
-    {
       "id": "cu/claude-4-sonnet-thinking",
       "reason": "Cursor mode duplicate; a single non-fast representative is selected per model family/grade"
     },
@@ -678,6 +674,18 @@
     {
       "id": "kr/deepseek-3.2-thinking-agentic",
       "reason": "no unambiguous OpenRouter context and no runtime context metadata"
+    },
+    {
+      "id": "cc/claude-fable-5",
+      "reason": "Fable family is explicitly prohibited from combos"
+    },
+    {
+      "id": "cc/claude-fable-5-1",
+      "reason": "Fable family is explicitly prohibited from combos"
+    },
+    {
+      "id": "qd/lite",
+      "reason": "dynamic Qoder routing profile is not a fixed model"
     }
   ],
   "modelContexts": {
@@ -1443,11 +1451,47 @@
     "ollama/qwen3.5:397b": {
       "contextLength": 1000000,
       "source": "runtime"
+    },
+    "ag/gemini-3.7-flash-high": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.7-flash"
+    },
+    "ag/gemini-3.7-flash-medium": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.7-flash"
+    },
+    "ag/gemini-3.7-flash-low": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.7-flash"
+    },
+    "ag/gemini-3.8-flash": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.8-flash"
+    },
+    "ag/gemini-3.8-flash-high": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.8-flash"
+    },
+    "ag/gemini-3.8-flash-medium": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.8-flash"
+    },
+    "ag/gemini-3.8-flash-low": {
+      "contextLength": 1048576,
+      "source": "openrouter",
+      "canonicalId": "google/gemini-3.8-flash"
     }
   },
   "combos": [
     {
       "name": "coding-high-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-high",
         "cc/claude-opus-5",
@@ -1456,41 +1500,44 @@
         "cu/glm-5.2-high",
         "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-pro"
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.3",
+        "ag/gemini-3.7-flash-high",
+        "ag/gemini-3.8-flash-high"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "coding-high-400k",
+      "kind": "llm",
       "models": [
         "cu/cursor-grok-4.5-high",
         "cu/gpt-5.6-sol-medium"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "coding-high-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-sol"
       ],
-      "kind": "llm",
       "contextLength": 372000
     },
     {
       "name": "coding-high-200k",
+      "kind": "llm",
       "models": [
         "cu/claude-4.5-opus-high",
         "cu/claude-4.6-opus-high",
         "cu/claude-opus-4-7-xhigh",
         "cu/claude-opus-4-8-xhigh"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "coding-mid-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-medium",
         "cc/claude-sonnet-5",
@@ -1503,23 +1550,27 @@
         "kr/claude-sonnet-4.5-agentic",
         "kr/claude-sonnet-4.5-thinking-agentic",
         "ollama/deepseek-v4-flash:0731",
-        "ollama/deepseek-v4-flash:preview"
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.8-flash",
+        "ag/gemini-3.8-flash-medium"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "coding-mid-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5.5-medium",
         "cu/gpt-5.6-terra-medium",
         "gh/gpt-5.6-luna-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "coding-mid-256k",
+      "kind": "llm",
       "models": [
         "cu/kimi-k2.7-code",
         "cx/gpt-5.6-terra",
@@ -1529,34 +1580,36 @@
         "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "coding-mid-200k",
+      "kind": "llm",
       "models": [
         "bpm/seed-2-0-code-preview-260328",
         "cu/composer-2.5",
         "gh/mai-code-1-flash",
         "gh/oswe-vscode-prime"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "coding-low-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-low",
         "cu/gemini-3-flash",
         "cu/gemini-3.5-flash",
         "cu/gemini-3.6-flash-low",
-        "cu/gpt-5.4-medium"
+        "cu/gpt-5.4-medium",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.8-flash-low"
       ],
-      "kind": "llm",
       "contextLength": 1048576
     },
     {
       "name": "coding-low-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5-mini",
         "cu/gpt-5.1",
@@ -1567,19 +1620,19 @@
         "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "coding-low-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-luna"
       ],
-      "kind": "llm",
       "contextLength": 272000
     },
     {
       "name": "coding-low-200k",
+      "kind": "llm",
       "models": [
         "cu/claude-4-sonnet",
         "cu/claude-4.5-sonnet",
@@ -1593,11 +1646,11 @@
         "kr/minimax-m2.5-agentic",
         "kr/minimax-m2.5-thinking-agentic"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "review-high-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-high",
         "cc/claude-opus-5",
@@ -1606,42 +1659,45 @@
         "cu/glm-5.2-high",
         "cu/kimi-k3-max",
         "nvidia/deepseek-ai/deepseek-v4-pro",
-        "ollama/deepseek-v4-pro"
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.3",
+        "ag/gemini-3.7-flash-high",
+        "ag/gemini-3.8-flash-high"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "review-high-400k",
+      "kind": "llm",
       "models": [
         "cu/cursor-grok-4.5-high",
         "cu/gpt-5.6-sol-medium"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "review-high-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-sol",
         "cx/gpt-5.6-sol-review"
       ],
-      "kind": "llm",
       "contextLength": 372000
     },
     {
       "name": "review-high-200k",
+      "kind": "llm",
       "models": [
         "cu/claude-4.5-opus-high",
         "cu/claude-4.6-opus-high",
         "cu/claude-opus-4-7-xhigh",
         "cu/claude-opus-4-8-xhigh"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "review-mid-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-medium",
         "cc/claude-sonnet-5",
@@ -1649,71 +1705,77 @@
         "cu/gemini-3.1-pro",
         "cu/gemini-3.6-flash-medium",
         "ollama/deepseek-v4-flash:0731",
-        "ollama/deepseek-v4-flash:preview"
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.8-flash",
+        "ag/gemini-3.8-flash-medium"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "review-mid-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5.5-medium",
         "cu/gpt-5.6-terra-medium",
         "cx/gpt-5.5-review",
         "gh/gpt-5.6-luna-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "review-mid-256k",
+      "kind": "llm",
       "models": [
         "cu/kimi-k2.7-code",
         "cx/gpt-5.6-terra",
         "cx/gpt-5.6-terra-review"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "review-mid-200k",
+      "kind": "llm",
       "models": [
         "cu/composer-2.5"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "review-low-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3.6-flash-low",
         "cu/gemini-3.6-flash-low",
-        "cx/gpt-5.4-review"
+        "cx/gpt-5.4-review",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.8-flash-low"
       ],
-      "kind": "llm",
       "contextLength": 1048576
     },
     {
       "name": "review-low-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5.6-luna-medium",
         "cx/gpt-5.3-codex-spark-review",
         "cx/gpt-5.4-mini-review"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "review-low-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-luna",
         "cx/gpt-5.6-luna-review"
       ],
-      "kind": "llm",
       "contextLength": 272000
     },
     {
       "name": "reasoning-high-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-opus-4-6-thinking",
         "ag/gemini-3.6-flash-high",
@@ -1731,50 +1793,45 @@
         "ollama/kimi-k3",
         "ollama/minimax-m3",
         "ollama/qwen3.5",
-        "ollama/qwen3.5:397b"
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3",
+        "ag/gemini-3.7-flash-high",
+        "ag/gemini-3.8-flash-high"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "reasoning-high-400k",
+      "kind": "llm",
       "models": [
         "cu/cursor-grok-4.5-high",
         "cu/gpt-5.6-sol-medium",
         "nvidia/nemotron-3-ultra-550b-a55b"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "reasoning-high-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-sol"
       ],
-      "kind": "llm",
       "contextLength": 372000
     },
     {
       "name": "reasoning-high-200k",
+      "kind": "llm",
       "models": [
         "cu/claude-4.5-opus-high",
         "cu/claude-4.6-opus-high",
         "cu/claude-opus-4-7-xhigh",
         "cu/claude-opus-4-8-xhigh"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
-      "name": "reasoning-high-128k",
-      "models": [
-        "ollama/nemotron-3-ultra"
-      ],
-      "kind": "llm",
-      "contextLength": 128000
-    },
-    {
       "name": "reasoning-mid-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-sonnet-4-6",
         "ag/gemini-3.1-pro-low",
@@ -1794,24 +1851,28 @@
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
         "ollama/deepseek-v4-flash:0731",
-        "ollama/deepseek-v4-flash:preview"
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.8-flash",
+        "ag/gemini-3.8-flash-medium"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "reasoning-mid-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5.5-medium",
         "cu/gpt-5.6-terra-medium",
         "cx/gpt-5.5",
         "gh/gpt-5.6-luna-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "reasoning-mid-256k",
+      "kind": "llm",
       "models": [
         "bpm/kimi-k2-thinking-251104",
         "cf/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
@@ -1823,36 +1884,22 @@
         "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "reasoning-mid-200k",
+      "kind": "llm",
       "models": [
         "bpm/glm-4-7-251222",
         "nvidia/minimaxai/minimax-m2.7",
         "ollama/glm-5.1",
         "ollama/minimax-m2.7"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
-      "name": "reasoning-mid-128k",
-      "models": [
-        "ag/gpt-oss-120b-medium",
-        "bpm/gpt-oss-120b-250805",
-        "cf/@cf/qwen/qwq-32b",
-        "ollama/gpt-oss:120b",
-        "ollama/gpt-oss:20b",
-        "ollama/nemotron-3-nano:30b",
-        "ollama/nemotron-3-super"
-      ],
-      "kind": "llm",
-      "contextLength": 128000
-    },
-    {
       "name": "reasoning-low-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
@@ -1863,13 +1910,15 @@
         "cu/gemini-3.5-flash",
         "cu/gemini-3.6-flash-low",
         "cu/gpt-5.4-medium",
-        "cx/gpt-5.4"
+        "cx/gpt-5.4",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.8-flash-low"
       ],
-      "kind": "llm",
       "contextLength": 1048576
     },
     {
       "name": "reasoning-low-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5-mini",
         "cu/gpt-5.1",
@@ -1883,11 +1932,11 @@
         "gh/gpt-5-mini",
         "gh/gpt-5.4-mini-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "reasoning-low-256k",
+      "kind": "llm",
       "models": [
         "cf/@cf/moonshotai/kimi-k2.5",
         "cf/@cf/moonshotai/kimi-k2.6",
@@ -1896,11 +1945,11 @@
         "ollama/kimi-k2.5",
         "ollama/kimi-k2.6"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "reasoning-low-200k",
+      "kind": "llm",
       "models": [
         "cc/claude-haiku-4-5-20251001",
         "cf/@cf/zai-org/glm-4.7-flash",
@@ -1922,11 +1971,11 @@
         "ollama/glm-5",
         "ollama/minimax-m2.5"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "multimodal-high-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-opus-4-6-thinking",
         "ag/gemini-3.6-flash-high",
@@ -1939,42 +1988,16 @@
         "ollama/kimi-k3",
         "ollama/minimax-m3",
         "ollama/qwen3.5",
-        "ollama/qwen3.5:397b"
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3",
+        "ag/gemini-3.7-flash-high",
+        "ag/gemini-3.8-flash-high"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
-      "name": "multimodal-high-400k",
-      "models": [
-        "cu/cursor-grok-4.5-high",
-        "cu/gpt-5.6-sol-medium"
-      ],
-      "kind": "llm",
-      "contextLength": 400000
-    },
-    {
-      "name": "multimodal-high-256k",
-      "models": [
-        "cx/gpt-5.6-sol",
-        "ollama/mistral-large-3:675b"
-      ],
-      "kind": "llm",
-      "contextLength": 256000
-    },
-    {
-      "name": "multimodal-high-200k",
-      "models": [
-        "cu/claude-4.5-opus-high",
-        "cu/claude-4.6-opus-high",
-        "cu/claude-opus-4-7-xhigh",
-        "cu/claude-opus-4-8-xhigh"
-      ],
-      "kind": "llm",
-      "contextLength": 200000
-    },
-    {
       "name": "multimodal-mid-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-sonnet-4-6",
         "ag/gemini-3.1-pro-low",
@@ -1985,55 +2008,36 @@
         "cu/gemini-3.1-pro",
         "cu/gemini-3.6-flash-medium",
         "gh/gpt-4.1",
-        "gh/gpt-4.1-2025-04-14"
+        "gh/gpt-4.1-2025-04-14",
+        "ollama/glm-5.3-flash",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.8-flash",
+        "ag/gemini-3.8-flash-medium"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
-      "name": "multimodal-mid-400k",
-      "models": [
-        "cu/gpt-5.5-medium",
-        "cu/gpt-5.6-terra-medium",
-        "cx/gpt-5.5",
-        "gh/gpt-5.6-luna-free-auto"
-      ],
-      "kind": "llm",
-      "contextLength": 400000
-    },
-    {
       "name": "multimodal-mid-256k",
+      "kind": "llm",
       "models": [
         "bpm/kimi-k2-thinking-251104",
         "cu/kimi-k2.7-code",
         "cx/gpt-5.6-terra",
         "ollama/kimi-k2.7-code"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "multimodal-mid-200k",
+      "kind": "llm",
       "models": [
         "nvidia/parakeet-ctc-1.1b-asr"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
-      "name": "multimodal-mid-128k",
-      "models": [
-        "gh/gpt-4o",
-        "gh/gpt-4o-2024-05-13",
-        "gh/gpt-4o-2024-08-06",
-        "gh/gpt-4o-2024-11-20",
-        "ollama/gemma4:31b"
-      ],
-      "kind": "llm",
-      "contextLength": 128000
-    },
-    {
       "name": "multimodal-low-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
@@ -2044,29 +2048,15 @@
         "cu/gemini-3.5-flash",
         "cu/gemini-3.6-flash-low",
         "cu/gpt-5.4-medium",
-        "cx/gpt-5.4"
+        "cx/gpt-5.4",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.8-flash-low"
       ],
-      "kind": "llm",
       "contextLength": 1048576
     },
     {
-      "name": "multimodal-low-400k",
-      "models": [
-        "cu/gpt-5-mini",
-        "cu/gpt-5.1",
-        "cu/gpt-5.2",
-        "cu/gpt-5.4-mini-medium",
-        "cu/gpt-5.4-nano-medium",
-        "cu/gpt-5.6-luna-medium",
-        "cx/gpt-5.4-mini",
-        "gh/gpt-5-mini",
-        "gh/gpt-5.4-mini-free-auto"
-      ],
-      "kind": "llm",
-      "contextLength": 400000
-    },
-    {
       "name": "multimodal-low-256k",
+      "kind": "llm",
       "models": [
         "cf/@cf/moonshotai/kimi-k2.5",
         "cf/@cf/moonshotai/kimi-k2.6",
@@ -2075,32 +2065,11 @@
         "ollama/kimi-k2.5",
         "ollama/kimi-k2.6"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
-      "name": "multimodal-low-200k",
-      "models": [
-        "cc/claude-haiku-4-5-20251001",
-        "cu/claude-4-sonnet",
-        "cu/claude-4.5-sonnet",
-        "cu/claude-4.6-sonnet-medium",
-        "gh/claude-haiku-4.5"
-      ],
-      "kind": "llm",
-      "contextLength": 200000
-    },
-    {
-      "name": "multimodal-low-128k",
-      "models": [
-        "gh/gpt-4o-mini",
-        "gh/gpt-4o-mini-2024-07-18"
-      ],
-      "kind": "llm",
-      "contextLength": 128000
-    },
-    {
       "name": "general-high-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-opus-4-6-thinking",
         "ag/gemini-3.6-flash-high",
@@ -2118,51 +2087,54 @@
         "ollama/kimi-k3",
         "ollama/minimax-m3",
         "ollama/qwen3.5",
-        "ollama/qwen3.5:397b"
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3",
+        "ag/gemini-3.7-flash-high",
+        "ag/gemini-3.8-flash-high"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "general-high-400k",
+      "kind": "llm",
       "models": [
         "cu/cursor-grok-4.5-high",
         "cu/gpt-5.6-sol-medium",
         "nvidia/nemotron-3-ultra-550b-a55b"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "general-high-256k",
+      "kind": "llm",
       "models": [
         "cx/gpt-5.6-sol",
         "ollama/mistral-large-3:675b"
       ],
-      "kind": "llm",
       "contextLength": 256000
     },
     {
       "name": "general-high-200k",
+      "kind": "llm",
       "models": [
         "cu/claude-4.5-opus-high",
         "cu/claude-4.6-opus-high",
         "cu/claude-opus-4-7-xhigh",
         "cu/claude-opus-4-8-xhigh"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "general-high-128k",
+      "kind": "llm",
       "models": [
         "ollama/nemotron-3-ultra"
       ],
-      "kind": "llm",
       "contextLength": 128000
     },
     {
       "name": "general-mid-1m",
+      "kind": "llm",
       "models": [
         "ag/claude-sonnet-4-6",
         "ag/gemini-3.1-pro-low",
@@ -2184,24 +2156,28 @@
         "kr/claude-sonnet-4.5-thinking",
         "kr/claude-sonnet-4.5-thinking-agentic",
         "ollama/deepseek-v4-flash:0731",
-        "ollama/deepseek-v4-flash:preview"
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.8-flash",
+        "ag/gemini-3.8-flash-medium"
       ],
-      "kind": "llm",
       "contextLength": 1000000
     },
     {
       "name": "general-mid-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5.5-medium",
         "cu/gpt-5.6-terra-medium",
         "cx/gpt-5.5",
         "gh/gpt-5.6-luna-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "general-mid-256k",
+      "kind": "llm",
       "models": [
         "bpm/kimi-k2-thinking-251104",
         "cf/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
@@ -2213,11 +2189,11 @@
         "kr/qwen3-coder-next-thinking-agentic",
         "ollama/kimi-k2.7-code"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "general-mid-200k",
+      "kind": "llm",
       "models": [
         "bpm/glm-4-7-251222",
         "bpm/seed-2-0-code-preview-260328",
@@ -2230,11 +2206,11 @@
         "ollama/glm-5.1",
         "ollama/minimax-m2.7"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "general-mid-128k",
+      "kind": "llm",
       "models": [
         "ag/gpt-oss-120b-medium",
         "bpm/gpt-oss-120b-250805",
@@ -2256,11 +2232,11 @@
         "ollama/nemotron-3-nano:30b",
         "ollama/nemotron-3-super"
       ],
-      "kind": "llm",
       "contextLength": 128000
     },
     {
       "name": "general-low-1m",
+      "kind": "llm",
       "models": [
         "ag/gemini-3-flash",
         "ag/gemini-3-flash-agent",
@@ -2271,13 +2247,15 @@
         "cu/gemini-3.5-flash",
         "cu/gemini-3.6-flash-low",
         "cu/gpt-5.4-medium",
-        "cx/gpt-5.4"
+        "cx/gpt-5.4",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.8-flash-low"
       ],
-      "kind": "llm",
       "contextLength": 1048576
     },
     {
       "name": "general-low-400k",
+      "kind": "llm",
       "models": [
         "cu/gpt-5-mini",
         "cu/gpt-5.1",
@@ -2291,11 +2269,11 @@
         "gh/gpt-5-mini",
         "gh/gpt-5.4-mini-free-auto"
       ],
-      "kind": "llm",
       "contextLength": 400000
     },
     {
       "name": "general-low-256k",
+      "kind": "llm",
       "models": [
         "cf/@cf/moonshotai/kimi-k2.5",
         "cf/@cf/moonshotai/kimi-k2.6",
@@ -2304,11 +2282,11 @@
         "ollama/kimi-k2.5",
         "ollama/kimi-k2.6"
       ],
-      "kind": "llm",
       "contextLength": 262144
     },
     {
       "name": "general-low-200k",
+      "kind": "llm",
       "models": [
         "bpm/seed-2-0-mini-260215",
         "cc/claude-haiku-4-5-20251001",
@@ -2348,11 +2326,11 @@
         "ollama/glm-5",
         "ollama/minimax-m2.5"
       ],
-      "kind": "llm",
       "contextLength": 200000
     },
     {
       "name": "general-low-128k",
+      "kind": "llm",
       "models": [
         "gh/gpt-4-0125-preview",
         "gh/gpt-4-0613",
@@ -2360,18 +2338,128 @@
         "gh/gpt-4o-mini",
         "gh/gpt-4o-mini-2024-07-18"
       ],
-      "kind": "llm",
       "contextLength": 128000
     },
     {
       "name": "general-low-16k",
+      "kind": "llm",
       "models": [
         "gh/gpt-3.5-turbo",
         "gh/gpt-3.5-turbo-0613",
         "gh/gpt-4"
       ],
-      "kind": "llm",
       "contextLength": 4095
+    },
+    {
+      "name": "reasoning-high-128k",
+      "kind": "llm",
+      "models": [
+        "ollama/nemotron-3-ultra"
+      ],
+      "contextLength": 128000
+    },
+    {
+      "name": "reasoning-mid-128k",
+      "kind": "llm",
+      "models": [
+        "ag/gpt-oss-120b-medium",
+        "bpm/gpt-oss-120b-250805",
+        "cf/@cf/qwen/qwq-32b",
+        "ollama/gpt-oss:120b",
+        "ollama/gpt-oss:20b",
+        "ollama/nemotron-3-nano:30b",
+        "ollama/nemotron-3-super"
+      ],
+      "contextLength": 128000
+    },
+    {
+      "name": "multimodal-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "contextLength": 400000
+    },
+    {
+      "name": "multimodal-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol",
+        "ollama/mistral-large-3:675b"
+      ],
+      "contextLength": 256000
+    },
+    {
+      "name": "multimodal-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000
+    },
+    {
+      "name": "multimodal-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "cx/gpt-5.5",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000
+    },
+    {
+      "name": "multimodal-mid-128k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-4o",
+        "gh/gpt-4o-2024-05-13",
+        "gh/gpt-4o-2024-08-06",
+        "gh/gpt-4o-2024-11-20",
+        "ollama/gemma4:31b"
+      ],
+      "contextLength": 128000
+    },
+    {
+      "name": "multimodal-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.4-mini",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "contextLength": 400000
+    },
+    {
+      "name": "multimodal-low-200k",
+      "kind": "llm",
+      "models": [
+        "cc/claude-haiku-4-5-20251001",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "gh/claude-haiku-4.5"
+      ],
+      "contextLength": 200000
+    },
+    {
+      "name": "multimodal-low-128k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-4o-mini",
+        "gh/gpt-4o-mini-2024-07-18"
+      ],
+      "contextLength": 128000
     }
   ]
 }

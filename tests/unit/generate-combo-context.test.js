@@ -55,4 +55,49 @@ describe("category/rank/context combo generator", () => {
     expect(oneMillionModels).not.toContain("cx/gpt-5.6-sol");
     expect(oneMillionModels).not.toContain("cx/gpt-5.6-terra");
   });
+
+  it("places Gemini 3.7/3.8 by effort rank and excludes all Fable and Qoder lite models", () => {
+    const dir = mkdtempSync(join(tmpdir(), "9router-combos-new-models-"));
+    const livePath = join(dir, "models.json");
+    const openRouterPath = join(dir, "openrouter.txt");
+    const outputPath = join(dir, "mapping.json");
+
+    writeFileSync(livePath, JSON.stringify({
+      data: [
+        { id: "ag/gemini-3.7-flash-high", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.7-flash-medium", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.7-flash-low", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.8-flash", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.8-flash-high", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.8-flash-medium", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "ag/gemini-3.8-flash-low", capabilities: { contextWindow: 1048576, reasoning: true, vision: true } },
+        { id: "cc/claude-fable-5-1", capabilities: { contextWindow: 1000000, reasoning: true, vision: true } },
+        { id: "qd/lite", capabilities: { contextWindow: 200000 } },
+      ],
+    }));
+    writeFileSync(openRouterPath, "google/gemini-3.7-flash 1048576\ngoogle/gemini-3.8-flash 1048576\nanthropic/claude-fable-5.1 1000000\n");
+
+    execFileSync(process.execPath, [generator, livePath, outputPath, openRouterPath]);
+    const mapping = JSON.parse(readFileSync(outputPath, "utf8"));
+    const modelsByCombo = Object.fromEntries(mapping.combos.map((combo) => [combo.name, combo.models]));
+    const allModels = mapping.combos.flatMap((combo) => combo.models);
+
+    expect(modelsByCombo["coding-high-1m"]).toContain("ag/gemini-3.8-flash-high");
+    expect(modelsByCombo["review-high-1m"]).toContain("ag/gemini-3.7-flash-high");
+    expect(modelsByCombo["coding-mid-1m"]).toEqual(expect.arrayContaining([
+      "ag/gemini-3.7-flash-medium",
+      "ag/gemini-3.8-flash",
+      "ag/gemini-3.8-flash-medium",
+    ]));
+    expect(modelsByCombo["reasoning-low-1m"]).toEqual(expect.arrayContaining([
+      "ag/gemini-3.7-flash-low",
+      "ag/gemini-3.8-flash-low",
+    ]));
+    expect(allModels.some((id) => id.includes("fable"))).toBe(false);
+    expect(allModels).not.toContain("qd/lite");
+    expect(mapping.excluded).toEqual(expect.arrayContaining([
+      { id: "cc/claude-fable-5-1", reason: "Fable family is explicitly prohibited from combos" },
+      { id: "qd/lite", reason: "dynamic Qoder routing profile is not a fixed model" },
+    ]));
+  });
 });

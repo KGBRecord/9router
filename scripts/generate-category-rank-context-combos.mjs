@@ -3,8 +3,7 @@ import fs from "node:fs";
 const sourcePath = process.argv[2] || "/tmp/omni-live-models.json";
 const outputPath = process.argv[3] || "omni-combos.mapping.json";
 const openRouterPath = process.argv[4] || "openrouter_all_models.txt";
-const prefixes = new Set(["ag", "bpm", "cc", "cf", "cu", "cx", "gh", "kr", "nvidia", "ollama"]);
-const prohibitedModels = new Set(["cc/claude-fable-5"]);
+const prohibitedModelPatterns = [/(?:^|[-/])fable(?:-|$)/i];
 const bazaarlinkFreeModels = new Set(["bzl/deepseek-v4-flash", "bzl/qwen3.7-flash"]);
 const cursorRepresentativeModels = new Set([
   "cu/gpt-5.3-codex",
@@ -40,7 +39,7 @@ const cursorRepresentativeModels = new Set([
   "cu/glm-5.2-high",
 ]);
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
-const items = source.data.filter((item) => prefixes.has(item.id.split("/", 1)[0]));
+const items = source.data.filter((item) => typeof item.id === "string" && item.id.includes("/"));
 const openRouterContexts = new Map(
   fs.readFileSync(openRouterPath, "utf8").trim().split("\n").map((line) => {
     const separator = line.lastIndexOf(" ");
@@ -148,6 +147,10 @@ function rank(id) {
 
   // Explicit family/version grading. Keep this before generic product-tier rules
   // so a newer generation is not flattened together with an older one.
+  if (/gemini-3\.[678]-flash-high/.test(id)) return "high";
+  if (/gemini-3\.[678]-flash-medium/.test(id)) return "mid";
+  if (/gemini-3\.[678]-flash-low/.test(id)) return "low";
+  if (/gemini-3\.[78]-flash(?:$|\/)/.test(id)) return "mid";
   if (id.includes("gemini-3.6-flash-high")) return "high";
   if (id.includes("gemini-3.6-flash-medium")) return "mid";
   if (id.includes("gemini-3.6-flash-low")) return "low";
@@ -197,7 +200,7 @@ function categories(item) {
   if (id.includes("-review")) result.add("review");
   if (item.capabilities?.reasoning || ["thinking", "opus", "sonnet", "glm", "deepseek", "qwen", "gpt-5", "gemini"].some((term) => id.includes(term))) result.add("reasoning");
   if (item.capabilities?.vision || ["image", "gemini", "kimi"].some((term) => id.includes(term))) result.add("multimodal");
-  if (["claude-opus-5", "claude-sonnet-5", "gpt-5.6", "deepseek-v4", "gemini-3.6-flash"].some((term) => id.includes(term))) {
+  if (["claude-opus-5", "claude-sonnet-5", "gpt-5.6", "deepseek-v4", "gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.8-flash"].some((term) => id.includes(term))) {
     result.add("coding");
     result.add("review");
   }
@@ -218,8 +221,16 @@ const groups = new Map();
 const excluded = [];
 const modelContexts = {};
 for (const item of items.sort((a, b) => a.id.localeCompare(b.id))) {
-  if (prohibitedModels.has(item.id)) {
-    excluded.push({ id: item.id, reason: "explicitly prohibited from combos" });
+  if (prohibitedModelPatterns.some((pattern) => pattern.test(item.id))) {
+    excluded.push({ id: item.id, reason: "Fable family is explicitly prohibited from combos" });
+    continue;
+  }
+  if (item.id === "qd/lite") {
+    excluded.push({ id: item.id, reason: "dynamic Qoder routing profile is not a fixed model" });
+    continue;
+  }
+  if (item.kind && item.kind !== "llm") {
+    excluded.push({ id: item.id, reason: `${item.kind} model is not eligible for LLM combos` });
     continue;
   }
   if (item.id.startsWith("bzl/") && !bazaarlinkFreeModels.has(item.id)) {

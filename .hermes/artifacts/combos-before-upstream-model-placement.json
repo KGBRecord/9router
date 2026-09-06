@@ -1,0 +1,1142 @@
+{
+  "combos": [
+    {
+      "id": "a8159013-ed46-4f7c-94fd-7fc332ea30ab",
+      "name": "coding-high-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/glm-5.2-high",
+        "cu/kimi-k3-max",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.3"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:43.829Z",
+      "updatedAt": "2026-09-01T23:33:10.151Z"
+    },
+    {
+      "id": "a5050fa2-18b4-49ed-9604-464faa474402",
+      "name": "coding-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:44.027Z",
+      "updatedAt": "2026-08-11T04:54:06.602Z"
+    },
+    {
+      "id": "41e94f22-a594-450c-a53b-45cc8d02eb00",
+      "name": "coding-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol"
+      ],
+      "contextLength": 372000,
+      "createdAt": "2026-08-10T06:48:44.246Z",
+      "updatedAt": "2026-08-11T04:54:06.722Z"
+    },
+    {
+      "id": "1d17432d-4f2f-4358-b6ab-75d6bcb6186e",
+      "name": "coding-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:44.514Z",
+      "updatedAt": "2026-08-11T04:54:06.954Z"
+    },
+    {
+      "id": "e54ec2ce-5c23-44d4-8adb-a73aafe3b0cd",
+      "name": "coding-mid-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-sonnet-5",
+        "cf/@cf/qwen/qwen2.5-coder-32b-instruct",
+        "cu/claude-sonnet-5-medium",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking-agentic",
+        "kr/claude-sonnet-4.5-agentic",
+        "kr/claude-sonnet-4.5-thinking-agentic",
+        "ollama/deepseek-v4-flash:0731",
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:44.754Z",
+      "updatedAt": "2026-09-01T23:34:38.279Z"
+    },
+    {
+      "id": "e72ceb10-3829-410e-9202-0a46aa4189e6",
+      "name": "coding-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:44.886Z",
+      "updatedAt": "2026-08-11T04:54:07.275Z"
+    },
+    {
+      "id": "bb9fb855-2d38-4a9a-9a4e-37d3f5776221",
+      "name": "coding-mid-256k",
+      "kind": "llm",
+      "models": [
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:48:45.054Z",
+      "updatedAt": "2026-08-11T04:54:07.503Z"
+    },
+    {
+      "id": "459bf4ba-9de9-4d5d-9b80-43d257ae531e",
+      "name": "coding-mid-200k",
+      "kind": "llm",
+      "models": [
+        "bpm/seed-2-0-code-preview-260328",
+        "cu/composer-2.5",
+        "gh/mai-code-1-flash",
+        "gh/oswe-vscode-prime"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:45.246Z",
+      "updatedAt": "2026-08-11T04:54:07.692Z"
+    },
+    {
+      "id": "5f3d92e2-2f9f-4b91-b4a6-b386746e14d0",
+      "name": "coding-low-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-low",
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cu/gpt-5.4-medium"
+      ],
+      "contextLength": 1048576,
+      "createdAt": "2026-08-10T06:48:45.510Z",
+      "updatedAt": "2026-08-11T04:54:07.800Z"
+    },
+    {
+      "id": "675600c5-52cb-44d9-ab86-48ad70a7624d",
+      "name": "coding-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.3-codex-spark"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:45.678Z",
+      "updatedAt": "2026-08-11T04:54:07.983Z"
+    },
+    {
+      "id": "b0e0f8c0-b1a2-4a41-b8f7-745fd91f7f9c",
+      "name": "coding-low-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-luna"
+      ],
+      "contextLength": 272000,
+      "createdAt": "2026-08-10T06:48:45.890Z",
+      "updatedAt": "2026-08-11T04:54:08.175Z"
+    },
+    {
+      "id": "dcd4ebbb-1b6b-4a67-a1c1-f086cbf037fc",
+      "name": "coding-low-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1-agentic",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5-agentic",
+        "kr/minimax-m2.5-thinking-agentic"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:46.046Z",
+      "updatedAt": "2026-08-11T04:54:08.283Z"
+    },
+    {
+      "id": "6eadc2dd-2b49-4967-b854-78d28678418c",
+      "name": "review-high-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-high",
+        "cc/claude-opus-5",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/glm-5.2-high",
+        "cu/kimi-k3-max",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.3"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:46.206Z",
+      "updatedAt": "2026-09-01T23:33:25.423Z"
+    },
+    {
+      "id": "1c3851ff-540a-476a-9ca2-f09f08cd2df6",
+      "name": "review-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:46.446Z",
+      "updatedAt": "2026-08-11T04:54:08.665Z"
+    },
+    {
+      "id": "de6f1f7f-bb76-41ea-aea5-737557d189b5",
+      "name": "review-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol",
+        "cx/gpt-5.6-sol-review"
+      ],
+      "contextLength": 372000,
+      "createdAt": "2026-08-10T06:48:46.647Z",
+      "updatedAt": "2026-08-11T04:54:08.774Z"
+    },
+    {
+      "id": "61bd4117-deeb-465f-900f-452accc6f70f",
+      "name": "review-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:46.795Z",
+      "updatedAt": "2026-08-11T04:54:08.888Z"
+    },
+    {
+      "id": "ce1a322d-0880-4b67-84f1-1f8b9ccae972",
+      "name": "review-mid-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-sonnet-5",
+        "cu/claude-sonnet-5-medium",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "ollama/deepseek-v4-flash:0731",
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:46.966Z",
+      "updatedAt": "2026-09-01T23:34:46.970Z"
+    },
+    {
+      "id": "9eda30a1-acd6-4a64-8d9d-16c3296865ef",
+      "name": "review-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "cx/gpt-5.5-review",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:47.165Z",
+      "updatedAt": "2026-08-11T04:54:09.294Z"
+    },
+    {
+      "id": "ec946032-59c6-4f5e-895b-76a03101ad77",
+      "name": "review-mid-256k",
+      "kind": "llm",
+      "models": [
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "cx/gpt-5.6-terra-review"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:48:47.334Z",
+      "updatedAt": "2026-08-11T04:54:09.625Z"
+    },
+    {
+      "id": "4456098f-70f4-46cb-9b1a-49fb1f2b6e0a",
+      "name": "review-mid-200k",
+      "kind": "llm",
+      "models": [
+        "cu/composer-2.5"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:47.614Z",
+      "updatedAt": "2026-08-11T04:54:09.790Z"
+    },
+    {
+      "id": "e2cbf54d-9699-431f-8086-e28f55212ab5",
+      "name": "review-low-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3.6-flash-low",
+        "cu/gemini-3.6-flash-low",
+        "cx/gpt-5.4-review"
+      ],
+      "contextLength": 1048576,
+      "createdAt": "2026-08-10T06:48:50.008Z",
+      "updatedAt": "2026-08-11T04:54:09.914Z"
+    },
+    {
+      "id": "0b3e5e17-90cd-4284-a7fd-dccc27d3ce24",
+      "name": "review-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.3-codex-spark-review",
+        "cx/gpt-5.4-mini-review"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:53.094Z",
+      "updatedAt": "2026-08-11T04:54:10.127Z"
+    },
+    {
+      "id": "6a5d2e64-8a18-4562-9157-718319027be3",
+      "name": "review-low-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-luna",
+        "cx/gpt-5.6-luna-review"
+      ],
+      "contextLength": 272000,
+      "createdAt": "2026-08-10T06:48:54.140Z",
+      "updatedAt": "2026-08-11T04:54:10.313Z"
+    },
+    {
+      "id": "ae12d8af-8130-44fd-89ea-8da15066c533",
+      "name": "reasoning-high-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-pro-agent",
+        "cc/claude-opus-5",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/glm-5.2-high",
+        "cu/kimi-k3-max",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "nvidia/minimaxai/minimax-m3",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.2",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5",
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:55.149Z",
+      "updatedAt": "2026-09-01T23:33:44.745Z"
+    },
+    {
+      "id": "88c36333-783a-45a9-b3b3-57492bb051d3",
+      "name": "reasoning-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium",
+        "nvidia/nemotron-3-ultra-550b-a55b"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:55.498Z",
+      "updatedAt": "2026-08-11T04:54:10.640Z"
+    },
+    {
+      "id": "f2c446e1-ce7b-435a-b7cf-7cbc8da979f4",
+      "name": "reasoning-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol"
+      ],
+      "contextLength": 372000,
+      "createdAt": "2026-08-10T06:48:55.793Z",
+      "updatedAt": "2026-08-11T04:54:10.842Z"
+    },
+    {
+      "id": "74963a0b-df8e-437c-90fe-a43698b9fdaa",
+      "name": "reasoning-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:56.402Z",
+      "updatedAt": "2026-08-11T04:54:10.956Z"
+    },
+    {
+      "id": "fa0e38b3-d22c-49f8-a69d-27f9c691195e",
+      "name": "reasoning-mid-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-sonnet-5",
+        "cf/@cf/qwen/qwen2.5-coder-32b-instruct",
+        "cu/claude-sonnet-5-medium",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "kr/claude-sonnet-4",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking",
+        "kr/claude-sonnet-4-thinking-agentic",
+        "kr/claude-sonnet-4.5",
+        "kr/claude-sonnet-4.5-agentic",
+        "kr/claude-sonnet-4.5-thinking",
+        "kr/claude-sonnet-4.5-thinking-agentic",
+        "ollama/deepseek-v4-flash:0731",
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:48:57.114Z",
+      "updatedAt": "2026-09-01T23:34:57.015Z"
+    },
+    {
+      "id": "c1768020-a100-48e6-8aac-747a2fe751f5",
+      "name": "reasoning-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "cx/gpt-5.5",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:48:57.430Z",
+      "updatedAt": "2026-08-11T04:54:11.480Z"
+    },
+    {
+      "id": "b798ed5c-2dec-499d-9111-d350e8178a85",
+      "name": "reasoning-mid-256k",
+      "kind": "llm",
+      "models": [
+        "bpm/kimi-k2-thinking-251104",
+        "cf/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:48:57.833Z",
+      "updatedAt": "2026-08-11T04:54:11.689Z"
+    },
+    {
+      "id": "4a6292bf-bdb9-4592-85a8-172d6461fbed",
+      "name": "reasoning-mid-200k",
+      "kind": "llm",
+      "models": [
+        "bpm/glm-4-7-251222",
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/glm-5.1",
+        "ollama/minimax-m2.7"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:48:58.246Z",
+      "updatedAt": "2026-08-11T04:54:11.884Z"
+    },
+    {
+      "id": "86b492d6-912c-482e-8709-04cd56c17bc4",
+      "name": "reasoning-low-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-low",
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cu/gpt-5.4-medium",
+        "cx/gpt-5.4"
+      ],
+      "contextLength": 1048576,
+      "createdAt": "2026-08-10T06:49:00.615Z",
+      "updatedAt": "2026-08-11T04:54:12.201Z"
+    },
+    {
+      "id": "3b4a8812-a030-4fd0-bcad-8cb64e6589ff",
+      "name": "reasoning-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.4-mini",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:49:01.733Z",
+      "updatedAt": "2026-08-11T04:54:12.408Z"
+    },
+    {
+      "id": "18658799-fd84-42be-aa84-f5816ec2e9d0",
+      "name": "reasoning-low-256k",
+      "kind": "llm",
+      "models": [
+        "cf/@cf/moonshotai/kimi-k2.5",
+        "cf/@cf/moonshotai/kimi-k2.6",
+        "cx/gpt-5.6-luna",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:49:02.367Z",
+      "updatedAt": "2026-08-11T04:54:12.658Z"
+    },
+    {
+      "id": "dc26a803-fcf5-4307-921d-837aff969bc0",
+      "name": "reasoning-low-200k",
+      "kind": "llm",
+      "models": [
+        "cc/claude-haiku-4-5-20251001",
+        "cf/@cf/zai-org/glm-4.7-flash",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "gh/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/glm-5",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1-thinking",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5-thinking",
+        "kr/minimax-m2.5-thinking-agentic",
+        "ollama/glm-4.7-flash",
+        "ollama/glm-5",
+        "ollama/minimax-m2.5"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:49:04.447Z",
+      "updatedAt": "2026-08-11T04:54:12.860Z"
+    },
+    {
+      "id": "d0d30991-bbab-4313-91cd-5726311d08fa",
+      "name": "multimodal-high-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-pro-agent",
+        "cc/claude-opus-5",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/kimi-k3-max",
+        "nvidia/minimaxai/minimax-m3",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5",
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:49:08.118Z",
+      "updatedAt": "2026-09-01T23:34:10.787Z"
+    },
+    {
+      "id": "5d874466-1c40-44a7-8851-918480188a7d",
+      "name": "multimodal-mid-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-sonnet-5",
+        "cu/claude-sonnet-5-medium",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "gh/gpt-4.1",
+        "gh/gpt-4.1-2025-04-14",
+        "ollama/glm-5.3-flash"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:49:09.566Z",
+      "updatedAt": "2026-09-01T23:35:04.894Z"
+    },
+    {
+      "id": "fd7e7161-3e27-47ce-8dab-079be844e343",
+      "name": "multimodal-mid-256k",
+      "kind": "llm",
+      "models": [
+        "bpm/kimi-k2-thinking-251104",
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "ollama/kimi-k2.7-code"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:49:10.725Z",
+      "updatedAt": "2026-08-11T04:54:13.993Z"
+    },
+    {
+      "id": "b420c571-2eb3-43e1-9654-615a41a865fa",
+      "name": "multimodal-mid-200k",
+      "kind": "llm",
+      "models": [
+        "nvidia/parakeet-ctc-1.1b-asr"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:49:11.126Z",
+      "updatedAt": "2026-08-11T04:54:14.104Z"
+    },
+    {
+      "id": "d64c0994-7870-48f0-bb74-848020d79296",
+      "name": "multimodal-low-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-low",
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cu/gpt-5.4-medium",
+        "cx/gpt-5.4"
+      ],
+      "contextLength": 1048576,
+      "createdAt": "2026-08-10T06:49:12.205Z",
+      "updatedAt": "2026-08-11T04:54:14.469Z"
+    },
+    {
+      "id": "7e22d3bf-19f9-4557-afc8-16fdba0b1894",
+      "name": "multimodal-low-256k",
+      "kind": "llm",
+      "models": [
+        "cf/@cf/moonshotai/kimi-k2.5",
+        "cf/@cf/moonshotai/kimi-k2.6",
+        "cx/gpt-5.6-luna",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:49:12.771Z",
+      "updatedAt": "2026-08-11T04:54:14.764Z"
+    },
+    {
+      "id": "bc9fefcf-4429-4514-8759-51a6b60330a4",
+      "name": "general-high-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-opus-4-6-thinking",
+        "ag/gemini-3.6-flash-high",
+        "ag/gemini-pro-agent",
+        "cc/claude-opus-5",
+        "cu/claude-opus-5-high",
+        "cu/gemini-3.6-flash-high",
+        "cu/glm-5.2-high",
+        "cu/kimi-k3-max",
+        "nvidia/deepseek-ai/deepseek-v4-pro",
+        "nvidia/minimaxai/minimax-m3",
+        "nvidia/z-ai/glm-5.2",
+        "ollama/deepseek-v4-pro",
+        "ollama/glm-5.2",
+        "ollama/kimi-k3",
+        "ollama/minimax-m3",
+        "ollama/qwen3.5",
+        "ollama/qwen3.5:397b",
+        "ollama/glm-5.3"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:49:13.325Z",
+      "updatedAt": "2026-09-01T23:34:18.782Z"
+    },
+    {
+      "id": "b358fc2a-4fbe-4694-94f1-bd11f363d1c1",
+      "name": "general-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium",
+        "nvidia/nemotron-3-ultra-550b-a55b"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:49:13.526Z",
+      "updatedAt": "2026-08-11T04:54:15.481Z"
+    },
+    {
+      "id": "fcb546ea-2d8f-49ed-9466-5236de24e9ea",
+      "name": "general-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol",
+        "ollama/mistral-large-3:675b"
+      ],
+      "contextLength": 256000,
+      "createdAt": "2026-08-10T06:49:13.806Z",
+      "updatedAt": "2026-08-11T04:54:15.597Z"
+    },
+    {
+      "id": "921c52ba-b987-4a41-be8e-a65f4fb79538",
+      "name": "general-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:49:13.953Z",
+      "updatedAt": "2026-08-11T04:54:15.713Z"
+    },
+    {
+      "id": "688c5eea-c040-43d8-be94-847d82db5fb2",
+      "name": "general-high-128k",
+      "kind": "llm",
+      "models": [
+        "ollama/nemotron-3-ultra"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-10T06:49:15.146Z",
+      "updatedAt": "2026-08-11T04:54:15.879Z"
+    },
+    {
+      "id": "c97a4962-3766-4c49-8325-0d8ad848eecf",
+      "name": "general-mid-1m",
+      "kind": "llm",
+      "models": [
+        "ag/claude-sonnet-4-6",
+        "ag/gemini-3.1-pro-low",
+        "ag/gemini-3.5-flash-high",
+        "ag/gemini-3.6-flash-medium",
+        "cc/claude-sonnet-5",
+        "cf/@cf/qwen/qwen2.5-coder-32b-instruct",
+        "cu/claude-sonnet-5-medium",
+        "cu/gemini-3.1-pro",
+        "cu/gemini-3.6-flash-medium",
+        "gh/gpt-4.1",
+        "gh/gpt-4.1-2025-04-14",
+        "kr/claude-sonnet-4",
+        "kr/claude-sonnet-4-agentic",
+        "kr/claude-sonnet-4-thinking",
+        "kr/claude-sonnet-4-thinking-agentic",
+        "kr/claude-sonnet-4.5",
+        "kr/claude-sonnet-4.5-agentic",
+        "kr/claude-sonnet-4.5-thinking",
+        "kr/claude-sonnet-4.5-thinking-agentic",
+        "ollama/deepseek-v4-flash:0731",
+        "ollama/deepseek-v4-flash:preview",
+        "ollama/glm-5.3-flash"
+      ],
+      "contextLength": 1000000,
+      "createdAt": "2026-08-10T06:49:15.357Z",
+      "updatedAt": "2026-09-01T23:35:11.836Z"
+    },
+    {
+      "id": "6ad8d741-f10d-4031-b40f-50e314bda0d9",
+      "name": "general-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "cx/gpt-5.5",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:49:15.513Z",
+      "updatedAt": "2026-08-11T04:54:16.192Z"
+    },
+    {
+      "id": "c2ce2a13-de2a-489b-9bbb-e60eaea1ee0d",
+      "name": "general-mid-256k",
+      "kind": "llm",
+      "models": [
+        "bpm/kimi-k2-thinking-251104",
+        "cf/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+        "cu/kimi-k2.7-code",
+        "cx/gpt-5.6-terra",
+        "kr/qwen3-coder-next",
+        "kr/qwen3-coder-next-agentic",
+        "kr/qwen3-coder-next-thinking",
+        "kr/qwen3-coder-next-thinking-agentic",
+        "ollama/kimi-k2.7-code"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:49:15.646Z",
+      "updatedAt": "2026-08-11T04:54:16.409Z"
+    },
+    {
+      "id": "62683c16-3d04-421a-8ae0-9a6b29a5154c",
+      "name": "general-mid-200k",
+      "kind": "llm",
+      "models": [
+        "bpm/glm-4-7-251222",
+        "bpm/seed-2-0-code-preview-260328",
+        "bpm/seed-2-0-lite-260228",
+        "bpm/seed-2-0-pro-260328",
+        "cu/composer-2.5",
+        "gh/mai-code-1-flash",
+        "gh/oswe-vscode-prime",
+        "nvidia/minimaxai/minimax-m2.7",
+        "ollama/glm-5.1",
+        "ollama/minimax-m2.7"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:49:15.869Z",
+      "updatedAt": "2026-08-11T04:54:16.621Z"
+    },
+    {
+      "id": "2dce23f0-4775-4966-968d-cb4d5989c23d",
+      "name": "general-mid-128k",
+      "kind": "llm",
+      "models": [
+        "ag/gpt-oss-120b-medium",
+        "bpm/gpt-oss-120b-250805",
+        "cf/@cf/meta/llama-3.1-70b-instruct-fp8-fast",
+        "cf/@cf/meta/llama-3.1-8b-instruct-awq",
+        "cf/@cf/meta/llama-3.1-8b-instruct-fp8-fast",
+        "cf/@cf/meta/llama-3.2-1b-instruct",
+        "cf/@cf/meta/llama-3.2-3b-instruct",
+        "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "cf/@cf/mistralai/mistral-small-3.1-24b-instruct",
+        "cf/@cf/qwen/qwq-32b",
+        "gh/gpt-4o",
+        "gh/gpt-4o-2024-05-13",
+        "gh/gpt-4o-2024-08-06",
+        "gh/gpt-4o-2024-11-20",
+        "ollama/gemma4:31b",
+        "ollama/gpt-oss:120b",
+        "ollama/gpt-oss:20b",
+        "ollama/nemotron-3-nano:30b",
+        "ollama/nemotron-3-super"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-10T06:49:16.031Z",
+      "updatedAt": "2026-08-11T04:54:16.754Z"
+    },
+    {
+      "id": "7754bda3-c740-42f1-88b5-146ef4168e41",
+      "name": "general-low-1m",
+      "kind": "llm",
+      "models": [
+        "ag/gemini-3-flash",
+        "ag/gemini-3-flash-agent",
+        "ag/gemini-3.5-flash-extra-low",
+        "ag/gemini-3.5-flash-low",
+        "ag/gemini-3.6-flash-low",
+        "cu/gemini-3-flash",
+        "cu/gemini-3.5-flash",
+        "cu/gemini-3.6-flash-low",
+        "cu/gpt-5.4-medium",
+        "cx/gpt-5.4"
+      ],
+      "contextLength": 1048576,
+      "createdAt": "2026-08-10T06:49:16.189Z",
+      "updatedAt": "2026-08-11T04:54:16.928Z"
+    },
+    {
+      "id": "6a7ce0c1-1422-49ae-94b3-8b054e26b7ad",
+      "name": "general-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.3-codex",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.3-codex-spark",
+        "cx/gpt-5.4-mini",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-10T06:49:16.552Z",
+      "updatedAt": "2026-08-11T04:54:17.095Z"
+    },
+    {
+      "id": "921842cb-ba56-4ae0-b1e7-eb80035a1c1f",
+      "name": "general-low-256k",
+      "kind": "llm",
+      "models": [
+        "cf/@cf/moonshotai/kimi-k2.5",
+        "cf/@cf/moonshotai/kimi-k2.6",
+        "cx/gpt-5.6-luna",
+        "nvidia/moonshotai/kimi-k2.6",
+        "ollama/kimi-k2.5",
+        "ollama/kimi-k2.6"
+      ],
+      "contextLength": 262144,
+      "createdAt": "2026-08-10T06:49:17.654Z",
+      "updatedAt": "2026-08-11T04:54:17.154Z"
+    },
+    {
+      "id": "e7306fdf-86fc-476f-9341-45d80bc9c0ab",
+      "name": "general-low-200k",
+      "kind": "llm",
+      "models": [
+        "bpm/seed-2-0-mini-260215",
+        "cc/claude-haiku-4-5-20251001",
+        "cf/@cf/zai-org/glm-4.7-flash",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "gh/claude-haiku-4.5",
+        "gh/copilot-search-a",
+        "gh/copilot-search-b",
+        "gh/copilot-search-c",
+        "gh/exec-agent-a",
+        "gh/exec-agent-b",
+        "gh/exec-agent-c",
+        "gh/mai-code-1-flash-4th",
+        "gh/mai-code-1-flash-picker",
+        "gh/mai-code-1-flash-secondary",
+        "gh/mai-code-1-flash-tertiary",
+        "gh/trajectory-compaction",
+        "kr/claude-haiku-4.5",
+        "kr/claude-haiku-4.5-agentic",
+        "kr/claude-haiku-4.5-thinking",
+        "kr/claude-haiku-4.5-thinking-agentic",
+        "kr/glm-5",
+        "kr/glm-5-agentic",
+        "kr/glm-5-thinking",
+        "kr/glm-5-thinking-agentic",
+        "kr/minimax-m2.1",
+        "kr/minimax-m2.1-agentic",
+        "kr/minimax-m2.1-thinking",
+        "kr/minimax-m2.1-thinking-agentic",
+        "kr/minimax-m2.5",
+        "kr/minimax-m2.5-agentic",
+        "kr/minimax-m2.5-thinking",
+        "kr/minimax-m2.5-thinking-agentic",
+        "ollama/glm-4.7-flash",
+        "ollama/glm-5",
+        "ollama/minimax-m2.5"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-10T06:49:18.294Z",
+      "updatedAt": "2026-08-11T04:54:17.199Z"
+    },
+    {
+      "id": "c830388d-687a-4fab-a632-b4b4cceb3899",
+      "name": "general-low-128k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-4-0125-preview",
+        "gh/gpt-4-0613",
+        "gh/gpt-4-o-preview",
+        "gh/gpt-4o-mini",
+        "gh/gpt-4o-mini-2024-07-18"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-10T06:49:18.533Z",
+      "updatedAt": "2026-08-11T04:54:17.237Z"
+    },
+    {
+      "id": "bbe3dd70-e762-42ad-aa1b-1947a1f9b6cf",
+      "name": "general-low-16k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-3.5-turbo",
+        "gh/gpt-3.5-turbo-0613",
+        "gh/gpt-4"
+      ],
+      "contextLength": 4095,
+      "createdAt": "2026-08-10T06:49:18.734Z",
+      "updatedAt": "2026-08-11T04:54:17.589Z"
+    },
+    {
+      "id": "cc05e13f-5f74-45c5-adf0-b691792b835c",
+      "name": "reasoning-high-128k",
+      "kind": "llm",
+      "models": [
+        "ollama/nemotron-3-ultra"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-11T04:54:11.167Z",
+      "updatedAt": "2026-08-11T04:54:11.167Z"
+    },
+    {
+      "id": "690b5a7d-8ecc-4208-abdc-cc6a1934013e",
+      "name": "reasoning-mid-128k",
+      "kind": "llm",
+      "models": [
+        "ag/gpt-oss-120b-medium",
+        "bpm/gpt-oss-120b-250805",
+        "cf/@cf/qwen/qwq-32b",
+        "ollama/gpt-oss:120b",
+        "ollama/gpt-oss:20b",
+        "ollama/nemotron-3-nano:30b",
+        "ollama/nemotron-3-super"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-11T04:54:12.004Z",
+      "updatedAt": "2026-08-11T04:54:12.004Z"
+    },
+    {
+      "id": "576644a6-8f38-4ceb-bf1b-de2cbf32ca29",
+      "name": "multimodal-high-400k",
+      "kind": "llm",
+      "models": [
+        "cu/cursor-grok-4.5-high",
+        "cu/gpt-5.6-sol-medium"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-11T04:54:13.175Z",
+      "updatedAt": "2026-08-11T04:54:13.175Z"
+    },
+    {
+      "id": "4d15c480-a877-496f-a1e0-8ba59c92ea2f",
+      "name": "multimodal-high-256k",
+      "kind": "llm",
+      "models": [
+        "cx/gpt-5.6-sol",
+        "ollama/mistral-large-3:675b"
+      ],
+      "contextLength": 256000,
+      "createdAt": "2026-08-11T04:54:13.384Z",
+      "updatedAt": "2026-08-11T04:54:13.384Z"
+    },
+    {
+      "id": "3b9cfc29-db7b-47ec-a990-44cf9173f057",
+      "name": "multimodal-high-200k",
+      "kind": "llm",
+      "models": [
+        "cu/claude-4.5-opus-high",
+        "cu/claude-4.6-opus-high",
+        "cu/claude-opus-4-7-xhigh",
+        "cu/claude-opus-4-8-xhigh"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-11T04:54:13.499Z",
+      "updatedAt": "2026-08-11T04:54:13.499Z"
+    },
+    {
+      "id": "eac252f0-ff90-47ce-9d9a-f6aa2b9361ad",
+      "name": "multimodal-mid-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5.5-medium",
+        "cu/gpt-5.6-terra-medium",
+        "cx/gpt-5.5",
+        "gh/gpt-5.6-luna-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-11T04:54:13.787Z",
+      "updatedAt": "2026-08-11T04:54:13.787Z"
+    },
+    {
+      "id": "f222ed38-9d04-4835-9b6b-95fc2ca5bc2f",
+      "name": "multimodal-mid-128k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-4o",
+        "gh/gpt-4o-2024-05-13",
+        "gh/gpt-4o-2024-08-06",
+        "gh/gpt-4o-2024-11-20",
+        "ollama/gemma4:31b"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-11T04:54:14.293Z",
+      "updatedAt": "2026-08-11T04:54:14.293Z"
+    },
+    {
+      "id": "6df3991d-9a5d-42c7-89e7-6c8f14cfa604",
+      "name": "multimodal-low-400k",
+      "kind": "llm",
+      "models": [
+        "cu/gpt-5-mini",
+        "cu/gpt-5.1",
+        "cu/gpt-5.2",
+        "cu/gpt-5.4-mini-medium",
+        "cu/gpt-5.4-nano-medium",
+        "cu/gpt-5.6-luna-medium",
+        "cx/gpt-5.4-mini",
+        "gh/gpt-5-mini",
+        "gh/gpt-5.4-mini-free-auto"
+      ],
+      "contextLength": 400000,
+      "createdAt": "2026-08-11T04:54:14.586Z",
+      "updatedAt": "2026-08-11T04:54:14.586Z"
+    },
+    {
+      "id": "d6643b81-c332-4201-aa76-87a7d91e773a",
+      "name": "multimodal-low-200k",
+      "kind": "llm",
+      "models": [
+        "cc/claude-haiku-4-5-20251001",
+        "cu/claude-4-sonnet",
+        "cu/claude-4.5-sonnet",
+        "cu/claude-4.6-sonnet-medium",
+        "gh/claude-haiku-4.5"
+      ],
+      "contextLength": 200000,
+      "createdAt": "2026-08-11T04:54:14.965Z",
+      "updatedAt": "2026-08-11T04:54:14.965Z"
+    },
+    {
+      "id": "d1de20d2-ea28-49a2-b015-ec34415dfeec",
+      "name": "multimodal-low-128k",
+      "kind": "llm",
+      "models": [
+        "gh/gpt-4o-mini",
+        "gh/gpt-4o-mini-2024-07-18"
+      ],
+      "contextLength": 128000,
+      "createdAt": "2026-08-11T04:54:15.089Z",
+      "updatedAt": "2026-08-11T04:54:15.089Z"
+    }
+  ]
+}
