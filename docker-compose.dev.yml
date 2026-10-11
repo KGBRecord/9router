@@ -17,9 +17,6 @@ services:
       - HOSTNAME=0.0.0.0
       - NEXT_TELEMETRY_DISABLED=1
       - DATA_DIR=/app/data
-      - HEADROOM_URL=http://headroom-dev:8787
-    depends_on:
-      - headroom
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:20128/api/health"]
@@ -27,13 +24,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-  headroom:
-    image: ghcr.io/chopratejas/headroom:latest
-    container_name: headroom-dev
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:8787:8787"
 
 volumes:
   app_data:
