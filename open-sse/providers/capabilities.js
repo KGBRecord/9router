@@ -176,14 +176,15 @@ export const MODEL_CAPABILITIES = {
   // opencode-go/deepseek-v4.1-flash with modalities.input ["text","image"] — and upstream
   // the retired v4-flash / vision-exp ids route to it, so the live V4.1 ids carry the
   // same image capability as the exp id above. "deepseek-flash" is the GA id on the
-  // DeepSeek API; it previously fell through to the generic *deepseek* pattern, whose
-  // 128K/64K limits are kept here. The repeated fields are deliberate: an exact entry
-  // short-circuits the pattern table, so a vision-only delta would drop them.
+  // DeepSeek API (docs: MODEL VERSION DeepSeek-V4.1-Flash-1017, CONTEXT 1M,
+  // MAX OUTPUT 384K, vision ✓, thinking on by default — the retired v4-flash ids
+  // are served by this same model). Limits therefore match the V4.1 entries below,
+  // not the generic *deepseek* 128K/64K pattern.
   // Some providers (e.g. Kenari) expose this model under the hyphenated ID
   // "deepseek-v4-1-flash" (dash instead of dot); add it as an alias (#4293).
   "deepseek-v4.1-flash": { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1000000, maxOutput: 384000 },
   "deepseek-v4-1-flash": { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1000000, maxOutput: 384000 },
-  "deepseek-flash":      { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 128000, maxOutput: 64000 },
+  "deepseek-flash":      { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1048576, maxOutput: 393216 },
 
   // Qwen plain coder/text (no vision) — registry "vision-model" / "coder-model" aliases
   "vision-model":      { vision: true, reasoning: true, thinkingFormat: "qwen", contextWindow: 1000000 },
