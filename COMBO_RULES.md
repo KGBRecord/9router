@@ -1,6 +1,6 @@
 # Model Combo Construction and Update Rules
 
-This document is the single source of truth for creating, modifying, and validating combos on the 9Router instance at `https://omni.tdigroup.vn`.
+This document is the single source of truth for creating, modifying, and validating combos on the 9Router instance at `https://ai.kgb-record.cloud`.
 
 ## 1. Goals
 
@@ -11,7 +11,7 @@ Combos must:
 - classify models by **purpose** and **context tier**;
 - retain every eligible current model;
 - retain explicitly approved older models;
-- update both the **web/API** and `omni-combos.mapping.json`;
+- update both the **web/API** and `combos.mapping.json`;
 - avoid unnecessary combo proliferation through quality suffixes.
 
 ## 2. Required Data Sources
@@ -21,7 +21,7 @@ Combos must:
 The authoritative source is the authenticated endpoint used by Hermes:
 
 ```http
-GET https://omni.tdigroup.vn/v1/models
+GET https://ai.kgb-record.cloud/v1/models
 Authorization: Bearer <API_KEY>
 ```
 
@@ -222,7 +222,7 @@ Additionally:
 10. Do not create `legacy-*` combos.
 11. `POST` new combos, `PUT` existing combos, and `DELETE` obsolete combos.
 12. Fetch `/api/combos` again and compare exact ordered membership.
-13. Synchronize `omni-combos.mapping.json` from the API read-back state.
+13. Synchronize `combos.mapping.json` from the API read-back state.
 14. Run every assertion in Section 9.
 
 A generated JSON file that has not been applied is not complete. An updated web/API state with stale JSON is also not complete.
@@ -241,7 +241,7 @@ Validate both web/API state and JSON:
 - all six exact exceptions remain present;
 - `cc/claude-sonnet-5` appears in all five required combos;
 - each `contextLength` equals the smallest context window among its members;
-- API combo names and memberships exactly match `omni-combos.mapping.json`.
+- API combo names and memberships exactly match `combos.mapping.json`.
 
 Minimum report:
 
@@ -264,7 +264,7 @@ At the latest update:
 - combo count: **27**;
 - no quality suffixes;
 - no `legacy-*` combos;
-- mapping file: `omni-combos.mapping.json`;
+- mapping file: `combos.mapping.json`;
 - all six Section 5.3 exceptions are retained in both web/API state and JSON.
 
 Runtime and eligible counts may change whenever `/v1/models` changes. Always fetch a fresh inventory before the next update; never substitute the counts in this document for live discovery.

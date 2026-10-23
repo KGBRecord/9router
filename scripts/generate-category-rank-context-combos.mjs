@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
-const sourcePath = process.argv[2] || "/tmp/omni-live-models.json";
-const outputPath = process.argv[3] || "omni-combos.mapping.json";
+const sourcePath = process.argv[2] || "/tmp/live-models.json";
+const outputPath = process.argv[3] || "combos.mapping.json";
 const openRouterPath = process.argv[4] || "openrouter_all_models.txt";
 const prohibitedModelPatterns = [/(?:^|[-/])fable(?:-|$)/i];
 const bazaarlinkFreeModels = new Set(["bzl/deepseek-v4-flash", "bzl/qwen3.7-flash"]);
@@ -275,7 +275,7 @@ const combos = [...groups.entries()]
   .map(([name, members]) => ({ name, models: members.map(({ id }) => id), kind: "llm", contextLength: Math.min(...members.map(({ contextLength }) => contextLength)) }));
 
 fs.writeFileSync(outputPath, `${JSON.stringify({
-  source: "https://omni.tdigroup.vn/v1/models",
+  source: "https://ai.kgb-record.cloud/v1/models",
   contextSource: "OpenRouter canonical context first; Codex/Cursor GPT-5.5 and GPT-5.6 transport windows override it; runtime metadata and repository fallback last.",
   policy: "Category × rank × context-tier taxonomy. Provider duplication is allowed. contextLength is the minimum resolved context of members.",
   excluded,
