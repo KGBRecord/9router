@@ -54,6 +54,11 @@ async function getObservabilityConfig() {
   return cachedConfig;
 }
 
+const DETAIL_META_KEYS = [
+  "statusCode", "error", "correlationId", "attemptNumber", "requestedModel",
+  "apiKeyId", "apiKeyName", "comboName", "endpoint", "sourceFormat", "targetFormat",
+];
+
 let writeBuffer = [];
 let flushTimer = null;
 let isFlushing = false;
@@ -117,6 +122,11 @@ async function flushToDatabase() {
             response: truncateField(item.response, config.maxJsonSize),
             pxpipe: item.pxpipe || undefined,
           };
+          // Carry the optional observability metadata (small scalars only; payloads above are size-capped).
+          for (const k of DETAIL_META_KEYS) {
+            if (item[k] !== undefined && item[k] !== null) record[k] = item[k];
+          }
+          if (record.error) record.error = String(record.error).slice(0, 500);
 
           db.run(
             `INSERT INTO requestDetails(id, timestamp, provider, model, connectionId, status, data) VALUES(?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET timestamp = excluded.timestamp, provider = excluded.provider, model = excluded.model, connectionId = excluded.connectionId, status = excluded.status, data = excluded.data`,
