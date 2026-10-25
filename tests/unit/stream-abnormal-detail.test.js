@@ -21,7 +21,7 @@ const upstream = (start) => new Response(new ReadableStream({ start }), { header
 const tick = (ms) => new Promise((r) => setTimeout(r, ms));
 const errorSaves = () => saveRequestDetail.mock.calls.map((c) => c[0]).filter((d) => d.status === "error");
 
-async function setup(start) {
+async function setup(start, extra = {}) {
   const streamController = createStreamController({ log: { errorLine() {}, line() {} }, provider: "openai", model: "m" });
   const built = buildOnStreamComplete({
     provider: "openai", model: "m", connectionId: "c", requestStartTime: Date.now(),
@@ -33,7 +33,7 @@ async function setup(start) {
     providerResponse: upstream(start), provider: "openai", model: "m",
     sourceFormat: "openai", targetFormat: "openai", body: { messages: [] }, stream: true,
     requestStartTime: Date.now(), connectionId: "c", streamController,
-    onStreamComplete: completeSpy, streamDetailId: built.streamDetailId,
+    onStreamComplete: completeSpy, streamDetailId: built.streamDetailId, ...extra,
   });
   return { response, streamController, completeSpy, id: built.streamDetailId };
 }
@@ -99,6 +99,44 @@ describe("abnormal stream end detail", () => {
     for (;;) { const { done } = await reader.read(); if (done) break; }
     await tick(30);
     expect(completeSpy).toHaveBeenCalledTimes(1);
+    expect(errorSaves()).toHaveLength(0);
+  });
+});
+
+describe("client drops before the first byte (request.signal only)", () => {
+  beforeEach(() => saveRequestDetail.mockClear());
+
+  it("request.signal abort with no bytes written -> 499 row, once", async () => {
+    const ac = new AbortController();
+    const { id } = await setup(() => { /* upstream silent: no bytes yet */ }, { requestSignal: ac.signal });
+    await tick(20);
+    expect(errorSaves()).toHaveLength(0);
+    ac.abort();
+    await tick(30);
+    const errs = errorSaves();
+    expect(errs).toHaveLength(1);
+    expect(errs[0].id).toBe(id);
+    expect(errs[0].statusCode).toBe(499);
+    expect(errs[0].error).toBe("client disconnected");
+  });
+
+  it("already-aborted signal is handled", async () => {
+    const ac = new AbortController(); ac.abort();
+    await setup(() => {}, { requestSignal: ac.signal });
+    await tick(30);
+    expect(errorSaves()).toHaveLength(1);
+  });
+
+  it("abort AFTER normal completion writes nothing", async () => {
+    const ac = new AbortController();
+    const { response } = await setup((c) => {
+      c.enqueue(textChunk); c.enqueue(enc.encode("data: [DONE]\n\n")); c.close();
+    }, { requestSignal: ac.signal });
+    const reader = response.body.getReader();
+    for (;;) { const { done } = await reader.read(); if (done) break; }
+    await tick(30);
+    ac.abort();
+    await tick(30);
     expect(errorSaves()).toHaveLength(0);
   });
 });

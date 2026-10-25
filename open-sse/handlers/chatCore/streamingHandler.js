@@ -48,7 +48,7 @@ function buildTransformStream({ provider, sourceFormat, targetFormat, userAgent,
 /**
  * Handle streaming response — pipe provider SSE through transform stream to client.
  */
-export async function handleStreamingResponse({ providerResponse, provider, model, sourceFormat, targetFormat, userAgent, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, reqLogger, toolNameMap, customToolNames, streamController, onStreamComplete, streamDetailId, pxpipe, reqTag, log, credentials, detailExtra }) {
+export async function handleStreamingResponse({ providerResponse, provider, model, sourceFormat, targetFormat, userAgent, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, reqLogger, toolNameMap, customToolNames, streamController, onStreamComplete, streamDetailId, pxpipe, reqTag, log, credentials, detailExtra, requestSignal }) {
   if (onRequestSuccess) {
     Promise.resolve()
       .then(onRequestSuccess)
@@ -109,6 +109,16 @@ export async function handleStreamingResponse({ providerResponse, provider, mode
   }
 
   const transformedBody = pipeWithDisconnect(providerResponse, transformStream, streamController, onAbortTerminal, stallTimeoutMs);
+
+  // Next only cancels the response body once bytes were written; a client that drops
+  // before the first byte is reported solely through request.signal. Bridge it so the
+  // stream is torn down and recorded now instead of after the stall watchdog.
+  // handleDisconnect is a no-op once the stream completed (guarded by `disconnected`).
+  if (requestSignal && typeof requestSignal.addEventListener === "function" && streamController) {
+    const onClientAbort = () => { try { streamController.handleDisconnect("client_aborted"); } catch { /* fail-open */ } };
+    if (requestSignal.aborted) onClientAbort();
+    else requestSignal.addEventListener("abort", onClientAbort, { once: true });
+  }
 
   saveRequestDetail(buildRequestDetail({
     provider, model, connectionId,

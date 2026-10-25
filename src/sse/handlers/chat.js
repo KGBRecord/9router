@@ -355,6 +355,7 @@ async function handleSingleModelChat(body, modelStr, clientRawRequest = null, re
     const pxpipeEnabled = tokenSaverStrategy.pxpipe !== undefined ? tokenSaverStrategy.pxpipe : !!chatSettings.pxpipeEnabled;
 
     const result = await handleChatCore({
+      requestSignal: request?.signal || null,
       body: { ...body, model: `${provider}/${model}` },
       modelInfo: { provider, model },
       credentials: refreshedCredentials,
