@@ -8,7 +8,7 @@ import { upstreamResponseHeaders } from "../../utils/upstreamHeaders.js";
 import { HTTP_STATUS } from "../../config/runtimeConfig.js";
 import { parseSSEToOpenAIResponse } from "./sseToJsonHandler.js";
 import { unwrapClineEnvelope } from "../../shared/clineEnvelope.js";
-import { buildRequestDetail, extractToolCallsFromResponse, saveErrorDetail, extractRequestConfig, extractUsageFromResponse, saveUsageStats, formatDoneLine } from "./requestDetail.js";
+import { buildRequestDetail, capClientBody, extractToolCallsFromResponse, saveErrorDetail, extractRequestConfig, extractUsageFromResponse, saveUsageStats, formatDoneLine } from "./requestDetail.js";
 import { appendRequestLog, saveRequestDetail } from "@/lib/usageDb.js";
 import { decloakToolNames } from "../../utils/claudeCloaking.js";
 import { restoreToolNames } from "../../utils/opencodeFingerprint.js";
@@ -342,7 +342,8 @@ export async function handleNonStreamingResponse({ providerResponse, provider, m
       content: translatedResponse?.choices?.[0]?.message?.content || translatedResponse?.content || null,
       thinking: translatedResponse?.choices?.[0]?.message?.reasoning_content || translatedResponse?.reasoning_content || null,
       finish_reason: translatedResponse?.choices?.[0]?.finish_reason || "unknown",
-      toolCalls: extractToolCallsFromResponse(translatedResponse)
+      toolCalls: extractToolCallsFromResponse(translatedResponse),
+      clientBody: capClientBody(translatedResponse)
     },
     pxpipe,
     status: "success",

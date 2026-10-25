@@ -73,6 +73,7 @@ export async function handleChatCore({ body, modelInfo, credentials, log, onCred
     apiKeyId: detailMeta.apiKeyId ?? null,
     apiKeyName: detailMeta.apiKeyName ?? null,
     comboName: detailMeta.comboName ?? null,
+    sessionId: detailMeta.sessionId ?? null,
     endpoint: clientRawRequest?.endpoint || null,
     sourceFormat,
     targetFormat: tf,

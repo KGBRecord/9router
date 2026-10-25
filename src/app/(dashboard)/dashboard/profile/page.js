@@ -664,6 +664,24 @@ export default function ProfilePage() {
     }
   };
 
+  const updateObservabilityLimit = async (key, value, min, max, fallback) => {
+    let num = parseInt(value, 10);
+    if (isNaN(num)) num = fallback;
+    num = Math.min(max, Math.max(min, num));
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [key]: num }),
+      });
+      if (res.ok) {
+        setSettings(prev => ({ ...prev, [key]: num }));
+      }
+    } catch (err) {
+      console.error(`Failed to update ${key}:`, err);
+    }
+  };
+
   const updateRedactRequestDetails = async (redact) => {
     try {
       const res = await fetch("/api/settings", {
@@ -1664,6 +1682,9 @@ export default function ProfilePage() {
               disabled={loading}
             />
           </div>
+          <p className="text-xs text-text-muted mt-2">
+            ENABLE_REQUEST_LOGS env only applies when this switch was never set.
+          </p>
           <div className="flex items-start sm:items-center justify-between gap-4 mt-4">
             <div className="flex-1 min-w-0">
               <p className="font-medium text-sm sm:text-base">Redact request payloads</p>
@@ -1675,6 +1696,40 @@ export default function ProfilePage() {
               checked={redactRequestDetails}
               onChange={updateRedactRequestDetails}
               disabled={loading}
+            />
+          </div>
+          <div className="flex items-start sm:items-center justify-between gap-4 mt-4">
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-sm sm:text-base">Max stored requests</p>
+              <p className="text-xs sm:text-sm text-text-muted">Oldest records are pruned beyond this count (10-5000)</p>
+            </div>
+            <Input
+              type="number"
+              min="10"
+              max="5000"
+              key={settings.observabilityMaxRecords ?? "default"}
+              defaultValue={settings.observabilityMaxRecords || 1000}
+              onBlur={(e) => updateObservabilityLimit("observabilityMaxRecords", e.target.value, 10, 5000, 1000)}
+              onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }}
+              disabled={loading}
+              className="w-20 sm:w-24 text-center shrink-0"
+            />
+          </div>
+          <div className="flex items-start sm:items-center justify-between gap-4 mt-4">
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-sm sm:text-base">Max payload size per field (KB)</p>
+              <p className="text-xs sm:text-sm text-text-muted">Larger request/response fields are truncated (1-8192)</p>
+            </div>
+            <Input
+              type="number"
+              min="1"
+              max="8192"
+              key={settings.observabilityMaxJsonSize ?? "default"}
+              defaultValue={settings.observabilityMaxJsonSize || 5}
+              onBlur={(e) => updateObservabilityLimit("observabilityMaxJsonSize", e.target.value, 1, 8192, 5)}
+              onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }}
+              disabled={loading}
+              className="w-20 sm:w-24 text-center shrink-0"
             />
           </div>
         </Card>

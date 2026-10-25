@@ -5,7 +5,7 @@ import { HTTP_STATUS } from "../../config/runtimeConfig.js";
 import { FORMATS } from "../../translator/formats.js";
 import { openAICompletionToClaudeMessage } from "../../translator/concerns/claudeMessage.js";
 import { PROVIDERS } from "../../config/providers.js";
-import { buildRequestDetail, extractToolCallsFromResponse, saveErrorDetail, extractRequestConfig, saveUsageStats, formatDoneLine } from "./requestDetail.js";
+import { buildRequestDetail, capClientBody, extractToolCallsFromResponse, saveErrorDetail, extractRequestConfig, saveUsageStats, formatDoneLine } from "./requestDetail.js";
 import { ROLE, RESPONSES_ITEM } from "../../translator/schema/index.js";
 import { extractReasoningText } from "../../translator/concerns/reasoning.js";
 
@@ -228,7 +228,7 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
         ...ctx,
         latency: { ttft: totalLatency, total: totalLatency },
         tokens: { prompt_tokens: inTokensForLog, completion_tokens: usage.output_tokens || 0 },
-        response: { content: textContent, thinking: null, finish_reason: jsonResponse.status || "unknown", toolCalls: extractToolCallsFromResponse(jsonResponse) },
+        response: { content: textContent, thinking: null, finish_reason: jsonResponse.status || "unknown", toolCalls: extractToolCallsFromResponse(jsonResponse), clientBody: sourceFormat === FORMATS.OPENAI_RESPONSES ? capClientBody(jsonResponse) : undefined },
         status: "success",
         statusCode: 200
       }, { endpoint: clientRawRequest?.endpoint || null })).catch(() => {});
@@ -343,7 +343,8 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
         content: parsed.choices?.[0]?.message?.content || null,
         thinking: parsed.choices?.[0]?.message?.reasoning_content || null,
         finish_reason: parsed.choices?.[0]?.finish_reason || "unknown",
-        toolCalls: extractToolCallsFromResponse(parsed)
+        toolCalls: extractToolCallsFromResponse(parsed),
+        clientBody: (sourceFormat === FORMATS.OPENAI_RESPONSES || sourceFormat === FORMATS.CLAUDE) ? undefined : capClientBody(parsed)
       },
       status: "success",
       statusCode: 200

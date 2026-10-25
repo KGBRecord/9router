@@ -21,7 +21,7 @@ describe("requestDetailsRepo persists observability metadata", () => {
       id: "t1", provider: "claude", model: "m", status: "error", statusCode: 502,
       error: "x".repeat(900), correlationId: "c-1", attemptNumber: 2,
       requestedModel: "combo/x", apiKeyId: "k1", apiKeyName: "dev", comboName: "combo",
-      endpoint: "/v1/messages", sourceFormat: "claude", targetFormat: "openai",
+      endpoint: "/v1/messages", sessionId: "sess-abc", sourceFormat: "claude", targetFormat: "openai",
       apiKey: "sk-SECRET", request: {}, response: { toolCalls: [{ id: "a", name: "terminal", arguments: "{}" }] },
     });
     await new Promise((r) => setTimeout(r, 300));
@@ -33,6 +33,7 @@ describe("requestDetailsRepo persists observability metadata", () => {
     expect(d.attemptNumber).toBe(2);
     expect(d.apiKeyName).toBe("dev");
     expect(d.endpoint).toBe("/v1/messages");
+    expect(d.sessionId).toBe("sess-abc");
     expect(d.error.length).toBe(500);
     expect(d.response.toolCalls[0].name).toBe("terminal");
     expect(JSON.stringify(d)).not.toContain("sk-SECRET");

@@ -125,6 +125,7 @@ export async function handleChat(request, clientRawRequest = null) {
           apiKeyId: keyRecord?.id || null,
           apiKeyName: keyRecord?.name || null,
           comboName: null,
+          sessionId: sessionId ? String(sessionId).slice(0, 16) : null,
         },
       };
     }

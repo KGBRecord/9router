@@ -9,7 +9,7 @@ import { cn } from "@/shared/utils/cn";
 import PayloadViewer from "./PayloadViewer";
 import {
   getToolCalls, isPlaceholderContent, formatToolArguments, getStatusBadge,
-  shortEndpoint, buildCorrelationCounts, getAttemptLabel,
+  shortEndpoint, buildCorrelationCounts, getAttemptLabel, getReasoningTokens, shortSessionId,
 } from "./requestDetailsHelpers";
 import { AI_PROVIDERS, getProviderByAlias } from "@/shared/constants/providers";
 
@@ -125,6 +125,7 @@ export default function RequestDetailsTab() {
     model: ""
   });
   const [modelInput, setModelInput] = useState("");
+  const [sessionFilter, setSessionFilter] = useState("");
 
   const fetchProviders = useCallback(async () => {
     try {
@@ -201,6 +202,10 @@ export default function RequestDetailsTab() {
 
   const correlationCounts = useMemo(() => buildCorrelationCounts(details), [details]);
   const selectedToolCalls = getToolCalls(selectedDetail);
+  const visibleDetails = useMemo(
+    () => (sessionFilter ? details.filter((d) => d?.sessionId === sessionFilter) : details),
+    [details, sessionFilter]
+  );
 
   return (
     <div className="flex min-w-0 flex-col gap-6">
@@ -305,6 +310,15 @@ export default function RequestDetailsTab() {
       </Card>
 
       <Card padding="none">
+        {sessionFilter && (
+          <div className="flex items-center gap-2 border-b border-black/5 px-4 py-2 text-xs dark:border-white/5">
+            <span className="text-text-muted">Session:</span>
+            <span className="inline-flex items-center gap-1 rounded bg-purple-500/15 px-1.5 py-0.5 font-mono text-purple-600" title={sessionFilter}>
+              {shortSessionId(sessionFilter)}
+              <button type="button" aria-label="Clear session filter" onClick={() => setSessionFilter("")} className="cursor-pointer leading-none">×</button>
+            </span>
+          </div>
+        )}
         <div className="overflow-x-auto">
           <table className="w-full min-w-[980px]">
             <thead>
@@ -331,14 +345,14 @@ export default function RequestDetailsTab() {
                     </div>
                   </td>
                 </tr>
-              ) : details.length === 0 ? (
+              ) : visibleDetails.length === 0 ? (
                 <tr>
                   <td colSpan="10" className="p-8 text-center text-text-muted">
                     No request details found
                   </td>
                 </tr>
               ) : (
-                details.map((detail, index) => (
+                visibleDetails.map((detail, index) => (
                   <tr
                     key={`${detail.id}-${index}`}
                     className="border-b border-black/5 dark:border-white/5 last:border-b-0 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
@@ -370,12 +384,22 @@ export default function RequestDetailsTab() {
                           )}
                         </div>
                       )}
-                      {(getToolCalls(detail).length > 0 || getAttemptLabel(detail, correlationCounts)) && (
+                      {(getToolCalls(detail).length > 0 || getAttemptLabel(detail, correlationCounts) || detail.sessionId) && (
                         <div className="mt-1 flex flex-wrap gap-1">
                           {getToolCalls(detail).length > 0 && (
                             <span className="rounded bg-blue-500/15 px-1.5 py-0.5 text-[11px] text-blue-600">
                               {getToolCalls(detail).length} tools
                             </span>
+                          )}
+                          {detail.sessionId && (
+                            <button
+                              type="button"
+                              title={detail.sessionId}
+                              onClick={() => setSessionFilter(detail.sessionId)}
+                              className="cursor-pointer rounded bg-purple-500/15 px-1.5 py-0.5 font-mono text-[11px] text-purple-600"
+                            >
+                              {shortSessionId(detail.sessionId)}
+                            </button>
                           )}
                           {getAttemptLabel(detail, correlationCounts) && (
                             <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[11px] text-amber-600">
@@ -505,6 +529,14 @@ export default function RequestDetailsTab() {
                   {selectedDetail.tokens?.completion_tokens?.toLocaleString() || 0}
                 </span>
               </div>
+              {getReasoningTokens(selectedDetail.tokens) > 0 && (
+                <div>
+                  <span className="text-text-muted">Reasoning:</span>{" "}
+                  <span className="text-text-main font-mono">
+                    {getReasoningTokens(selectedDetail.tokens).toLocaleString()}
+                  </span>
+                </div>
+              )}
             </div>
 
             {selectedDetail.status === "error" && (
@@ -526,6 +558,7 @@ export default function RequestDetailsTab() {
               ["Combo", selectedDetail.comboName],
               ["Source Format", selectedDetail.sourceFormat],
               ["Target Format", selectedDetail.targetFormat],
+              ["Session", selectedDetail.sessionId],
               ["Correlation ID", selectedDetail.correlationId],
               ["Attempt", selectedDetail.attemptNumber],
             ].some(([, v]) => v != null && v !== "") && (
@@ -537,6 +570,7 @@ export default function RequestDetailsTab() {
                   ["Combo", selectedDetail.comboName],
                   ["Source Format", selectedDetail.sourceFormat],
                   ["Target Format", selectedDetail.targetFormat],
+                  ["Session", selectedDetail.sessionId],
                   ["Correlation ID", selectedDetail.correlationId],
                   ["Attempt", selectedDetail.attemptNumber],
                 ].filter(([, v]) => v != null && v !== "").map(([label, v]) => (
@@ -628,6 +662,12 @@ export default function RequestDetailsTab() {
                       </div>
                     ))}
                   </div>
+                </CollapsibleSection>
+              )}
+
+              {selectedDetail.response?.clientBody && (
+                <CollapsibleSection title="Client Response (as sent)" icon="outbox">
+                  <PayloadViewer payload={selectedDetail.response.clientBody} />
                 </CollapsibleSection>
               )}
 

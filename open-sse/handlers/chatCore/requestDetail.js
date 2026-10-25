@@ -81,7 +81,7 @@ export function extractUsageFromResponse(responseBody) {
 
 const DETAIL_EXTRA_KEYS = [
   "correlationId", "attemptNumber", "requestedModel", "apiKeyId", "apiKeyName",
-  "comboName", "endpoint", "sourceFormat", "targetFormat"
+  "comboName", "endpoint", "sourceFormat", "targetFormat", "sessionId"
 ];
 
 // Whitelist-copy known metadata fields (never spreads unknown keys, e.g. a raw apiKey).
@@ -92,6 +92,18 @@ function pickDetailExtra(extra) {
     if (extra[k] !== undefined) out[k] = extra[k];
   }
   return out;
+}
+
+// Bounded copy of the body actually sent to the client (non-streaming only).
+// Small bodies are stored as-is; large/unserializable ones become a marker.
+export function capClientBody(body, max = 20000) {
+  if (body === undefined || body === null) return null;
+  try {
+    const size = JSON.stringify(body).length;
+    return size <= max ? body : { _omitted: true, _size: size };
+  } catch {
+    return null;
+  }
 }
 
 // Tool calls from a final (non-streaming) response body -> [{id,name,arguments}]

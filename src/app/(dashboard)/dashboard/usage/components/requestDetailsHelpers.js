@@ -54,6 +54,21 @@ export function getAttemptLabel(detail, counts) {
   return "";
 }
 
+// Reasoning/thinking tokens across provider shapes (0 when absent).
+export function getReasoningTokens(tokens) {
+  if (!tokens || typeof tokens !== "object") return 0;
+  const v = tokens.reasoning_tokens
+    ?? tokens.completion_tokens_details?.reasoning_tokens
+    ?? tokens.output_tokens_details?.reasoning_tokens
+    ?? tokens.thoughtsTokenCount
+    ?? 0;
+  return Number.isFinite(v) && v > 0 ? v : 0;
+}
+
+export function shortSessionId(id) {
+  return typeof id === "string" && id ? id.slice(0, 8) : "";
+}
+
 export function isTruncatedPayload(p) {
   return !!p && typeof p === "object" && p._truncated === true;
 }

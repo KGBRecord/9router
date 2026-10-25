@@ -95,6 +95,19 @@ export async function handleStreamingResponse({ providerResponse, provider, mode
     ? buildAbortedResponsesTerminalBytes
     : (message) => buildStreamErrorBytes(HTTP_STATUS.GATEWAY_TIMEOUT, message, sourceFormat);
   const stallTimeoutMs = PROVIDERS[provider]?.stallTimeoutMs || STREAM_STALL_TIMEOUT_MS;
+  // Abnormal end after HTTP 200 (disconnect / upstream error / stall): upsert the same
+  // detail row with status error + whatever was accumulated. No usage rows are added.
+  const onAbnormalEnd = onStreamComplete?.onAbnormalEnd;
+  if (streamController && typeof onAbnormalEnd === "function") {
+    streamController.onAbnormalEnd = ({ reason, statusCode }) => {
+      try {
+        if (transformStream.isFinalized?.()) return;
+        const p = transformStream.getPartial?.() || {};
+        onAbnormalEnd({ reason, statusCode, partial: p.content, usage: p.usage, ttftAt: p.ttftAt });
+      } catch { /* fail-open */ }
+    };
+  }
+
   const transformedBody = pipeWithDisconnect(providerResponse, transformStream, streamController, onAbortTerminal, stallTimeoutMs);
 
   saveRequestDetail(buildRequestDetail({
@@ -125,6 +138,8 @@ export async function handleStreamingResponse({ providerResponse, provider, mode
 export function buildOnStreamComplete({ provider, model, connectionId, apiKey, requestStartTime, body, stream, finalBody, translatedBody, clientRawRequest, pxpipe, reqTag, log, detailExtra }) {
   const streamDetailId = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 
+  let abnormalSaved = false;
+
   const onStreamComplete = (contentObj, usage, ttftAt) => {
     const latency = {
       ttft: ttftAt ? ttftAt - requestStartTime : Date.now() - requestStartTime,
@@ -134,7 +149,7 @@ export function buildOnStreamComplete({ provider, model, connectionId, apiKey, r
     const streamToolCalls = Array.isArray(contentObj?.toolCalls) ? contentObj.toolCalls : [];
     const safeThinking = contentObj?.thinking || null;
 
-    saveRequestDetail(buildRequestDetail({
+    if (!abnormalSaved) saveRequestDetail(buildRequestDetail({
       provider, model, connectionId,
       latency,
       tokens: usage || { prompt_tokens: 0, completion_tokens: 0 },
@@ -155,5 +170,35 @@ export function buildOnStreamComplete({ provider, model, connectionId, apiKey, r
     if (log?.line) log.line(reqTag, "📊", formatDoneLine({ usage, latency }));
   };
 
-  return { onStreamComplete, streamDetailId };
+  const onAbnormalEnd = ({ reason, statusCode, partial, usage, ttftAt } = {}) => {
+    try {
+      abnormalSaved = true;
+      const latency = {
+        ttft: ttftAt ? ttftAt - requestStartTime : 0,
+        total: Date.now() - requestStartTime
+      };
+      const safeContent = streamContentOrPlaceholder(partial);
+      const toolCalls = Array.isArray(partial?.toolCalls) ? partial.toolCalls : [];
+      saveRequestDetail(buildRequestDetail({
+        provider, model, connectionId,
+        latency,
+        tokens: usage || { prompt_tokens: 0, completion_tokens: 0 },
+        request: extractRequestConfig(body, stream),
+        providerRequest: finalBody || translatedBody || null,
+        providerResponse: safeContent,
+        response: { content: safeContent, thinking: partial?.thinking || null, type: "streaming", toolCalls },
+        pxpipe,
+        status: "error",
+        statusCode,
+        error: String(reason || "stream ended abnormally").slice(0, 300),
+        detailExtra
+      }, { id: streamDetailId })).catch(err => {
+        console.error("[RequestDetail] Failed to save abnormal stream end:", err.message);
+      });
+    } catch { /* fail-open */ }
+  };
+  // Carried on the callback so handleStreamingResponse picks it up without a new param.
+  onStreamComplete.onAbnormalEnd = onAbnormalEnd;
+
+  return { onStreamComplete, streamDetailId, onAbnormalEnd };
 }

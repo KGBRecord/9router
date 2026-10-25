@@ -151,7 +151,7 @@ export function createSSEStream(options = {}) {
     finalizeStream();
   };
 
-  return new TransformStream({
+  const ts = new TransformStream({
     transform(chunk, controller) {
       if (!ttftAt) ttftAt = Date.now();
       const text = decoder.decode(chunk, { stream: true });
@@ -589,6 +589,26 @@ export function createSSEStream(options = {}) {
       }
     }
   });
+
+  // Non-enumerable helpers so the abnormal-end path (client cancel / upstream error /
+  // stall) can read what was accumulated when flush() will never run.
+  Object.defineProperty(ts, "isFinalized", { value: () => finalized, enumerable: false });
+  Object.defineProperty(ts, "getPartial", {
+    enumerable: false,
+    value: () => {
+      const isPassthrough = mode === STREAM_MODE.PASSTHROUGH;
+      let partialUsage = isPassthrough ? usage : state?.usage;
+      if (!hasValidUsage(partialUsage) && totalContentLength > 0) {
+        try { partialUsage = estimateUsage(body, totalContentLength, isPassthrough ? FORMATS.OPENAI : sourceFormat); } catch { /* fail-open */ }
+      }
+      return {
+        content: { content: accumulatedContent, thinking: accumulatedThinking, toolCalls: toolCallCollector.getToolCalls() },
+        usage: hasValidUsage(partialUsage) ? partialUsage : null,
+        ttftAt
+      };
+    }
+  });
+  return ts;
 }
 
 export function createSSETransformStreamWithLogger(targetFormat, sourceFormat, provider = null, reqLogger = null, toolNameMap = null, model = null, connectionId = null, body = null, onStreamComplete = null, apiKey = null, customToolNames = null, credentials = null) {

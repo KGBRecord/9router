@@ -10,32 +10,30 @@ const CONFIG_CACHE_TTL_MS = 5000;
 let cachedConfig = null;
 let cachedConfigTs = 0;
 
+export function __resetObservabilityConfigCache() {
+  cachedConfig = null;
+  cachedConfigTs = 0;
+}
+
+function resolveEnabled(settings, rawEnabled) {
+  // Explicit UI switch (stored row) wins over env, both ways
+  if (typeof rawEnabled === "boolean") return rawEnabled;
+  const envRequestLogs = process.env.ENABLE_REQUEST_LOGS;
+  if (envRequestLogs !== undefined) return envRequestLogs.toLowerCase() === "true";
+  return process.env.OBSERVABILITY_ENABLED !== "false";
+}
+
 async function getObservabilityConfig() {
   if (cachedConfig && (Date.now() - cachedConfigTs) < CONFIG_CACHE_TTL_MS) return cachedConfig;
   try {
     const { getSettings } = await import("./settingsRepo.js");
     const settings = await getSettings();
-    const envRequestLogs = process.env.ENABLE_REQUEST_LOGS;
-    if (envRequestLogs !== undefined) {
-      const enabled = envRequestLogs.toLowerCase() === "true";
-      cachedConfig = {
-        enabled,
-        maxRecords: settings.observabilityMaxRecords || parseInt(process.env.OBSERVABILITY_MAX_RECORDS || String(DEFAULT_MAX_RECORDS), 10),
-        batchSize: settings.observabilityBatchSize || parseInt(process.env.OBSERVABILITY_BATCH_SIZE || String(DEFAULT_BATCH_SIZE), 10),
-        flushIntervalMs: settings.observabilityFlushIntervalMs || parseInt(process.env.OBSERVABILITY_FLUSH_INTERVAL_MS || String(DEFAULT_FLUSH_INTERVAL_MS), 10),
-        maxJsonSize: (settings.observabilityMaxJsonSize || parseInt(process.env.OBSERVABILITY_MAX_JSON_SIZE || "5", 10)) * 1024,
-      };
-      cachedConfigTs = Date.now();
-      return cachedConfig;
-    }
-    const envFallback = process.env.OBSERVABILITY_ENABLED !== "false";
-    const uiFlag = typeof settings.enableObservability === "boolean";
-    const enabled = uiFlag
-      ? settings.enableObservability
-      : envFallback;
-
+    // getSettings() merges defaults, so read the raw row to know if the user set the switch
+    const db = await getAdapter();
+    const row = db.get("SELECT data FROM settings WHERE id = 1");
+    const raw = row ? parseJson(row.data, {}) : {};
     cachedConfig = {
-      enabled,
+      enabled: resolveEnabled(settings, raw?.enableObservability),
       maxRecords: settings.observabilityMaxRecords || parseInt(process.env.OBSERVABILITY_MAX_RECORDS || String(DEFAULT_MAX_RECORDS), 10),
       batchSize: settings.observabilityBatchSize || parseInt(process.env.OBSERVABILITY_BATCH_SIZE || String(DEFAULT_BATCH_SIZE), 10),
       flushIntervalMs: settings.observabilityFlushIntervalMs || parseInt(process.env.OBSERVABILITY_FLUSH_INTERVAL_MS || String(DEFAULT_FLUSH_INTERVAL_MS), 10),
@@ -56,7 +54,7 @@ async function getObservabilityConfig() {
 
 const DETAIL_META_KEYS = [
   "statusCode", "error", "correlationId", "attemptNumber", "requestedModel",
-  "apiKeyId", "apiKeyName", "comboName", "endpoint", "sourceFormat", "targetFormat",
+  "apiKeyId", "apiKeyName", "comboName", "endpoint", "sourceFormat", "targetFormat", "sessionId",
 ];
 
 let writeBuffer = [];

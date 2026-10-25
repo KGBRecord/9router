@@ -30,7 +30,15 @@ export function createStreamController({ onDisconnect, onError, log, provider, m
     else console.log(`[${getTimeString()}] ${symbol} ${provider}/${model} · ${status} · ${duration}ms`);
   };
 
-  return {
+  // Abnormal end after HTTP 200: notify the registered hook once (fail-open).
+  let abnormalFired = false;
+  const fireAbnormal = (reason, statusCode) => {
+    if (abnormalFired) return;
+    abnormalFired = true;
+    try { controllerApi.onAbnormalEnd?.({ reason, statusCode }); } catch { /* fail-open */ }
+  };
+
+  const controllerApi = {
     signal: abortController.signal,
     startTime,
 
@@ -51,6 +59,7 @@ export function createStreamController({ onDisconnect, onError, log, provider, m
       }, 500);
 
       onDisconnect?.({ reason, duration: Date.now() - startTime });
+      fireAbnormal("client disconnected", 499);
     },
 
     // Call when stream completes normally (no line here — "📊 done" is authoritative)
@@ -76,15 +85,19 @@ export function createStreamController({ onDisconnect, onError, log, provider, m
 
       if (error.name === "AbortError") {
         logStream("⚡", "ABORTED");
+        fireAbnormal("client disconnected", 499);
         return;
       }
 
       logStream("✗", `ERROR: ${error.message}${error.stack ? `\n    ${error.stack}` : ""}`, true);
       onError?.(error);
+      const msg = String(error?.message || "upstream error").slice(0, 300);
+      fireAbnormal(msg, msg === "stream stall timeout" ? 504 : 502);
     },
 
     abort: () => abortController.abort()
   };
+  return controllerApi;
 }
 
 /**
