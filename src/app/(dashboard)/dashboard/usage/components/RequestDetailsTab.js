@@ -1,11 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Card from "@/shared/components/Card";
 import Button from "@/shared/components/Button";
 import Drawer from "@/shared/components/Drawer";
 import Pagination from "@/shared/components/Pagination";
 import { cn } from "@/shared/utils/cn";
+import PayloadViewer from "./PayloadViewer";
+import {
+  getToolCalls, isPlaceholderContent, formatToolArguments, getStatusBadge,
+  shortEndpoint, buildCorrelationCounts, getAttemptLabel,
+} from "./requestDetailsHelpers";
 import { AI_PROVIDERS, getProviderByAlias } from "@/shared/constants/providers";
 
 let providerNameCache = null;
@@ -115,8 +120,11 @@ export default function RequestDetailsTab() {
   const [filters, setFilters] = useState({
     provider: "",
     startDate: "",
-    endDate: ""
+    endDate: "",
+    status: "",
+    model: ""
   });
+  const [modelInput, setModelInput] = useState("");
 
   const fetchProviders = useCallback(async () => {
     try {
@@ -141,6 +149,8 @@ export default function RequestDetailsTab() {
       if (filters.provider) params.append("provider", filters.provider);
       if (filters.startDate) params.append("startDate", filters.startDate);
       if (filters.endDate) params.append("endDate", filters.endDate);
+      if (filters.status) params.append("status", filters.status);
+      if (filters.model) params.append("model", filters.model);
 
       const res = await fetch(`/api/usage/request-details?${params}`);
       const data = await res.json();
@@ -176,8 +186,21 @@ export default function RequestDetailsTab() {
   };
 
   const handleClearFilters = () => {
-    setFilters({ provider: "", startDate: "", endDate: "" });
+    setFilters({ provider: "", startDate: "", endDate: "", status: "", model: "" });
+    setModelInput("");
+    setPagination(prev => ({ ...prev, page: 1 }));
   };
+
+  // Debounce the model text filter so we don't refetch on every keystroke.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setFilters(prev => (prev.model === modelInput ? prev : { ...prev, model: modelInput }));
+    }, 400);
+    return () => clearTimeout(t);
+  }, [modelInput]);
+
+  const correlationCounts = useMemo(() => buildCorrelationCounts(details), [details]);
+  const selectedToolCalls = getToolCalls(selectedDetail);
 
   return (
     <div className="flex min-w-0 flex-col gap-6">
@@ -233,12 +256,46 @@ export default function RequestDetailsTab() {
             />
           </div>
           
+          <div className="flex min-w-0 flex-col gap-2">
+            <label htmlFor="status-filter" className="text-sm font-medium text-text-main">Status</label>
+            <select
+              id="status-filter"
+              value={filters.status}
+              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+              className={cn(
+                "h-9 px-3 rounded-lg border border-black/10 dark:border-white/10 bg-surface",
+                "text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20",
+                "w-full min-w-0 cursor-pointer"
+              )}
+              style={{ colorScheme: 'auto' }}
+            >
+              <option value="">All</option>
+              <option value="success">Success</option>
+              <option value="error">Error</option>
+            </select>
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-2">
+            <label htmlFor="model-filter" className="text-sm font-medium text-text-main">Model</label>
+            <input
+              id="model-filter"
+              type="text"
+              value={modelInput}
+              placeholder="Filter by model"
+              onChange={(e) => setModelInput(e.target.value)}
+              className={cn(
+                "h-9 px-3 rounded-lg border border-black/10 dark:border-white/10 bg-surface",
+                "w-full min-w-0 text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20"
+              )}
+            />
+          </div>
+
           <div className="flex min-w-0 flex-col gap-2 sm:col-span-2 lg:col-span-1">
             <span className="hidden text-sm font-medium text-text-main opacity-0 lg:block" aria-hidden="true">Clear</span>
             <Button 
               variant="ghost" 
               onClick={handleClearFilters}
-              disabled={!filters.provider && !filters.startDate && !filters.endDate}
+              disabled={!filters.provider && !filters.startDate && !filters.endDate && !filters.status && !filters.model && !modelInput}
               className="w-full"
             >
               Clear Filters
@@ -249,10 +306,11 @@ export default function RequestDetailsTab() {
 
       <Card padding="none">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[880px]">
+          <table className="w-full min-w-[980px]">
             <thead>
               <tr className="border-b border-black/5 dark:border-white/5">
                 <th className="text-left p-4 text-sm font-semibold text-text-main">Timestamp</th>
+                <th className="text-left p-4 text-sm font-semibold text-text-main">Status</th>
                 <th className="text-left p-4 text-sm font-semibold text-text-main">Model</th>
                 <th className="text-left p-4 text-sm font-semibold text-text-main">Provider</th>
                 <th className="text-right p-4 text-sm font-semibold text-text-main">Input Tokens</th>
@@ -266,7 +324,7 @@ export default function RequestDetailsTab() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="7" className="p-8 text-center text-text-muted">
+                  <td colSpan="10" className="p-8 text-center text-text-muted">
                     <div className="flex items-center justify-center gap-2">
                       <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
                       Loading...
@@ -275,7 +333,7 @@ export default function RequestDetailsTab() {
                 </tr>
               ) : details.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="p-8 text-center text-text-muted">
+                  <td colSpan="10" className="p-8 text-center text-text-muted">
                     No request details found
                   </td>
                 </tr>
@@ -288,8 +346,44 @@ export default function RequestDetailsTab() {
                     <td className="whitespace-nowrap p-4 text-sm text-text-main">
                       {new Date(detail.timestamp).toLocaleString()}
                     </td>
-                    <td className="max-w-[260px] truncate p-4 font-mono text-sm text-text-main">
-                      {detail.model}
+                    <td className="whitespace-nowrap p-4 text-sm">
+                      {(() => {
+                        const badge = getStatusBadge(detail);
+                        return (
+                          <span className={cn(
+                            "rounded px-2 py-0.5 text-xs font-medium",
+                            badge.ok ? "bg-green-500/15 text-green-600" : "bg-red-500/15 text-red-600"
+                          )}>
+                            {badge.label}
+                          </span>
+                        );
+                      })()}
+                    </td>
+                    <td className="max-w-[260px] p-4 text-sm text-text-main">
+                      <div className="truncate font-mono">{detail.model}</div>
+                      {(detail.endpoint || detail.comboName || (detail.requestedModel && detail.requestedModel !== detail.model)) && (
+                        <div className="truncate text-xs text-text-muted">
+                          {detail.endpoint && <span className="font-mono">{shortEndpoint(detail.endpoint)}</span>}
+                          {detail.comboName && <span> · combo {detail.comboName}</span>}
+                          {!detail.comboName && detail.requestedModel && detail.requestedModel !== detail.model && (
+                            <span> · req {detail.requestedModel}</span>
+                          )}
+                        </div>
+                      )}
+                      {(getToolCalls(detail).length > 0 || getAttemptLabel(detail, correlationCounts)) && (
+                        <div className="mt-1 flex flex-wrap gap-1">
+                          {getToolCalls(detail).length > 0 && (
+                            <span className="rounded bg-blue-500/15 px-1.5 py-0.5 text-[11px] text-blue-600">
+                              {getToolCalls(detail).length} tools
+                            </span>
+                          )}
+                          {getAttemptLabel(detail, correlationCounts) && (
+                            <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[11px] text-amber-600">
+                              {getAttemptLabel(detail, correlationCounts)}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </td>
                     <td className="max-w-[180px] truncate p-4 text-sm text-text-main">
                        <span className="font-medium">
@@ -413,6 +507,47 @@ export default function RequestDetailsTab() {
               </div>
             </div>
 
+            {selectedDetail.status === "error" && (
+              <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-600">
+                <div className="mb-1 flex items-center gap-2 font-semibold">
+                  <span className="material-symbols-outlined text-[18px]">error</span>
+                  Error{selectedDetail.statusCode ? ` (${selectedDetail.statusCode})` : ""}
+                </div>
+                <pre className="max-h-[200px] overflow-auto whitespace-pre-wrap break-words font-mono text-xs">
+                  {selectedDetail.error || selectedDetail.response?.error || "Unknown error"}
+                </pre>
+              </div>
+            )}
+
+            {[
+              ["Requested Model", selectedDetail.requestedModel],
+              ["API Key", selectedDetail.apiKeyName],
+              ["Endpoint", selectedDetail.endpoint],
+              ["Combo", selectedDetail.comboName],
+              ["Source Format", selectedDetail.sourceFormat],
+              ["Target Format", selectedDetail.targetFormat],
+              ["Correlation ID", selectedDetail.correlationId],
+              ["Attempt", selectedDetail.attemptNumber],
+            ].some(([, v]) => v != null && v !== "") && (
+              <div className="grid min-w-0 grid-cols-1 gap-2 rounded-lg border border-black/5 p-3 text-sm dark:border-white/5 sm:grid-cols-2">
+                {[
+                  ["Requested Model", selectedDetail.requestedModel],
+                  ["API Key", selectedDetail.apiKeyName],
+                  ["Endpoint", selectedDetail.endpoint],
+                  ["Combo", selectedDetail.comboName],
+                  ["Source Format", selectedDetail.sourceFormat],
+                  ["Target Format", selectedDetail.targetFormat],
+                  ["Correlation ID", selectedDetail.correlationId],
+                  ["Attempt", selectedDetail.attemptNumber],
+                ].filter(([, v]) => v != null && v !== "").map(([label, v]) => (
+                  <div key={label} className="min-w-0">
+                    <span className="text-text-muted">{label}:</span>{" "}
+                    <span className="break-all font-mono text-text-main">{String(v)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {selectedDetail.pxpipe && (
               <div className="rounded-lg border border-black/5 dark:border-white/5 p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -457,30 +592,45 @@ export default function RequestDetailsTab() {
 
             <div className="space-y-4">
               <CollapsibleSection title="1. Client Request (Input)" defaultOpen={true} icon="input">
-                <pre className="max-h-[300px] max-w-full overflow-auto rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
-                  {JSON.stringify(selectedDetail.request, null, 2)}
-                </pre>
+                <PayloadViewer payload={selectedDetail.request} />
               </CollapsibleSection>
 
               {selectedDetail.providerRequest && (
                 <CollapsibleSection title="2. Provider Request (Translated)" icon="translate">
-                  <pre className="max-h-[300px] max-w-full overflow-auto rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
-                    {JSON.stringify(selectedDetail.providerRequest, null, 2)}
-                  </pre>
+                  <PayloadViewer payload={selectedDetail.providerRequest} />
                 </CollapsibleSection>
               )}
 
               {selectedDetail.providerResponse && (
                 <CollapsibleSection title="3. Provider Response (Raw)" icon="data_object">
-                  <pre className="max-h-[300px] max-w-full overflow-auto rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
-                    {typeof selectedDetail.providerResponse === 'object'
-                      ? JSON.stringify(selectedDetail.providerResponse, null, 2)
-                      : selectedDetail.providerResponse
-                    }
-                  </pre>
+                  {typeof selectedDetail.providerResponse === 'object' ? (
+                    <PayloadViewer payload={selectedDetail.providerResponse} />
+                  ) : (
+                    <pre className="max-h-[300px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
+                      {selectedDetail.providerResponse}
+                    </pre>
+                  )}
                 </CollapsibleSection>
               )}
-              
+
+              {selectedToolCalls.length > 0 && (
+                <CollapsibleSection title={`Tool Calls (${selectedToolCalls.length})`} defaultOpen={true} icon="build">
+                  <div className="space-y-3">
+                    {selectedToolCalls.map((call, i) => (
+                      <div key={`${call.id || "call"}-${i}`} className="rounded-lg border border-black/5 p-3 dark:border-white/5">
+                        <div className="mb-2 flex flex-wrap items-center gap-2 text-sm">
+                          <span className="font-mono font-semibold text-text-main">{call.name || "(unnamed)"}</span>
+                          {call.id && <span className="break-all font-mono text-xs text-text-muted">{call.id}</span>}
+                        </div>
+                        <pre className="max-h-[300px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5">
+                          {formatToolArguments(call.arguments) || "(no arguments)"}
+                        </pre>
+                      </div>
+                    ))}
+                  </div>
+                </CollapsibleSection>
+              )}
+
               <CollapsibleSection title="4. Client Response (Final)" defaultOpen={true} icon="output">
                 {selectedDetail.response?.thinking && (
                   <div className="mb-4">
@@ -494,12 +644,18 @@ export default function RequestDetailsTab() {
                   </div>
                 )}
                 
-                <h4 className="font-semibold text-text-main mb-2 text-xs uppercase tracking-wide opacity-70">
-                  Content
-                </h4>
-                <pre className="max-h-[300px] max-w-full overflow-auto rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
-                  {selectedDetail.response?.content || "[No content]"}
-                </pre>
+                {selectedToolCalls.length > 0 && (!selectedDetail.response?.content || isPlaceholderContent(selectedDetail.response.content)) ? (
+                  <p className="text-sm text-text-muted">Response contained tool calls only (see Tool Calls above).</p>
+                ) : (
+                  <>
+                    <h4 className="font-semibold text-text-main mb-2 text-xs uppercase tracking-wide opacity-70">
+                      Content
+                    </h4>
+                    <pre className="max-h-[300px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-black/5 bg-black/5 p-3 font-mono text-xs text-text-main dark:border-white/5 dark:bg-white/5 sm:p-4">
+                      {selectedDetail.response?.content || "[No content]"}
+                    </pre>
+                  </>
+                )}
               </CollapsibleSection>
             </div>
           </div>

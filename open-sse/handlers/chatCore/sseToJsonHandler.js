@@ -5,7 +5,7 @@ import { HTTP_STATUS } from "../../config/runtimeConfig.js";
 import { FORMATS } from "../../translator/formats.js";
 import { openAICompletionToClaudeMessage } from "../../translator/concerns/claudeMessage.js";
 import { PROVIDERS } from "../../config/providers.js";
-import { buildRequestDetail, extractRequestConfig, saveUsageStats, formatDoneLine } from "./requestDetail.js";
+import { buildRequestDetail, extractToolCallsFromResponse, saveErrorDetail, extractRequestConfig, saveUsageStats, formatDoneLine } from "./requestDetail.js";
 import { ROLE, RESPONSES_ITEM } from "../../translator/schema/index.js";
 import { extractReasoningText } from "../../translator/concerns/reasoning.js";
 
@@ -186,7 +186,7 @@ export function parseSSEToOpenAIResponse(rawSSE, fallbackModel) {
  * Handle case: provider forced streaming but client wants JSON.
  * Supports both Codex/Responses API SSE and standard Chat Completions SSE.
  */
-export async function handleForcedSSEToJson({ providerResponse, sourceFormat, targetFormat, provider, model, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, customToolNames, toolNameMap, trackDone, appendLog, reqTag, log }) {
+export async function handleForcedSSEToJson({ providerResponse, sourceFormat, targetFormat, provider, model, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, customToolNames, toolNameMap, trackDone, appendLog, reqTag, log, detailExtra }) {
   const contentType = providerResponse.headers.get("content-type") || "";
   const isSSE = contentType.includes("text/event-stream") || (contentType === "" && isResponsesProvider(provider));
   if (!isSSE) return null; // not handled here
@@ -196,8 +196,10 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
   const ctx = {
     provider, model, connectionId,
     request: extractRequestConfig(body, stream),
-    providerRequest: finalBody || translatedBody || null
+    providerRequest: finalBody || translatedBody || null,
+    detailExtra
   };
+  const errCtx = { provider, model, connectionId, body, stream, translatedBody, finalBody, requestStartTime, detailExtra };
 
   // Codex/Responses API SSE path
   // Branch on the UPSTREAM format (targetFormat = format we spoke to the provider in),
@@ -226,8 +228,9 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
         ...ctx,
         latency: { ttft: totalLatency, total: totalLatency },
         tokens: { prompt_tokens: inTokensForLog, completion_tokens: usage.output_tokens || 0 },
-        response: { content: textContent, thinking: null, finish_reason: jsonResponse.status || "unknown" },
-        status: "success"
+        response: { content: textContent, thinking: null, finish_reason: jsonResponse.status || "unknown", toolCalls: extractToolCallsFromResponse(jsonResponse) },
+        status: "success",
+        statusCode: 200
       }, { endpoint: clientRawRequest?.endpoint || null })).catch(() => {});
 
       // Client is Responses API → return as-is
@@ -295,6 +298,7 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
       return { success: true, response: new Response(JSON.stringify(restoreToolNames(finalResp, toolNameMap)), { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } }) };
     } catch (err) {
       console.error("[ChatCore] Responses API SSE→JSON failed:", err);
+      saveErrorDetail(errCtx, HTTP_STATUS.BAD_GATEWAY, "Failed to convert streaming response to JSON");
       return createErrorResult(HTTP_STATUS.BAD_GATEWAY, "Failed to convert streaming response to JSON");
     }
   }
@@ -303,7 +307,10 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
   try {
     const sseText = await providerResponse.text();
     const parsed = parseSSEToOpenAIResponse(sseText, model);
-    if (!parsed) return createErrorResult(HTTP_STATUS.BAD_GATEWAY, "Invalid SSE response for non-streaming request");
+    if (!parsed) {
+      saveErrorDetail(errCtx, HTTP_STATUS.BAD_GATEWAY, "Invalid SSE response for non-streaming request");
+      return createErrorResult(HTTP_STATUS.BAD_GATEWAY, "Invalid SSE response for non-streaming request");
+    }
     if (parsed.error) {
       // Structured error chunks may carry the real upstream status (e.g. the
       // Qoder executor emits status 403 for billing envelopes). Preserve it so
@@ -313,6 +320,7 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
       const status = Number.isInteger(upstreamStatus) && upstreamStatus >= 400 && upstreamStatus <= 599
         ? upstreamStatus
         : HTTP_STATUS.BAD_GATEWAY;
+      saveErrorDetail(errCtx, status, parsed.error.message || "Upstream SSE stream failed");
       return createErrorResult(
         status,
         parsed.error.message || "Upstream SSE stream failed"
@@ -334,9 +342,11 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
       response: {
         content: parsed.choices?.[0]?.message?.content || null,
         thinking: parsed.choices?.[0]?.message?.reasoning_content || null,
-        finish_reason: parsed.choices?.[0]?.finish_reason || "unknown"
+        finish_reason: parsed.choices?.[0]?.finish_reason || "unknown",
+        toolCalls: extractToolCallsFromResponse(parsed)
       },
-      status: "success"
+      status: "success",
+      statusCode: 200
     }, { endpoint: clientRawRequest?.endpoint || null })).catch(() => {});
 
     // Re-attach usage explicitly. This handler already HAS the correct usage — it is
@@ -375,6 +385,7 @@ export async function handleForcedSSEToJson({ providerResponse, sourceFormat, ta
     return { success: true, response: new Response(JSON.stringify(restoreToolNames(finalBody, toolNameMap)), { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } }) };
   } catch (err) {
     console.error("[ChatCore] Chat Completions SSE→JSON failed:", err);
-    return createErrorResult(HTTP_STATUS.BAD_GATEWAY, "Failed to convert streaming response to JSON");
+    saveErrorDetail(errCtx, HTTP_STATUS.BAD_GATEWAY, "Failed to convert streaming response to JSON");
+      return createErrorResult(HTTP_STATUS.BAD_GATEWAY, "Failed to convert streaming response to JSON");
   }
 }

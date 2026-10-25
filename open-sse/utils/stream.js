@@ -7,6 +7,7 @@ import { extractUsage, mergeUsage, hasValidUsage, estimateUsage, logUsage, addBu
 import { parseSSELine, hasValuableContent, fixInvalidId, formatSSE, ensureStreamToolCallIds } from "./streamHelpers.js";
 import { restoreToolNames } from "./opencodeFingerprint.js";
 import { getOpenAIResponsesEventName, isOpenAIResponsesTerminalEvent, formatIncompleteOpenAIResponsesStreamFailure } from "./responsesStreamHelpers.js";
+import { createToolCallCollector } from "./toolCallCollector.js";
 import { dbg, isDebugEnabled } from "./debugLog.js";
 
 import { SSE_DONE, SSE_HEADERS, SSE_HEADERS_NO_BUFFER } from "./sseConstants.js";
@@ -86,6 +87,7 @@ export function createSSEStream(options = {}) {
   let totalContentLength = 0;
   let accumulatedContent = "";
   let accumulatedThinking = "";
+  const toolCallCollector = createToolCallCollector();
   let ttftAt = null;
   let sseLineCount = 0;
   let sseEmittedCount = 0;
@@ -129,7 +131,8 @@ export function createSSEStream(options = {}) {
     if (onStreamComplete) {
       onStreamComplete({
         content: accumulatedContent,
-        thinking: accumulatedThinking
+        thinking: accumulatedThinking,
+        toolCalls: toolCallCollector.getToolCalls()
       }, finalUsage, ttftAt);
     }
   };
@@ -255,6 +258,8 @@ export function createSSEStream(options = {}) {
               if (!hasValuableContent(parsed, FORMATS.OPENAI)) {
                 continue;
               }
+
+              toolCallCollector.push(parsed);
 
               const delta = parsed.choices?.[0]?.delta;
               const content = delta?.content;
@@ -404,6 +409,7 @@ export function createSSEStream(options = {}) {
 
         // Responses same-format passthrough: re-emit with original event framing
         if (keepsOpenAIResponsesFormat && openAIResponsesEventName) {
+          toolCallCollector.push(parsed);
           const output = formatSSE({ event: openAIResponsesEventName, data: parsed }, sourceFormat);
           reqLogger?.appendConvertedChunk?.(output);
           controller.enqueue(sharedEncoder.encode(output));
@@ -447,6 +453,7 @@ export function createSSEStream(options = {}) {
               item.usage = filterUsageForFormat(buffered, sourceFormat);
             }
 
+            toolCallCollector.push(item);
             const output = formatSSE(item, sourceFormat);
             reqLogger?.appendConvertedChunk?.(output);
             controller.enqueue(sharedEncoder.encode(output));
@@ -530,6 +537,7 @@ export function createSSEStream(options = {}) {
             if (translated?.length > 0) {
               for (const item of translated) {
                 if (item === null || item === undefined) continue;
+                toolCallCollector.push(item);
                 const output = formatSSE(item, sourceFormat);
                 reqLogger?.appendConvertedChunk?.(output);
                 controller.enqueue(sharedEncoder.encode(output));
@@ -550,6 +558,7 @@ export function createSSEStream(options = {}) {
         if (flushed?.length > 0) {
           for (const item of flushed) {
             if (item === null || item === undefined) continue;
+            toolCallCollector.push(item);
             const output = formatSSE(item, sourceFormat);
             reqLogger?.appendConvertedChunk?.(output);
             controller.enqueue(sharedEncoder.encode(output));

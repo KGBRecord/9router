@@ -79,6 +79,55 @@ export function extractUsageFromResponse(responseBody) {
   return null;
 }
 
+const DETAIL_EXTRA_KEYS = [
+  "correlationId", "attemptNumber", "requestedModel", "apiKeyId", "apiKeyName",
+  "comboName", "endpoint", "sourceFormat", "targetFormat"
+];
+
+// Whitelist-copy known metadata fields (never spreads unknown keys, e.g. a raw apiKey).
+function pickDetailExtra(extra) {
+  const out = {};
+  if (!extra || typeof extra !== "object") return out;
+  for (const k of DETAIL_EXTRA_KEYS) {
+    if (extra[k] !== undefined) out[k] = extra[k];
+  }
+  return out;
+}
+
+// Tool calls from a final (non-streaming) response body -> [{id,name,arguments}]
+export function extractToolCallsFromResponse(body) {
+  const out = [];
+  if (!body || typeof body !== "object") return out;
+  const str = (v) => (typeof v === "string" ? v : JSON.stringify(v ?? {}));
+  // OpenAI chat completions
+  const oai = body.choices?.[0]?.message?.tool_calls;
+  if (Array.isArray(oai)) {
+    for (const tc of oai) {
+      if (!tc?.function?.name) continue;
+      out.push({ id: tc.id || null, name: tc.function.name, arguments: str(tc.function.arguments ?? "") });
+    }
+  }
+  // Claude content blocks
+  if (Array.isArray(body.content)) {
+    for (const b of body.content) {
+      if (b?.type === "tool_use" && b.name) out.push({ id: b.id || null, name: b.name, arguments: JSON.stringify(b.input ?? {}) });
+    }
+  }
+  // OpenAI Responses output items
+  if (Array.isArray(body.output)) {
+    for (const it of body.output) {
+      if (it?.type === "function_call" && it.name) out.push({ id: it.call_id || it.id || null, name: it.name, arguments: str(it.arguments ?? "") });
+    }
+  }
+  return out;
+}
+
+// Streaming content placeholder rule: only when both text and tool calls are empty.
+export function streamContentOrPlaceholder(contentObj) {
+  const hasTools = Array.isArray(contentObj?.toolCalls) && contentObj.toolCalls.length > 0;
+  return contentObj?.content || (hasTools ? "" : "[Empty streaming response]");
+}
+
 export function buildRequestDetail(base, overrides = {}) {
   return {
     provider: base.provider || "unknown",
@@ -93,8 +142,29 @@ export function buildRequestDetail(base, overrides = {}) {
     response: base.response || {},
     pxpipe: base.pxpipe || undefined,
     status: base.status || "success",
+    ...(base.statusCode !== undefined ? { statusCode: base.statusCode } : {}),
+    ...(base.error ? { error: String(base.error).slice(0, 500) } : {}),
+    ...pickDetailExtra(base.detailExtra),
     ...overrides
   };
+}
+
+// Record an error detail for handler-level failures (fail-open, never throws).
+export function saveErrorDetail({ provider, model, connectionId, body, stream, translatedBody, finalBody, requestStartTime, pxpipe, detailExtra }, statusCode, message) {
+  try {
+    saveRequestDetail(buildRequestDetail({
+      provider, model, connectionId,
+      latency: { ttft: 0, total: Date.now() - (requestStartTime || Date.now()) },
+      request: extractRequestConfig(body || {}, stream),
+      providerRequest: finalBody || translatedBody || null,
+      response: { error: message, status: statusCode, thinking: null },
+      pxpipe,
+      status: "error",
+      statusCode,
+      error: message,
+      detailExtra
+    })).catch(() => {});
+  } catch { /* fail-open */ }
 }
 
 // Build the "done" summary: duration, ttft, in/out tokens with cache breakdown

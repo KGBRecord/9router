@@ -7,6 +7,7 @@ import {
   extractApiKey,
   isValidApiKey,
 } from "../services/auth.js";
+import { getApiKeyByKey } from "@/lib/db/index.js";
 import { handleAntigravityQuotaError, clearAntigravityStrikes } from "../services/antigravityQuota.js";
 import { getSettings } from "@/lib/localDb";
 import { getModelInfo, getComboModels } from "../services/model.js";
@@ -34,6 +35,12 @@ import { resolveSmartChoice } from "../services/systemoneRouter.js";
  * Supports: OpenAI, Claude, Gemini, OpenAI Responses API formats
  * Format detection and translation handled by translator
  */
+// Per-combo copy of clientRawRequest: shares correlationId/attemptCounter, adds comboName.
+function withComboMeta(raw, comboName) {
+  if (!raw?.detailMeta) return raw;
+  return { ...raw, detailMeta: { ...raw.detailMeta, comboName } };
+}
+
 export async function handleChat(request, clientRawRequest = null) {
   let body;
   try {
@@ -104,6 +111,25 @@ export async function handleChat(request, clientRawRequest = null) {
   const bypassResponse = handleBypassRequest(body, modelStr, userAgent, !!settings.ccFilterNaming);
   if (bypassResponse) return bypassResponse.response || bypassResponse;
 
+  // Request-detail metadata shared by every attempt of this client request (fail-open).
+  // Never stores the raw key; only the key's id/name.
+  try {
+    if (clientRawRequest && !clientRawRequest.detailMeta) {
+      const keyRecord = apiKey ? await getApiKeyByKey(apiKey).catch(() => null) : null;
+      clientRawRequest = {
+        ...clientRawRequest,
+        detailMeta: {
+          correlationId: crypto.randomUUID(),
+          attemptCounter: { n: 0 },
+          requestedModel: modelStr || null,
+          apiKeyId: keyRecord?.id || null,
+          apiKeyName: keyRecord?.name || null,
+          comboName: null,
+        },
+      };
+    }
+  } catch { /* detail metadata is best-effort */ }
+
   const requiredCapabilities = detectRequiredCapabilities(body);
 
   // Check if model is a combo (has multiple models with fallback)
@@ -118,14 +144,15 @@ export async function handleChat(request, clientRawRequest = null) {
 
     if (comboStrategy === "fusion") {
       log.info("CHAT", `Combo "${modelStr}" with ${comboModels.length} models (strategy: fusion)`);
+      const comboRawReq = withComboMeta(clientRawRequest, modelStr);
       return handleFusionChat({
         body,
         models: comboModels,
         handleSingleModel: (b, m, isPanel) => {
-          let cleanRawReq = clientRawRequest;
-          if (isPanel && clientRawRequest) {
-            const { tools, tool_choice, ...cleanBody } = clientRawRequest.body || {};
-            cleanRawReq = { ...clientRawRequest, body: cleanBody };
+          let cleanRawReq = comboRawReq;
+          if (isPanel && comboRawReq) {
+            const { tools, tool_choice, ...cleanBody } = comboRawReq.body || {};
+            cleanRawReq = { ...comboRawReq, body: cleanBody };
           }
           return handleSingleModelChat(b, m, cleanRawReq, request, apiKey);
         },
@@ -139,11 +166,12 @@ export async function handleChat(request, clientRawRequest = null) {
     const comboStickyLimit = settings.comboStickyRoundRobinLimit;
     const comboCfg = comboStrategies[modelStr] || {};
     log.info("CHAT", `Combo "${modelStr}" with ${augmentedModels.length} models (strategy: ${comboStrategy}, sticky: ${comboStickyLimit})`);
+    const comboRawReq = withComboMeta(clientRawRequest, modelStr);
     return handleComboChat({
       body,
       models: augmentedModels,
       handleSingleModel: withCapacityAdapterStripping(
-        (b, m) => handleSingleModelChat(b, m, clientRawRequest, request, apiKey),
+        (b, m) => handleSingleModelChat(b, m, comboRawReq, request, apiKey),
         adapterAdded
       ),
       log,
@@ -172,11 +200,12 @@ export async function handleChat(request, clientRawRequest = null) {
   if (soloAugmented.length > 1) {
     const adapterAdded = soloAugmented.filter((m) => m !== modelStr);
     log.info("CHAT", `Capacity adapter for [${[...requiredCapabilities].join(",")}] on "${modelStr}" → trying ${soloAugmented.join(", ")}`);
+    const adapterRawReq = withComboMeta(clientRawRequest, modelStr);
     return handleComboChat({
       body,
       models: soloAugmented,
       handleSingleModel: withCapacityAdapterStripping(
-        (b, m) => handleSingleModelChat(b, m, clientRawRequest, request, apiKey),
+        (b, m) => handleSingleModelChat(b, m, adapterRawReq, request, apiKey),
         adapterAdded
       ),
       log,
@@ -212,14 +241,15 @@ async function handleSingleModelChat(body, modelStr, clientRawRequest = null, re
 
       if (comboStrategy === "fusion") {
         log.info("CHAT", `Combo "${modelStr}" with ${comboModels.length} models (strategy: fusion)`);
+        const comboRawReq = withComboMeta(clientRawRequest, modelStr);
         return handleFusionChat({
           body,
           models: comboModels,
           handleSingleModel: (b, m, isPanel) => {
-            let cleanRawReq = clientRawRequest;
-            if (isPanel && clientRawRequest) {
-              const { tools, tool_choice, ...cleanBody } = clientRawRequest.body || {};
-              cleanRawReq = { ...clientRawRequest, body: cleanBody };
+            let cleanRawReq = comboRawReq;
+            if (isPanel && comboRawReq) {
+              const { tools, tool_choice, ...cleanBody } = comboRawReq.body || {};
+              cleanRawReq = { ...comboRawReq, body: cleanBody };
             }
             return handleSingleModelChat(b, m, cleanRawReq, request, apiKey);
           },
@@ -235,11 +265,12 @@ async function handleSingleModelChat(body, modelStr, clientRawRequest = null, re
       const nestedSession = resolveSessionIdentity({ headers: clientRawRequest?.headers, body });
       const nestedSessionId = nestedSession?.sessionId || null;
       log.info("CHAT", `Combo "${modelStr}" with ${augmentedModels.length} models (strategy: ${comboStrategy}, sticky: ${comboStickyLimit})`);
+      const comboRawReq = withComboMeta(clientRawRequest, modelStr);
       return handleComboChat({
         body,
         models: augmentedModels,
         handleSingleModel: withCapacityAdapterStripping(
-          (b, m) => handleSingleModelChat(b, m, clientRawRequest, request, apiKey),
+          (b, m) => handleSingleModelChat(b, m, comboRawReq, request, apiKey),
           adapterAdded
         ),
         log,

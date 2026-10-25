@@ -63,6 +63,20 @@ export function stripContinuityFields(body) {
 
 export async function handleChatCore({ body, modelInfo, credentials, log, onCredentialsRefreshed, onRequestSuccess, onDisconnect, clientRawRequest, connectionId, userAgent, apiKey, ccFilterNaming, rtkEnabled, headroomEnabled, headroomUrl, headroomCompressUserMessages, headroomTimeoutMs, cavemanEnabled, cavemanLevel, ponytailEnabled, ponytailLevel, customPromptEnabled, customPrompt, pxpipeEnabled, pxpipeMinChars, pxpipeTimeoutMs, pxpipeTransform, onPxpipeEvent, sourceFormatOverride, providerThinking, providerOverrides }) {
   const { provider, model } = modelInfo;
+  // Request-detail metadata (fail-open: absent for callers that do not set detailMeta)
+  const detailMeta = clientRawRequest?.detailMeta;
+  const attemptNumber = detailMeta?.attemptCounter ? ++detailMeta.attemptCounter.n : undefined;
+  const buildDetailExtra = (tf) => detailMeta ? {
+    correlationId: detailMeta.correlationId,
+    attemptNumber,
+    requestedModel: detailMeta.requestedModel ?? null,
+    apiKeyId: detailMeta.apiKeyId ?? null,
+    apiKeyName: detailMeta.apiKeyName ?? null,
+    comboName: detailMeta.comboName ?? null,
+    endpoint: clientRawRequest?.endpoint || null,
+    sourceFormat,
+    targetFormat: tf,
+  } : undefined;
   const requestStartTime = Date.now();
   // Stable per-session color so all lines of one CLI conversation share a tag
   const sessionSeed = (() => {
@@ -426,7 +440,10 @@ export async function handleChatCore({ body, modelInfo, credentials, log, onCred
       providerRequest: translatedBody || null,
       response: { error: error.message || String(error), status: error.name === "AbortError" ? 499 : 502, thinking: null },
       pxpipe: pxpipeSummary,
-      status: "error"
+      status: "error",
+      statusCode: error.name === "AbortError" ? 499 : 502,
+      error: error.message || String(error),
+      detailExtra: buildDetailExtra(providerResponseFormat)
     })).catch(() => { });
 
     if (error.name === "AbortError") {
@@ -501,7 +518,10 @@ export async function handleChatCore({ body, modelInfo, credentials, log, onCred
       providerRequest: finalBody || translatedBody || null,
       response: { error: message, status: statusCode, thinking: null },
       pxpipe: pxpipeSummary,
-      status: "error"
+      status: "error",
+      statusCode,
+      error: message,
+      detailExtra: buildDetailExtra(providerResponseFormat)
     })).catch(() => { });
 
     const errMsg = formatProviderError(new Error(message), provider, model, statusCode);
@@ -513,7 +533,8 @@ export async function handleChatCore({ body, modelInfo, credentials, log, onCred
     return createErrorResult(statusCode, errMsg, resetsAtMs, upstreamResponseHeaders(providerResponse.headers));
   }
 
-  const sharedCtx = { provider, model, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, pxpipe: pxpipeSummary, reqTag, log };
+  const detailExtra = buildDetailExtra(providerResponseFormat);
+  const sharedCtx = { detailExtra, provider, model, body, stream, translatedBody, finalBody, requestStartTime, connectionId, apiKey, clientRawRequest, onRequestSuccess, pxpipe: pxpipeSummary, reqTag, log };
   const appendLog = (extra) => appendRequestLog({ model, provider, connectionId, ...extra }).catch(() => { });
   const trackDone = () => trackPendingRequest(model, provider, connectionId, false);
 

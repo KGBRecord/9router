@@ -252,3 +252,47 @@ describe("API route contract — validation boundary", () => {
     expect(body.pagination).toMatchObject({ page: 1, pageSize: 20 });
   });
 });
+
+describe("request details helpers — new fields", () => {
+  let h;
+  beforeAll(async () => {
+    h = await import("@/app/(dashboard)/dashboard/usage/components/requestDetailsHelpers.js");
+  });
+
+  it("getToolCalls tolerates missing fields", () => {
+    expect(h.getToolCalls({})).toEqual([]);
+    expect(h.getToolCalls(null)).toEqual([]);
+    expect(h.getToolCalls({ response: { toolCalls: [{ name: "a", arguments: "{}" }] } })).toHaveLength(1);
+  });
+
+  it("formatToolArguments pretty-prints JSON, falls back to raw", () => {
+    expect(h.formatToolArguments('{"a":1}')).toBe('{\n  "a": 1\n}');
+    expect(h.formatToolArguments('{"a":')).toBe('{"a":');
+  });
+
+  it("placeholder detection + status badge", () => {
+    expect(h.isPlaceholderContent("[Empty streaming response]")).toBe(true);
+    expect(h.isPlaceholderContent("hello")).toBe(false);
+    expect(h.getStatusBadge({ status: "success" })).toEqual({ ok: true, label: "OK" });
+    expect(h.getStatusBadge({ status: "error", statusCode: 502 })).toEqual({ ok: false, label: "502" });
+    expect(h.getStatusBadge({ status: "error" }).label).toBe("ERR");
+  });
+
+  it("attempt label from attemptNumber or shared correlationId", () => {
+    const rows = [{ correlationId: "c", attemptNumber: 1 }, { correlationId: "c", attemptNumber: 2 }, { correlationId: "z" }];
+    const counts = h.buildCorrelationCounts(rows);
+    expect(h.getAttemptLabel(rows[1], counts)).toBe("attempt 2");
+    expect(h.getAttemptLabel(rows[0], counts)).toBe("attempt 1");
+    expect(h.getAttemptLabel(rows[2], counts)).toBe("");
+  });
+
+  it("messageContentToText summarizes blocks; payload flags", () => {
+    const txt = h.messageContentToText([
+      { type: "text", text: "hi" }, { type: "tool_use", name: "Read" }, { type: "tool_result" }, { type: "image" },
+    ]);
+    expect(txt).toBe("hi\n[tool_use Read]\n[tool_result]\n[image]");
+    expect(h.isTruncatedPayload({ _truncated: true })).toBe(true);
+    expect(h.isRedactedPayload({ redacted: true })).toBe(true);
+    expect(h.summarizePayload({ messages: [1, 2], tools: [1] })).toMatchObject({ messageCount: 2, toolCount: 1 });
+  });
+});
