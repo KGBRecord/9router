@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRequestDetails } from "@/lib/usageDb";
+import { getSettings } from "@/lib/db/index.js";
 
 /**
  * GET /api/usage/request-details
@@ -48,11 +49,18 @@ export async function GET(request) {
     
     const result = await getRequestDetails(filter);
 
-    // Redact conversation payloads: the stored details include full request
-    // bodies (user prompts, tool calls) and provider responses. Returning them
-    // wholesale lets any dashboard-authenticated user (or, if requireLogin is
-    // disabled, anyone) read every user's conversation history. Keep the
-    // metadata (model, tokens, latency, status) but drop message content.
+    // Stored details include full request bodies (user prompts, tool calls) and provider
+    // responses. Settings.redactRequestDetails (default true, toggle in Profile > Observability)
+    // controls whether message content is replaced by { redacted: true }. Metadata
+    // (model, tokens, latency, status) is always returned. Fail closed if settings can't be read.
+    let redact = true;
+    try {
+      const settings = await getSettings();
+      redact = settings.redactRequestDetails !== false;
+    } catch {}
+
+    if (!redact) return NextResponse.json(result);
+
     const redactedDetails = (result.details || []).map((d) => {
       const redacted = { ...d };
       for (const key of ["request", "providerRequest", "providerResponse", "response"]) {

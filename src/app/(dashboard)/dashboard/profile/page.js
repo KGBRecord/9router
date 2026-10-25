@@ -664,6 +664,21 @@ export default function ProfilePage() {
     }
   };
 
+  const updateRedactRequestDetails = async (redact) => {
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ redactRequestDetails: redact }),
+      });
+      if (res.ok) {
+        setSettings(prev => ({ ...prev, redactRequestDetails: redact }));
+      }
+    } catch (err) {
+      console.error("Failed to update redactRequestDetails:", err);
+    }
+  };
+
   const reloadSettings = async () => {
     try {
       const res = await fetch("/api/settings");
@@ -755,6 +770,7 @@ export default function ProfilePage() {
   };
 
   const observabilityEnabled = settings.enableObservability === true;
+  const redactRequestDetails = settings.redactRequestDetails !== false;
 
   const handleShutdown = async () => {
     setIsShuttingDown(true);
@@ -1645,6 +1661,19 @@ export default function ProfilePage() {
             <Toggle
               checked={observabilityEnabled}
               onChange={updateObservabilityEnabled}
+              disabled={loading}
+            />
+          </div>
+          <div className="flex items-start sm:items-center justify-between gap-4 mt-4">
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-sm sm:text-base">Redact request payloads</p>
+              <p className="text-xs sm:text-sm text-text-muted">
+                Hide prompts, tool calls and responses in Usage &gt; Details. Turn off to inspect full content.
+              </p>
+            </div>
+            <Toggle
+              checked={redactRequestDetails}
+              onChange={updateRedactRequestDetails}
               disabled={loading}
             />
           </div>
