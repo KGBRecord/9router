@@ -19,6 +19,9 @@ async function hasValidCliToken(request) {
   return token === await getCliToken();
 }
 
+// Shared with route handlers that must not trust the mere PRESENCE of the CLI header.
+export { hasValidCliToken };
+
 // Public API paths — no auth required (LLM API has its own key auth inside handler).
 const PUBLIC_API_PATHS = [
   "/api/health",
