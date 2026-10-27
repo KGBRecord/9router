@@ -1,0 +1,77 @@
+name: Deploy to personal-server
+
+# Pushes/merges to master trigger a build sanity-check on the runner, then SSH
+# into personal-server and run the repo's own deploy.sh (committed at the repo
+# root, lives at /opt/9router/src/deploy.sh on the server): git fetch + ff-only
+# merge + conditional npm install + build + fresh pm2 start (delete old
+# process + cleardump, so no stale env/process state carries over) + health
+# check + rollback instructions on failure. This workflow never uploads
+# deploy.sh itself — the server pulls its own committed copy via git.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-personal-server
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    name: Build sanity check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: SSH deploy
+    needs: build-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Set up SSH key + host verification
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -n "$SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "::warning::DEPLOY_SSH_KNOWN_HOSTS secret not set — falling back to ssh-keyscan (no TOFU protection against MITM on first connect). Set the secret to pin the host key."
+            ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Run deploy.sh on personal-server
+        env:
+          SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+        run: |
+          PORT="${SSH_PORT:-22}"
+          ssh -i ~/.ssh/deploy_key -p "$PORT" -o StrictHostKeyChecking=yes -o BatchMode=yes \
+            "$SSH_USER@$SSH_HOST" 'bash -lc "/opt/9router/src/deploy.sh"'
+
+      - name: Clean up key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
