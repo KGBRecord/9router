@@ -33,7 +33,9 @@ jobs:
           node-version: "22"
 
       - name: Install deps
-        run: npm ci --no-audit --no-fund
+        # package-lock.json is gitignored in this repo, so `npm ci` has no
+        # lockfile to install from on a clean runner checkout.
+        run: npm install --no-audit --no-fund
 
       - name: Build
         run: npm run build
