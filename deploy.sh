@@ -19,7 +19,13 @@ git diff --quiet || { echo "working tree dirty, abort"; git status -s; exit 1; }
 
 git merge --ff-only origin/master
 git log --oneline -n 20 "$OLD..HEAD"
-git diff --name-only "$OLD" HEAD | grep -q "^package.json$" && npm install --no-audit --no-fund || echo "package.json unchanged, skip npm install"
+# Install when package.json changed in this deploy OR is newer than the last install
+# (a previously failed deploy may have already fast-forwarded HEAD past the change).
+if ! git diff --quiet "$OLD" HEAD -- package.json || [ ! -f node_modules/.package-lock.json ] || [ package.json -nt node_modules/.package-lock.json ]; then
+  npm install --no-audit --no-fund
+else
+  echo "package.json unchanged, skip npm install"
+fi
 npm run build
 
 # Fresh process instead of an in-place restart: drop the old process and the
