@@ -18,7 +18,7 @@ if [ "$OLD" = "$NEW" ] && [ "${1:-}" != "--force" ]; then echo "up-to-date @ ${O
 git diff --quiet || { echo "working tree dirty, abort"; git status -s; exit 1; }
 
 git merge --ff-only origin/master
-git log --oneline "$OLD..HEAD" | head -20
+git log --oneline -n 20 "$OLD..HEAD"
 git diff --name-only "$OLD" HEAD | grep -q "^package.json$" && npm install --no-audit --no-fund || echo "package.json unchanged, skip npm install"
 npm run build
 
