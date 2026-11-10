@@ -4,6 +4,7 @@ import { formatRetryAfter, checkFallbackError, isModelLockActive, buildModelLock
 import { MAX_RATE_LIMIT_COOLDOWN_MS } from "open-sse/config/errorConfig.js";
 import { resolveProviderId, FREE_PROVIDERS } from "@/shared/constants/providers.js";
 import { getAntigravityQuotaCache, getAntigravityModelQuota } from "./antigravityQuota.js";
+import { getSessionLimitBlocks } from "./sessionLimit.js";
 import * as log from "../utils/logger.js";
 
 // Mutex to prevent race conditions during account selection
@@ -83,9 +84,13 @@ export async function getProviderCredentials(provider, excludeConnectionIds = nu
     const isAntigravity = providerId === "antigravity";
     const antigravityQuotaCache = isAntigravity && model ? getAntigravityQuotaCache() : null;
 
+    // Accounts whose 5h session usage reached the user-configured cap (sessionLimitPercent)
+    const sessionBlocks = await getSessionLimitBlocks(connections.filter(c => !excludeSet.has(c.id)));
+
     // Filter out model-locked, excluded, and Antigravity quota-exhausted connections.
     const availableConnections = connections.filter(c => {
       if (excludeSet.has(c.id)) return false;
+      if (sessionBlocks.has(c.id)) return false;
       if (isModelLockActive(c, model)) return false;
       const enabled = c.providerSpecificData?.enabledModels;
       if (providerId === "codex" && Array.isArray(enabled) && enabled.length && requestedModel && !enabled.includes(requestedModel)) return false;
@@ -123,6 +128,9 @@ export async function getProviderCredentials(provider, excludeConnectionIds = nu
           const resetAt = quota?.resetAt;
           if (resetAt && new Date(resetAt).getTime() > Date.now()) expiries.push(resetAt);
         });
+      }
+      for (const resetAt of sessionBlocks.values()) {
+        if (resetAt) expiries.push(resetAt);
       }
       const earliest = expiries.sort()[0] || null;
       if (earliest) {

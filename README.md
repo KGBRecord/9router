@@ -553,6 +553,7 @@ a third party under a provider named "Self-hosted".
 | 🔄 **Auto Token Refresh**                                                         | OAuth tokens refresh automatically                                                       | No manual re-login needed                         |
 | 🎨 **Custom Combos**                                                              | Create unlimited model combinations                                                      | Tailor fallback to your needs                     |
 | 📏 **Combo Context Length** ⚙️                                                    | Auto-resolves safe context length per combo (min across tiers) + manual override         | Prevent mid-request failures from mismatched limits |
+| ⏱ **Per-Account 5h Session Cap** ⚙️                                               | Skip a Claude/Codex account once its 5h session usage hits your set % (until reset)      | Keep headroom on shared accounts for their owner  |
 | 🎛 **Per-Provider Token Saver Overrides** ⚙️                                      | Toggle RTK/Headroom/Caveman/Ponytail/Pxpipe on/off per provider (e.g. disable Headroom for Anthropic) | Fix schema errors from compression on sensitive providers |
 | 📝 **Request Logging**                                                            | Debug mode with full request/response logs                                               | Troubleshoot issues easily                        |
 | 💾 **Cloud Sync**                                                                 | Sync config across devices                                                               | Same setup everywhere                             |
@@ -658,6 +659,7 @@ Seamless translation between formats:
 - Add multiple accounts per provider
 - Auto round-robin or priority-based routing
 - Fallback to next account when one hits quota
+- ⚙️ **5h session cap (Claude, Codex)** *(personal patch — local customization, not part of an official 9Router release)*: set a per-account limit (1-99%) in *Edit Connection*. Once that account's 5h session usage reaches the cap, 9Router skips it until the window resets — so shared accounts keep headroom for their owner. Leave blank for no cap.
 
 ### 🔄 Auto Token Refresh
 

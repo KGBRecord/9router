@@ -1,3 +1,22 @@
+# Unreleased — personal patch (not an official release)
+
+> Local customization by @hanhvs. Version stays at `0.5.40` — nothing is published,
+> no version bump. Cherry-pick if useful; safe to drop when rebasing onto upstream.
+
+## Features
+- **Combos**: per-combo context length — auto-resolved as the minimum across member models, with manual override in Dashboard → Combos
+- **Combos**: opt-in exhaustive fallback (`comboExhaustiveFallback`) tries every model before returning an error; configurable in Dashboard → Profile → Routing Strategy
+- **Models**: `GET /api/model-caps` capability API resolving context length per model; surfaced through `/v1/models`
+- **Token Saver**: per-provider overrides (`tokenSaverStrategies`) — 3-state Global / Force ON / Force OFF for RTK, Headroom, Caveman, Ponytail, PXPIPE
+- **Dashboard**: "Token Saver Overrides" card on the provider detail page
+- **Session Limit** *(personal patch)*: per-account 5h session cap (`providerSpecificData.sessionLimitPercent`, 1-99%) for Claude and Codex OAuth connections; accounts at or above the cap are skipped until the window resets (fail-open when usage can't be read)
+
+## Fixes
+- **Combo contexts**: keep OpenRouter as context authority for canonical models except Codex GPT-5.5/GPT-5.6 transport-specific windows; dynamic Kiro `auto` routers remain excluded from fixed-context combos
+- **Combo contexts**: classify Codex GPT-5.6 by provider service caps (Sol 372k; Terra/Luna 272k) instead of the public OpenRouter 1.05M catalogue limit, preventing clients from delaying compaction until the upstream context is already exhausted
+- **Ollama Cloud**: show API-key connections on the Free Tier provider card instead of incorrectly reporting `No connections`
+- **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally
+
 # v0.5.116 (2026-11-08)
 
 ## Features
@@ -48,24 +67,6 @@
 - **Providers**: keep full `LLM|id|secret` (Muse) key strings opaque in bulk-add instead of splitting on the first pipe into name/key, auto-naming them LLM 1, LLM 2, …
 - **DeepSeek**: replace the vendored PoW hash implementation with a noble-hashes keccak port (DeepSeekHashV1, SHA3-256 with round 0 skipped), shrinking `deepseek-pow-hash.js` by ~430 lines
 - **GitHub Copilot**: apply Claude 5.5 thinking rules to Copilot's dotted model ids (`claude-opus-5.5*`, `claude-sonnet-5.5`) and make `claude-haiku-5.5` adaptive-only on its Anthropic-native shim, whose budget-shaped thinking comes back 400
-
-# Unreleased — personal patch (not an official release)
-
-> Local customization by @hanhvs. Version stays at `0.5.40` — nothing is published,
-> no version bump. Cherry-pick if useful; safe to drop when rebasing onto upstream.
-
-## Features
-- **Combos**: per-combo context length — auto-resolved as the minimum across member models, with manual override in Dashboard → Combos
-- **Combos**: opt-in exhaustive fallback (`comboExhaustiveFallback`) tries every model before returning an error; configurable in Dashboard → Profile → Routing Strategy
-- **Models**: `GET /api/model-caps` capability API resolving context length per model; surfaced through `/v1/models`
-- **Token Saver**: per-provider overrides (`tokenSaverStrategies`) — 3-state Global / Force ON / Force OFF for RTK, Headroom, Caveman, Ponytail, PXPIPE
-- **Dashboard**: "Token Saver Overrides" card on the provider detail page
-
-## Fixes
-- **Combo contexts**: keep OpenRouter as context authority for canonical models except Codex GPT-5.5/GPT-5.6 transport-specific windows; dynamic Kiro `auto` routers remain excluded from fixed-context combos
-- **Combo contexts**: classify Codex GPT-5.6 by provider service caps (Sol 372k; Terra/Luna 272k) instead of the public OpenRouter 1.05M catalogue limit, preventing clients from delaying compaction until the upstream context is already exhausted
-- **Ollama Cloud**: show API-key connections on the Free Tier provider card instead of incorrectly reporting `No connections`
-- **Anthropic**: Headroom compression can now be disabled per provider, avoiding upstream request-schema rejections without turning compression off globally
 
 # v0.5.111 (2026-10-26)
 

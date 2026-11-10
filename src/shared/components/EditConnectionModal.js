@@ -9,6 +9,9 @@ import Badge from "@/shared/components/Badge";
 import { isOpenAICompatibleProvider, isAnthropicCompatibleProvider, AI_PROVIDERS } from "@/shared/constants/providers";
 import Select from "@/shared/components/Select";
 
+// Providers whose usage API exposes a 5h session window (see src/sse/services/sessionLimit.js)
+const SESSION_LIMIT_PROVIDERS = ["claude", "codex"];
+
 export default function EditConnectionModal({ isOpen, connection, proxyPools, onSave, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -30,6 +33,7 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
   const [validating, setValidating] = useState(false);
   const [validationResult, setValidationResult] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [sessionLimit, setSessionLimit] = useState("");
 
   useEffect(() => {
     if (connection) {
@@ -66,6 +70,8 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
         const savedRegion = connection.providerSpecificData?.region || providerCfg.defaultRegion || providerCfg.regions[0]?.id || "";
         setRegion(savedRegion);
       }
+      const savedLimit = connection.providerSpecificData?.sessionLimitPercent;
+      setSessionLimit(savedLimit ? String(savedLimit) : "");
       setTestResult(null);
       setValidationResult(null);
     }
@@ -78,6 +84,7 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
   const isCompatible = connection
     ? (isOpenAICompatibleProvider(connection.provider) || isAnthropicCompatibleProvider(connection.provider))
     : false;
+  const supportsSessionLimit = isOAuth && SESSION_LIMIT_PROVIDERS.includes(connection?.provider);
   const providerRegions = connection ? (AI_PROVIDERS?.[connection.provider]?.regions || null) : null;
 
   // Build providerSpecificData for region-aware providers
@@ -199,6 +206,15 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
         updates.providerSpecificData = buildRegionSpecificData();
       }
       
+      // 5h session cap (claude/codex): blank = no cap. null clears the saved value server-side.
+      if (supportsSessionLimit) {
+        const pct = Number.parseFloat(sessionLimit);
+        updates.providerSpecificData = {
+          ...(updates.providerSpecificData || {}),
+          sessionLimitPercent: Number.isFinite(pct) && pct > 0 && pct < 100 ? pct : null,
+        };
+      }
+
       await onSave(updates);
     } finally {
       setSaving(false);
@@ -228,6 +244,19 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
           value={formData.priority}
           onChange={(e) => setFormData({ ...formData, priority: Number.parseInt(e.target.value, 10) || 1 })}
         />
+
+        {supportsSessionLimit && (
+          <Input
+            label="5h session limit (%)"
+            type="number"
+            min={1}
+            max={99}
+            value={sessionLimit}
+            onChange={(e) => setSessionLimit(e.target.value)}
+            placeholder="No limit"
+            hint="Stop routing to this account once its 5h session usage reaches this %, so you keep the rest for yourself. Resumes after the window resets."
+          />
+        )}
 
         {!isOAuth && (
           <>
