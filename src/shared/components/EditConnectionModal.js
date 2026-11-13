@@ -85,6 +85,12 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
     ? (isOpenAICompatibleProvider(connection.provider) || isAnthropicCompatibleProvider(connection.provider))
     : false;
   const supportsSessionLimit = isOAuth && SESSION_LIMIT_PROVIDERS.includes(connection?.provider);
+  // Blank = no cap. Otherwise must be a number in 1-99 (0 / 100+ would silently mean "no cap").
+  const sessionLimitNum = Number.parseFloat(sessionLimit);
+  const sessionLimitError = supportsSessionLimit && sessionLimit.trim() !== ""
+    && !(Number.isFinite(sessionLimitNum) && sessionLimitNum >= 1 && sessionLimitNum <= 99)
+    ? "Enter 1-99, or leave blank for no limit"
+    : "";
   const providerRegions = connection ? (AI_PROVIDERS?.[connection.provider]?.regions || null) : null;
 
   // Build providerSpecificData for region-aware providers
@@ -144,7 +150,7 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
   };
 
   const handleSubmit = async () => {
-    if (!connection) return;
+    if (!connection || sessionLimitError) return;
     setSaving(true);
     try {
       const updates = {
@@ -254,6 +260,7 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
             value={sessionLimit}
             onChange={(e) => setSessionLimit(e.target.value)}
             placeholder="No limit"
+            error={sessionLimitError}
             hint="Stop routing to this account once its 5h session usage reaches this %, so you keep the rest for yourself. Resumes after the window resets."
           />
         )}
@@ -390,7 +397,7 @@ export default function EditConnectionModal({ isOpen, connection, proxyPools, on
         )}
 
         <div className="flex gap-2">
-          <Button onClick={handleSubmit} fullWidth disabled={saving}>{saving ? "Saving..." : "Save"}</Button>
+          <Button onClick={handleSubmit} fullWidth disabled={saving || !!sessionLimitError}>{saving ? "Saving..." : "Save"}</Button>
           <Button onClick={onClose} variant="ghost" fullWidth>Cancel</Button>
         </div>
       </div>
